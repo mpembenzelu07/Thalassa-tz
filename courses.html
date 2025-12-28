@@ -3,108 +3,121 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PADI Courses | Thalassa Dive Center</title>
+    <title>PADI Diving Courses | Thalassa Dive Center - Dar es Salaam</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Open+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
-        /* GLOBAL STYLES */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        /* ===== BASE STYLES ===== */
+        :root {
+            --primary-dark: #0a192f;
+            --primary-blue: #023e8a;
+            --accent-teal: #00b4d8;
+            --light-teal: #90e0ef;
+            --pale-blue: #caf0f8;
+            --white: #ffffff;
+            --gradient-ocean: linear-gradient(135deg, #00b4d8, #0077b6);
+            --gradient-deep: linear-gradient(135deg, #023e8a, #03045e);
+        }
+        
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
         body { 
             font-family: 'Open Sans', sans-serif; 
-            background: #0a192f; 
-            color: #e6f1ff; 
+            background: var(--primary-dark); 
+            color: var(--pale-blue); 
             overflow-x: hidden; 
             line-height: 1.6;
         }
-        h1, h2, h3, h4 {
+        
+        h1, h2, h3, h4, h5 {
             font-family: 'Montserrat', sans-serif;
             font-weight: 700;
+            line-height: 1.2;
         }
+        
         .container { 
             max-width: 1400px; 
             margin: 0 auto; 
             padding: 0 20px; 
         }
-        .section-title {
-            text-align: center;
-            margin-bottom: 60px;
-            position: relative;
-        }
-        .section-title h2 {
-            font-size: 3rem;
-            background: linear-gradient(45deg, #00b4d8, #90e0ef);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 15px;
-        }
-        .section-title p {
-            font-size: 1.2rem;
-            color: #90e0ef;
-            max-width: 700px;
-            margin: 0 auto;
+        
+        section {
+            padding: 100px 0;
         }
         
-        /* ANIMATIONS */
+        /* ===== ANIMATIONS ===== */
         @keyframes float { 
             0%, 100% { transform: translateY(0); } 
             50% { transform: translateY(-20px); } 
         }
+        
         @keyframes neonPulse { 
             0%, 100% { 
-                text-shadow: 0 0 10px #00b4d8, 0 0 20px #00b4d8, 0 0 30px #0077b6; 
+                text-shadow: 0 0 10px var(--accent-teal), 
+                            0 0 20px var(--accent-teal), 
+                            0 0 30px #0077b6; 
             } 
             50% { 
-                text-shadow: 0 0 20px #00b4d8, 0 0 40px #00b4d8, 0 0 60px #0077b6, 0 0 80px #023e8a; 
+                text-shadow: 0 0 20px var(--accent-teal), 
+                            0 0 40px var(--accent-teal), 
+                            0 0 60px #0077b6, 
+                            0 0 80px var(--primary-blue); 
             } 
         }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         
-        /* SCROLL PROGRESS & BACK TO TOP */
-        .scroll-progress {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #00b4d8, #0077b6);
-            z-index: 1001;
-            width: 0%;
-            transition: width 0.1s ease;
-        }
-        .back-to-top {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, #00b4d8, #0077b6);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            font-size: 20px;
-            z-index: 999;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(20px);
-            transition: all 0.3s;
-            box-shadow: 0 5px 15px rgba(0, 180, 216, 0.3);
-        }
-        .back-to-top.visible {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
-        .back-to-top:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 180, 216, 0.4);
+        @keyframes shimmer {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
         }
         
-        /* HEADER */
+        /* ===== UTILITY CLASSES ===== */
+        .section-title {
+            text-align: center;
+            margin-bottom: 70px;
+        }
+        
+        .section-title h2 {
+            font-size: 3.5rem;
+            background: linear-gradient(45deg, var(--accent-teal), var(--light-teal));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+            animation: neonPulse 3s ease-in-out infinite;
+        }
+        
+        .section-title p {
+            font-size: 1.2rem;
+            color: var(--light-teal);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .gradient-text {
+            background: var(--gradient-ocean);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        /* ===== HEADER & NAVIGATION ===== */
         header { 
             background: rgba(10, 25, 47, 0.95); 
             backdrop-filter: blur(10px); 
@@ -114,57 +127,69 @@
             z-index: 1000; 
             border-bottom: 1px solid rgba(0, 180, 216, 0.2); 
             transition: all 0.3s;
+            padding: 15px 0;
         }
+        
         header.scrolled {
-            padding: 5px 0;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            padding: 10px 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
+        
         .header-container { 
             display: flex; 
             justify-content: space-between; 
             align-items: center; 
-            padding: 15px 0; 
         }
+        
         .logo { 
             display: flex; 
             align-items: center; 
             text-decoration: none; 
+            transition: transform 0.3s;
         }
+        
+        .logo:hover {
+            transform: scale(1.05);
+        }
+        
         .logo-icon { 
             font-size: 32px; 
-            color: #00b4d8; 
+            color: var(--accent-teal); 
             margin-right: 15px; 
             animation: float 6s ease-in-out infinite; 
         }
+        
         .logo-text { 
             font-family: 'Montserrat', sans-serif; 
             font-weight: 900; 
-            color: white; 
         }
+        
         .logo-main { 
             font-size: 28px; 
             line-height: 1; 
-            background: linear-gradient(45deg, #00b4d8, #90e0ef); 
+            background: linear-gradient(45deg, var(--accent-teal), var(--light-teal)); 
             -webkit-background-clip: text; 
             -webkit-text-fill-color: transparent; 
-            animation: neonPulse 3s ease-in-out infinite; 
         }
+        
         .logo-sub { 
             font-size: 10px; 
-            color: #90e0ef; 
+            color: var(--light-teal); 
             letter-spacing: 3px; 
             text-transform: uppercase; 
             margin-top: 2px; 
         }
+        
         nav ul { 
             display: flex; 
             list-style: none; 
-            gap: 30px; 
+            gap: 35px; 
             align-items: center; 
         }
+        
         nav a { 
             text-decoration: none; 
-            color: #e6f1ff; 
+            color: var(--pale-blue); 
             font-weight: 600; 
             font-size: 14px; 
             text-transform: uppercase; 
@@ -173,27 +198,31 @@
             position: relative; 
             transition: all 0.3s; 
         }
-        nav a:before { 
+        
+        nav a::before { 
             content: ''; 
             position: absolute; 
             bottom: 0; 
             left: 0; 
             width: 0; 
             height: 2px; 
-            background: linear-gradient(90deg, #00b4d8, #90e0ef); 
+            background: var(--gradient-ocean); 
             transition: width 0.3s; 
         }
-        nav a:hover:before, 
-        nav a.active:before { 
+        
+        nav a:hover::before, 
+        nav a.active::before { 
             width: 100%; 
         }
+        
         nav a:hover, 
         nav a.active { 
-            color: #00b4d8; 
+            color: var(--accent-teal); 
         }
+        
         .btn-book { 
-            background: linear-gradient(135deg, #00b4d8, #0077b6); 
-            color: white; 
+            background: var(--gradient-ocean); 
+            color: var(--white); 
             padding: 12px 30px; 
             border-radius: 30px; 
             font-weight: 700; 
@@ -204,17 +233,36 @@
             overflow: hidden; 
             text-decoration: none;
             display: inline-block;
+            border: none;
+            cursor: pointer;
         }
+        
+        .btn-book::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
         .btn-book:hover { 
             transform: translateY(-3px); 
             box-shadow: 0 10px 20px rgba(0, 180, 216, 0.3); 
         }
         
-        /* LANGUAGE SWITCHER */
+        .btn-book:hover::after {
+            left: 100%;
+        }
+        
+        /* ===== LANGUAGE SWITCHER ===== */
         .language-switcher { 
             position: relative; 
             margin-left: 20px; 
         }
+        
         .current-language { 
             display: flex; 
             align-items: center; 
@@ -224,13 +272,15 @@
             border-radius: 20px; 
             cursor: pointer; 
             transition: all 0.3s; 
-            color: white; 
+            color: var(--white); 
             font-weight: 600; 
             border: 1px solid rgba(0, 180, 216, 0.3); 
         }
+        
         .current-language:hover {
             background: rgba(0, 180, 216, 0.2);
         }
+        
         .language-dropdown { 
             position: absolute; 
             top: 100%; 
@@ -248,11 +298,13 @@
             z-index: 1001; 
             border: 1px solid rgba(0, 180, 216, 0.2); 
         }
+        
         .language-dropdown.show { 
             opacity: 1; 
             visibility: visible; 
             transform: translateY(0); 
         }
+        
         .language-option {
             padding: 10px 15px;
             border-radius: 5px;
@@ -260,66 +312,78 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            color: #e6f1ff;
+            color: var(--pale-blue);
             transition: all 0.3s;
         }
+        
         .language-option:hover {
             background: rgba(0, 180, 216, 0.1);
         }
+        
         .language-option.active {
             background: rgba(0, 180, 216, 0.2);
-            color: #00b4d8;
+            color: var(--accent-teal);
         }
+        
         .mobile-menu { 
             display: none; 
             font-size: 24px; 
             cursor: pointer; 
-            color: white; 
+            color: var(--white); 
             margin-left: 20px;
+            transition: all 0.3s;
         }
         
-        /* COURSES HERO */
+        .mobile-menu:hover {
+            color: var(--accent-teal);
+        }
+        
+        /* ===== HERO SECTION ===== */
         .courses-hero { 
-            background: linear-gradient(rgba(2, 62, 138, 0.9), rgba(0, 119, 182, 0.8)), 
+            background: var(--gradient-deep), 
                         url('https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80'); 
             background-size: cover; 
             background-position: center;
             background-attachment: fixed;
-            padding: 180px 0 100px; 
+            padding: 180px 0 120px; 
             text-align: center; 
-            color: white; 
+            color: var(--white); 
             margin-top: 80px; 
             position: relative; 
             overflow: hidden;
         }
-        .courses-hero:before {
+        
+        .courses-hero::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: url('https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80');
+            background: url('https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80');
             background-size: cover;
             background-position: center;
             z-index: -1;
             animation: float 20s infinite ease-in-out;
         }
+        
         .courses-hero h1 { 
             font-size: 5rem; 
             font-weight: 900; 
-            margin-bottom: 20px; 
+            margin-bottom: 25px; 
             text-transform: uppercase; 
             font-family: 'Montserrat', sans-serif; 
             animation: neonPulse 3s ease-in-out infinite; 
             text-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
+        
         .courses-hero p { 
             font-size: 1.5rem; 
             max-width: 800px; 
             margin: 0 auto 40px; 
             opacity: 0.9; 
         }
+        
         .hero-badges {
             display: flex;
             justify-content: center;
@@ -327,115 +391,173 @@
             flex-wrap: wrap;
             margin-top: 40px;
         }
+        
         .hero-badge {
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
-            padding: 10px 25px;
+            padding: 12px 30px;
             border-radius: 30px;
             border: 1px solid rgba(255, 255, 255, 0.2);
             font-weight: 600;
             display: flex;
             align-items: center;
             gap: 10px;
+            transition: all 0.3s;
         }
         
-        /* COURSE LEVELS */
-        .course-levels { 
-            padding: 150px 0; 
-            background: linear-gradient(180deg, #0a192f 0%, #023e8a 100%); 
+        .hero-badge:hover {
+            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.15);
+            border-color: var(--accent-teal);
         }
+        
+        /* ===== COURSE LEVELS ===== */
+        .course-levels { 
+            background: linear-gradient(180deg, var(--primary-dark) 0%, var(--primary-blue) 100%); 
+        }
+        
         .levels-grid { 
             display: grid; 
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); 
             gap: 40px; 
         }
+        
         .level-card { 
             background: rgba(255, 255, 255, 0.05); 
             backdrop-filter: blur(10px); 
             border-radius: 20px; 
             padding: 40px; 
             border: 1px solid rgba(0, 180, 216, 0.2); 
-            transition: all 0.3s; 
+            transition: all 0.5s; 
             position: relative; 
             overflow: hidden; 
-            animation: fadeIn 0.8s ease-out;
+            animation: fadeInUp 0.8s ease-out;
         }
+        
+        .level-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--gradient-ocean);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.5s;
+        }
+        
+        .level-card:hover::before {
+            transform: scaleX(1);
+        }
+        
         .level-card:nth-child(2) { animation-delay: 0.2s; }
         .level-card:nth-child(3) { animation-delay: 0.4s; }
+        
         .level-card:hover { 
             transform: translateY(-15px); 
-            border-color: #00b4d8; 
+            border-color: var(--accent-teal); 
             box-shadow: 0 20px 40px rgba(0, 180, 216, 0.3); 
         }
+        
         .level-badge { 
             position: absolute; 
             top: 20px; 
             right: 20px; 
-            background: linear-gradient(135deg, #00b4d8, #0077b6); 
-            color: white; 
+            background: var(--gradient-ocean); 
+            color: var(--white); 
             padding: 8px 20px; 
             border-radius: 20px; 
             font-size: 12px; 
             font-weight: 700; 
             text-transform: uppercase;
             letter-spacing: 1px;
+            z-index: 1;
         }
+        
         .level-card:nth-child(2) .level-badge {
             background: linear-gradient(135deg, #ffd700, #ffa500);
         }
+        
+        .level-card:nth-child(3) .level-badge {
+            background: linear-gradient(135deg, #9d4edd, #560bad);
+        }
+        
         .level-icon { 
             font-size: 50px; 
-            color: #00b4d8; 
+            color: var(--accent-teal); 
             margin-bottom: 20px; 
         }
+        
         .level-card h3 { 
-            color: white; 
+            color: var(--white); 
             font-size: 1.8rem; 
             margin-bottom: 15px; 
-            font-family: 'Montserrat', sans-serif; 
         }
+        
         .level-card > p {
-            color: #90e0ef;
+            color: var(--light-teal);
             margin-bottom: 25px;
             font-size: 1.1rem;
         }
+        
         .level-details { 
             list-style: none; 
             margin: 25px 0 30px; 
         }
+        
         .level-details li { 
-            color: #caf0f8; 
+            color: var(--pale-blue); 
             margin-bottom: 12px; 
             padding-left: 30px; 
             position: relative; 
         }
-        .level-details li:before { 
+        
+        .level-details li::before { 
             content: '✓'; 
             position: absolute; 
             left: 0; 
-            color: #00b4d8; 
+            color: var(--accent-teal); 
             font-weight: bold; 
             font-size: 1.2rem;
         }
+        
+        .price-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 25px 0;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
         .price {
             font-size: 2.5rem;
             font-weight: 900;
-            color: white;
-            margin: 20px 0;
+            color: var(--white);
             font-family: 'Montserrat', sans-serif;
         }
-        .price:before {
+        
+        .price::before {
             content: 'FROM ';
             font-size: 1rem;
-            color: #90e0ef;
+            color: var(--light-teal);
             font-weight: 400;
         }
         
-        /* COURSE COMPARISON */
-        .comparison { 
-            padding: 150px 0; 
-            background: linear-gradient(180deg, #023e8a 0%, #0a192f 100%); 
+        .duration {
+            color: var(--light-teal);
+            font-size: 0.9rem;
+            background: rgba(0, 180, 216, 0.1);
+            padding: 5px 15px;
+            border-radius: 15px;
         }
+        
+        /* ===== COURSE COMPARISON ===== */
+        .comparison { 
+            background: linear-gradient(180deg, var(--primary-blue) 0%, var(--primary-dark) 100%); 
+        }
+        
         .comparison-table { 
             background: rgba(255, 255, 255, 0.05); 
             backdrop-filter: blur(10px); 
@@ -444,52 +566,60 @@
             border: 1px solid rgba(0, 180, 216, 0.2); 
             overflow-x: auto;
         }
+        
         .table-row { 
             display: grid; 
             grid-template-columns: 2fr repeat(4, 1fr); 
             border-bottom: 1px solid rgba(0, 180, 216, 0.2); 
             min-width: 800px;
         }
+        
         .table-row.header { 
-            background: linear-gradient(135deg, #00b4d8, #0077b6); 
+            background: var(--gradient-ocean); 
         }
+        
         .table-cell { 
             padding: 25px 20px; 
-            color: white; 
+            color: var(--white); 
             display: flex; 
             align-items: center; 
             justify-content: center; 
         }
+        
         .table-row .table-cell:first-child { 
             justify-content: flex-start; 
             font-weight: 600;
-            color: #e6f1ff;
         }
+        
         .check { 
-            color: #00b4d8; 
+            color: var(--accent-teal); 
             font-size: 20px; 
         }
+        
         .cross { 
             color: #ff4757; 
             font-size: 20px; 
         }
+        
         .table-row:nth-child(even) {
             background: rgba(255, 255, 255, 0.02);
         }
+        
         .table-row:hover:not(.header) {
             background: rgba(0, 180, 216, 0.05);
         }
         
-        /* INSTRUCTORS */
+        /* ===== INSTRUCTORS SECTION ===== */
         .instructors { 
-            padding: 150px 0; 
-            background: linear-gradient(180deg, #0a192f 0%, #023e8a 100%); 
+            background: linear-gradient(180deg, var(--primary-dark) 0%, var(--primary-blue) 100%); 
         }
+        
         .instructors-grid { 
             display: grid; 
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
             gap: 40px; 
         }
+        
         .instructor-card { 
             background: rgba(255, 255, 255, 0.05); 
             backdrop-filter: blur(10px); 
@@ -498,87 +628,216 @@
             text-align: center; 
             border: 1px solid rgba(0, 180, 216, 0.2); 
             transition: all 0.3s; 
+            position: relative;
+            overflow: hidden;
         }
+        
+        .instructor-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-ocean);
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 0;
+        }
+        
         .instructor-card:hover { 
             transform: translateY(-10px); 
-            border-color: #00b4d8; 
+            border-color: var(--accent-teal); 
             box-shadow: 0 15px 30px rgba(0, 180, 216, 0.2);
         }
+        
+        .instructor-card:hover::before {
+            opacity: 0.05;
+        }
+        
         .instructor-avatar { 
             width: 120px; 
             height: 120px; 
-            background: linear-gradient(135deg, #00b4d8, #0077b6); 
+            background: var(--gradient-ocean); 
             border-radius: 50%; 
             margin: 0 auto 25px; 
-            color: white; 
+            color: var(--white); 
             display: flex; 
             align-items: center; 
             justify-content: center; 
             font-size: 40px; 
             font-weight: 700; 
             border: 5px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            z-index: 1;
+            transition: all 0.3s;
         }
+        
+        .instructor-card:hover .instructor-avatar {
+            transform: scale(1.1);
+            border-color: var(--accent-teal);
+        }
+        
         .instructor-card h3 { 
-            color: white; 
+            color: var(--white); 
             font-size: 1.8rem; 
             margin-bottom: 10px; 
+            position: relative;
+            z-index: 1;
         }
+        
         .instructor-card > p {
-            color: #90e0ef;
+            color: var(--light-teal);
             margin-bottom: 20px;
             font-size: 1rem;
+            position: relative;
+            z-index: 1;
         }
+        
         .cert-badges {
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
             justify-content: center;
             margin-top: 20px;
+            position: relative;
+            z-index: 1;
         }
+        
         .badge {
             background: rgba(0, 180, 216, 0.2);
-            color: #00b4d8;
+            color: var(--accent-teal);
             padding: 5px 15px;
             border-radius: 20px;
             font-size: 0.85rem;
             font-weight: 600;
             border: 1px solid rgba(0, 180, 216, 0.3);
+            transition: all 0.3s;
         }
         
-        /* SCHEDULE */
-        .schedule { 
-            padding: 150px 0; 
-            background: linear-gradient(180deg, #023e8a 0%, #0a192f 100%); 
+        .instructor-card:hover .badge {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--accent-teal);
         }
-        .schedule-calendar { 
-            background: rgba(255, 255, 255, 0.05); 
-            backdrop-filter: blur(10px); 
-            border-radius: 20px; 
-            padding: 50px; 
-            border: 1px solid rgba(0, 180, 216, 0.2); 
+        
+        /* ===== SCHEDULE SECTION ===== */
+        .schedule { 
+            background: linear-gradient(180deg, var(--primary-blue) 0%, var(--primary-dark) 100%); 
+        }
+        
+        .schedule-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+        
+        .calendar-view {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            border: 1px solid rgba(0, 180, 216, 0.2);
             text-align: center;
         }
-        .calendar-placeholder {
+        
+        .calendar-header {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            justify-content: center;
-            gap: 30px;
-            margin: 30px 0;
-        }
-        .calendar-icon {
-            font-size: 80px;
-            color: #00b4d8;
-            animation: float 4s ease-in-out infinite;
+            margin-bottom: 30px;
+            color: var(--white);
         }
         
-        /* BUTTONS */
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .calendar-day {
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            text-align: center;
+            font-weight: 600;
+            color: var(--light-teal);
+        }
+        
+        .calendar-date {
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 10px;
+            text-align: center;
+            transition: all 0.3s;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .calendar-date:hover {
+            background: rgba(0, 180, 216, 0.1);
+        }
+        
+        .calendar-date.available {
+            background: rgba(0, 180, 216, 0.15);
+            color: var(--accent-teal);
+            border: 1px solid rgba(0, 180, 216, 0.3);
+        }
+        
+        .calendar-date.available::after {
+            content: '✓';
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            font-size: 12px;
+            color: var(--accent-teal);
+        }
+        
+        .calendar-date.booked {
+            background: rgba(255, 71, 87, 0.1);
+            color: #ff4757;
+            opacity: 0.5;
+        }
+        
+        .course-info {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            border: 1px solid rgba(0, 180, 216, 0.2);
+        }
+        
+        .course-list {
+            list-style: none;
+            margin: 30px 0;
+        }
+        
+        .course-list li {
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 10px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s;
+            border: 1px solid transparent;
+        }
+        
+        .course-list li:hover {
+            background: rgba(0, 180, 216, 0.1);
+            border-color: rgba(0, 180, 216, 0.3);
+        }
+        
+        /* ===== BUTTONS ===== */
         .btn-course { 
             display: inline-flex; 
             align-items: center; 
             gap: 10px; 
             padding: 18px 35px; 
-            background: linear-gradient(135deg, #00b4d8, #0077b6); 
-            color: white; 
+            background: var(--gradient-ocean); 
+            color: var(--white); 
             text-decoration: none; 
             border-radius: 50px; 
             font-weight: 700; 
@@ -593,91 +852,245 @@
             justify-content: center; 
             border: none;
             cursor: pointer;
+            z-index: 1;
         }
+        
+        .btn-course::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0077b6, #00b4d8);
+            z-index: -1;
+            transition: opacity 0.3s;
+            opacity: 0;
+        }
+        
         .btn-course:hover { 
             transform: translateY(-5px); 
             box-shadow: 0 15px 25px rgba(0, 180, 216, 0.3); 
         }
-        .btn-course:after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: 0.5s;
-        }
-        .btn-course:hover:after {
-            left: 100%;
+        
+        .btn-course:hover::before {
+            opacity: 1;
         }
         
-        /* FOOTER */
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid var(--accent-teal);
+            color: var(--accent-teal);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(0, 180, 216, 0.1);
+        }
+        
+        /* ===== FAQ SECTION ===== */
+        .faq {
+            background: linear-gradient(180deg, var(--primary-dark) 0%, var(--primary-blue) 100%);
+        }
+        
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .faq-item {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(0, 180, 216, 0.2);
+        }
+        
+        .faq-question {
+            padding: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .faq-question:hover {
+            background: rgba(0, 180, 216, 0.1);
+        }
+        
+        .faq-question h3 {
+            color: var(--white);
+            font-size: 1.2rem;
+            margin: 0;
+        }
+        
+        .faq-icon {
+            color: var(--accent-teal);
+            font-size: 1.2rem;
+            transition: transform 0.3s;
+        }
+        
+        .faq-answer {
+            padding: 0 25px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+        
+        .faq-item.active .faq-answer {
+            padding: 0 25px 25px;
+            max-height: 500px;
+        }
+        
+        .faq-item.active .faq-icon {
+            transform: rotate(45deg);
+        }
+        
+        /* ===== TESTIMONIALS ===== */
+        .testimonials {
+            background: linear-gradient(180deg, var(--primary-blue) 0%, var(--primary-dark) 100%);
+        }
+        
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid rgba(0, 180, 216, 0.2);
+            position: relative;
+        }
+        
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 60px;
+            color: var(--accent-teal);
+            opacity: 0.3;
+            font-family: serif;
+        }
+        
+        .testimonial-text {
+            color: var(--pale-blue);
+            margin-bottom: 20px;
+            font-style: italic;
+            line-height: 1.8;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--gradient-ocean);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: bold;
+        }
+        
+        .author-info h4 {
+            color: var(--white);
+            margin-bottom: 5px;
+        }
+        
+        .author-info p {
+            color: var(--light-teal);
+            font-size: 0.9rem;
+        }
+        
+        /* ===== FOOTER ===== */
         footer { 
-            background: #0a192f; 
-            color: white; 
+            background: var(--primary-dark); 
+            color: var(--white); 
             padding: 100px 0 30px; 
             border-top: 1px solid rgba(0, 180, 216, 0.2); 
         }
+        
         .footer-grid { 
             display: grid; 
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
             gap: 50px; 
             margin-bottom: 50px; 
         }
+        
         .footer-col h3 {
             font-size: 1.5rem;
             margin-bottom: 25px;
-            color: white;
+            color: var(--white);
             position: relative;
             padding-bottom: 10px;
         }
-        .footer-col h3:after {
+        
+        .footer-col h3::after {
             content: '';
             position: absolute;
             bottom: 0;
             left: 0;
             width: 50px;
             height: 3px;
-            background: linear-gradient(90deg, #00b4d8, #90e0ef);
+            background: var(--gradient-ocean);
             border-radius: 3px;
         }
+        
         .footer-logo {
             display: flex;
             align-items: center;
             gap: 15px;
             margin-bottom: 25px;
         }
+        
         .footer-logo i {
             font-size: 40px;
-            color: #00b4d8;
+            color: var(--accent-teal);
+            animation: float 6s ease-in-out infinite;
         }
+        
         .footer-logo-text {
             display: flex;
             flex-direction: column;
         }
+        
         .footer-logo-main {
             font-family: 'Montserrat', sans-serif;
             font-weight: 900;
             font-size: 24px;
-            color: white;
+            color: var(--white);
         }
+        
         .footer-logo-sub {
             font-family: 'Montserrat', sans-serif;
             font-size: 10px;
-            color: #90e0ef;
+            color: var(--light-teal);
             letter-spacing: 2px;
             text-transform: uppercase;
         }
+        
         .footer-description {
-            color: #caf0f8;
+            color: var(--pale-blue);
             margin-bottom: 30px;
             line-height: 1.8;
         }
+        
         .social-links {
             display: flex;
             gap: 15px;
         }
+        
         .social-link {
             width: 40px;
             height: 40px;
@@ -686,34 +1099,38 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #00b4d8;
+            color: var(--accent-teal);
             text-decoration: none;
             transition: all 0.3s;
             border: 1px solid rgba(0, 180, 216, 0.3);
         }
+        
         .social-link:hover {
-            background: #00b4d8;
-            color: white;
+            background: var(--accent-teal);
+            color: var(--white);
             transform: translateY(-5px);
         }
+        
         .contact-info p {
             display: flex;
             align-items: flex-start;
             gap: 15px;
             margin-bottom: 20px;
-            color: #caf0f8;
+            color: var(--pale-blue);
         }
+        
         .contact-info i {
-            color: #00b4d8;
+            color: var(--accent-teal);
             font-size: 18px;
             margin-top: 3px;
         }
+        
         .whatsapp-link {
             display: inline-flex;
             align-items: center;
             gap: 10px;
             background: #25D366;
-            color: white;
+            color: var(--white);
             padding: 12px 25px;
             border-radius: 30px;
             text-decoration: none;
@@ -721,24 +1138,59 @@
             margin-top: 20px;
             transition: all 0.3s;
         }
+        
         .whatsapp-link:hover {
             transform: translateY(-3px);
             box-shadow: 0 10px 20px rgba(37, 211, 102, 0.3);
         }
+        
+        .quick-links {
+            list-style: none;
+        }
+        
+        .quick-links li {
+            margin-bottom: 15px;
+        }
+        
+        .quick-links a {
+            color: var(--pale-blue);
+            text-decoration: none;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .quick-links a:hover {
+            color: var(--accent-teal);
+            transform: translateX(5px);
+        }
+        
         .footer-bottom { 
             text-align: center; 
             padding-top: 30px; 
             border-top: 1px solid rgba(255, 255, 255, 0.1); 
-            color: #90e0ef; 
+            color: var(--light-teal); 
             opacity: 0.6; 
             font-size: 14px; 
         }
         
-        /* RESPONSIVE */
+        .footer-bottom a {
+            color: var(--light-teal);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .footer-bottom a:hover {
+            color: var(--accent-teal);
+        }
+        
+        /* ===== RESPONSIVE DESIGN ===== */
         @media (max-width: 1200px) {
             .courses-hero h1 { font-size: 4rem; }
-            .section-title h2 { font-size: 2.5rem; }
+            .section-title h2 { font-size: 3rem; }
         }
+        
         @media (max-width: 992px) {
             nav ul { 
                 display: none; 
@@ -752,88 +1204,139 @@
                 z-index: 1000; 
                 backdrop-filter: blur(10px);
                 border-bottom: 1px solid rgba(0, 180, 216, 0.2);
+                height: calc(100vh - 80px);
+                overflow-y: auto;
             }
+            
             nav ul.show { 
                 display: flex; 
             }
+            
             .mobile-menu { 
                 display: block; 
                 order: 2; 
             }
+            
             .language-switcher { 
                 order: 3; 
             }
+            
             .courses-hero h1 { 
                 font-size: 3rem; 
             }
+            
             .courses-hero p {
                 font-size: 1.3rem;
             }
+            
             .levels-grid {
                 grid-template-columns: 1fr;
                 max-width: 500px;
                 margin: 0 auto;
             }
+            
+            .schedule-container {
+                grid-template-columns: 1fr;
+            }
+            
             .table-row {
                 min-width: 600px;
             }
         }
+        
         @media (max-width: 768px) {
             .courses-hero { 
                 padding: 150px 0 80px; 
                 background-attachment: scroll;
             }
+            
             .courses-hero h1 { 
                 font-size: 2.5rem; 
             }
+            
             .courses-hero p {
                 font-size: 1.1rem;
             }
+            
             .section-title h2 {
-                font-size: 2rem;
+                font-size: 2.5rem;
             }
+            
             .section-title p {
                 font-size: 1rem;
             }
-            .course-levels,
-            .comparison,
-            .instructors,
-            .schedule {
-                padding: 100px 0;
+            
+            section {
+                padding: 80px 0;
             }
-            .level-card {
+            
+            .level-card,
+            .instructor-card,
+            .calendar-view,
+            .course-info,
+            .faq-item,
+            .testimonial-card {
                 padding: 30px;
             }
-            .schedule-calendar {
-                padding: 30px;
+            
+            .calendar-grid {
+                grid-template-columns: repeat(7, 1fr);
+                gap: 5px;
             }
-            .calendar-placeholder {
-                flex-direction: column;
-                gap: 20px;
+            
+            .calendar-date,
+            .calendar-day {
+                padding: 10px 5px;
+                font-size: 0.9rem;
             }
         }
+        
         @media (max-width: 576px) {
             .courses-hero h1 { 
                 font-size: 2rem; 
             }
+            
             .hero-badges {
                 flex-direction: column;
                 align-items: center;
             }
-            .instructors-grid {
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .instructors-grid,
+            .testimonials-grid {
                 grid-template-columns: 1fr;
             }
+            
             .footer-grid {
                 grid-template-columns: 1fr;
                 gap: 40px;
+            }
+            
+            .price-container {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .table-row {
+                min-width: 500px;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Scroll Progress -->
     <div class="scroll-progress" id="scrollProgress"></div>
-    <a href="#" class="back-to-top" id="backToTop"><i class="fas fa-chevron-up"></i></a>
     
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top" id="backToTop">
+        <i class="fas fa-chevron-up"></i>
+    </a>
+    
+    <!-- Header -->
     <header id="mainHeader">
         <div class="container header-container">
             <a href="index.html" class="logo">
@@ -843,6 +1346,7 @@
                     <div class="logo-sub">DIVE CENTER</div>
                 </div>
             </a>
+            
             <nav>
                 <ul id="navMenu">
                     <li><a href="index.html">Home</a></li>
@@ -854,92 +1358,146 @@
                     <li><a href="contact.html" class="btn-book">Book Now</a></li>
                 </ul>
             </nav>
+            
             <div class="language-switcher">
                 <div class="current-language" id="currentLang">
-                    <i class="fas fa-globe"></i><span>EN</span><i class="fas fa-chevron-down"></i>
+                    <i class="fas fa-globe"></i>
+                    <span>EN</span>
+                    <i class="fas fa-chevron-down"></i>
                 </div>
                 <div class="language-dropdown" id="languageDropdown">
-                    <div class="language-option active" data-lang="en"><i class="fas fa-language"></i><span>English</span></div>
-                    <div class="language-option" data-lang="sw"><i class="fas fa-language"></i><span>Kiswahili</span></div>
-                    <div class="language-option" data-lang="fr"><i class="fas fa-language"></i><span>Français</span></div>
-                    <div class="language-option" data-lang="de"><i class="fas fa-language"></i><span>Deutsch</span></div>
+                    <div class="language-option active" data-lang="en">
+                        <i class="fas fa-language"></i>
+                        <span>English</span>
+                    </div>
+                    <div class="language-option" data-lang="sw">
+                        <i class="fas fa-language"></i>
+                        <span>Kiswahili</span>
+                    </div>
+                    <div class="language-option" data-lang="fr">
+                        <i class="fas fa-language"></i>
+                        <span>Français</span>
+                    </div>
+                    <div class="language-option" data-lang="de">
+                        <i class="fas fa-language"></i>
+                        <span>Deutsch</span>
+                    </div>
                 </div>
             </div>
-            <div class="mobile-menu" id="mobileMenu"><i class="fas fa-bars"></i></div>
+            
+            <div class="mobile-menu" id="mobileMenu">
+                <i class="fas fa-bars"></i>
+            </div>
         </div>
     </header>
 
+    <!-- Hero Section -->
     <section class="courses-hero">
         <div class="container">
             <h1>PADI DIVING COURSES</h1>
-            <p>Become a certified diver with our internationally recognized PADI courses in Dar es Salaam. From beginner to professional levels, we offer comprehensive training in the beautiful waters of Tanzania.</p>
-            <a href="#levels" class="btn-book" style="margin-top: 20px;">
+            <p>Become a certified diver with our internationally recognized PADI courses in the beautiful waters of Dar es Salaam, Tanzania</p>
+            <a href="#course-levels" class="btn-book" style="margin-top: 30px;">
                 <i class="fas fa-arrow-down"></i> EXPLORE COURSES
             </a>
             <div class="hero-badges">
-                <div class="hero-badge"><i class="fas fa-shield-alt"></i> PADI 5-Star Center</div>
-                <div class="hero-badge"><i class="fas fa-user-graduate"></i> Certified Instructors</div>
-                <div class="hero-badge"><i class="fas fa-globe-africa"></i> Local & International</div>
+                <div class="hero-badge">
+                    <i class="fas fa-shield-alt"></i> PADI 5-Star Center
+                </div>
+                <div class="hero-badge">
+                    <i class="fas fa-user-graduate"></i> Certified Instructors
+                </div>
+                <div class="hero-badge">
+                    <i class="fas fa-globe-africa"></i> International Recognition
+                </div>
             </div>
         </div>
     </section>
 
-    <section class="course-levels" id="levels">
+    <!-- Course Levels -->
+    <section class="course-levels" id="course-levels">
         <div class="container">
             <div class="section-title">
                 <h2>DIVING COURSES</h2>
-                <p>Choose the right course for your diving journey. All courses include equipment, materials, and certification fees.</p>
+                <p>Start your underwater adventure with our comprehensive range of PADI certified courses</p>
             </div>
+            
             <div class="levels-grid">
+                <!-- Discover Scuba -->
                 <div class="level-card">
                     <span class="level-badge">BEGINNER</span>
-                    <div class="level-icon"><i class="fas fa-swimmer"></i></div>
+                    <div class="level-icon">
+                        <i class="fas fa-swimmer"></i>
+                    </div>
                     <h3>Discover Scuba Diving</h3>
-                    <p>Perfect first experience for non-divers who want to try scuba in a pool or confined water.</p>
+                    <p>Experience scuba diving for the first time in a safe and controlled environment</p>
+                    
                     <ul class="level-details">
-                        <li>Pool/Confined Water Session (2 hours)</li>
-                        <li>One Open Water Dive with Instructor</li>
-                        <li>All Equipment Included</li>
-                        <li>Maximum Depth: 12 meters</li>
-                        <li>Certified PADI Instructor</li>
+                        <li>2-hour pool session</li>
+                        <li>One open water dive with instructor</li>
+                        <li>All equipment provided</li>
+                        <li>Maximum depth: 12 meters</li>
+                        <li>No prior experience needed</li>
                     </ul>
-                    <div class="price">$85</div>
+                    
+                    <div class="price-container">
+                        <div class="price">$85</div>
+                        <div class="duration">1 Day</div>
+                    </div>
+                    
                     <button class="btn-course enroll-btn" data-course="Discover Scuba Diving">
                         <i class="fas fa-calendar-check"></i> BOOK NOW
                     </button>
                 </div>
                 
+                <!-- Open Water Diver -->
                 <div class="level-card">
-                    <span class="level-badge" style="background:linear-gradient(135deg,#ffd700,#ffa500)">MOST POPULAR</span>
-                    <div class="level-icon"><i class="fas fa-water"></i></div>
+                    <span class="level-badge">POPULAR</span>
+                    <div class="level-icon">
+                        <i class="fas fa-water"></i>
+                    </div>
                     <h3>Open Water Diver</h3>
-                    <p>Full PADI certification course that allows you to dive independently anywhere in the world.</p>
+                    <p>Become a certified diver with this comprehensive entry-level course</p>
+                    
                     <ul class="level-details">
-                        <li>5 Theory/Pool Sessions</li>
-                        <li>4 Open Water Dives</li>
-                        <li>PADI Manual & Digital Materials</li>
-                        <li>International Certification Card</li>
-                        <li>Maximum Depth: 18 meters</li>
+                        <li>5 theory and pool sessions</li>
+                        <li>4 open water dives</li>
+                        <li>PADI certification card included</li>
+                        <li>Maximum depth: 18 meters</li>
+                        <li>Lifetime certification</li>
                     </ul>
-                    <div class="price">$450</div>
+                    
+                    <div class="price-container">
+                        <div class="price">$450</div>
+                        <div class="duration">3-4 Days</div>
+                    </div>
+                    
                     <button class="btn-course enroll-btn" data-course="Open Water Diver">
                         <i class="fas fa-graduation-cap"></i> ENROLL NOW
                     </button>
                 </div>
                 
+                <!-- Advanced Open Water -->
                 <div class="level-card">
                     <span class="level-badge">ADVANCED</span>
-                    <div class="level-icon"><i class="fas fa-graduation-cap"></i></div>
+                    <div class="level-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
                     <h3>Advanced Open Water</h3>
-                    <p>Expand your diving skills with specialized adventure dives and deeper diving.</p>
+                    <p>Expand your diving skills and explore new underwater adventures</p>
+                    
                     <ul class="level-details">
-                        <li>Deep Dive (30m maximum)</li>
-                        <li>Underwater Navigation Dive</li>
-                        <li>3 Adventure Dives of Your Choice</li>
-                        <li>Night Dive Included</li>
-                        <li>Boat Dive Experience</li>
+                        <li>Deep dive (30m maximum)</li>
+                        <li>Underwater navigation</li>
+                        <li>3 adventure dives of your choice</li>
+                        <li>Night dive included</li>
+                        <li>Boat diving experience</li>
                     </ul>
-                    <div class="price">$380</div>
+                    
+                    <div class="price-container">
+                        <div class="price">$380</div>
+                        <div class="duration">2-3 Days</div>
+                    </div>
+                    
                     <button class="btn-course enroll-btn" data-course="Advanced Open Water">
                         <i class="fas fa-arrow-up"></i> UPGRADE NOW
                     </button>
@@ -948,12 +1506,14 @@
         </div>
     </section>
 
+    <!-- Course Comparison -->
     <section class="comparison">
         <div class="container">
             <div class="section-title">
                 <h2>COURSE COMPARISON</h2>
-                <p>Compare features across our most popular courses to find the perfect match for your diving goals.</p>
+                <p>Compare our most popular courses to find the perfect match for your diving journey</p>
             </div>
+            
             <div class="comparison-table">
                 <div class="table-row header">
                     <div class="table-cell">Features</div>
@@ -962,6 +1522,7 @@
                     <div class="table-cell">Advanced</div>
                     <div class="table-cell">Rescue Diver</div>
                 </div>
+                
                 <div class="table-row">
                     <div class="table-cell">Duration</div>
                     <div class="table-cell">1 Day</div>
@@ -969,13 +1530,23 @@
                     <div class="table-cell">2-3 Days</div>
                     <div class="table-cell">2-3 Days</div>
                 </div>
+                
                 <div class="table-row">
                     <div class="table-cell">PADI Certification</div>
-                    <div class="table-cell"><i class="fas fa-times cross"></i></div>
-                    <div class="table-cell"><i class="fas fa-check check"></i></div>
-                    <div class="table-cell"><i class="fas fa-check check"></i></div>
-                    <div class="table-cell"><i class="fas fa-check check"></i></div>
+                    <div class="table-cell">
+                        <i class="fas fa-times cross"></i>
+                    </div>
+                    <div class="table-cell">
+                        <i class="fas fa-check check"></i>
+                    </div>
+                    <div class="table-cell">
+                        <i class="fas fa-check check"></i>
+                    </div>
+                    <div class="table-cell">
+                        <i class="fas fa-check check"></i>
+                    </div>
                 </div>
+                
                 <div class="table-row">
                     <div class="table-cell">Maximum Depth</div>
                     <div class="table-cell">12m</div>
@@ -983,27 +1554,23 @@
                     <div class="table-cell">30m</div>
                     <div class="table-cell">30m</div>
                 </div>
+                
                 <div class="table-row">
                     <div class="table-cell">Night Dives</div>
-                    <div class="table-cell"><i class="fas fa-times cross"></i></div>
-                    <div class="table-cell"><i class="fas fa-times cross"></i></div>
-                    <div class="table-cell"><i class="fas fa-check check"></i></div>
-                    <div class="table-cell"><i class="fas fa-check check"></i></div>
+                    <div class="table-cell">
+                        <i class="fas fa-times cross"></i>
+                    </div>
+                    <div class="table-cell">
+                        <i class="fas fa-times cross"></i>
+                    </div>
+                    <div class="table-cell">
+                        <i class="fas fa-check check"></i>
+                    </div>
+                    <div class="table-cell">
+                        <i class="fas fa-check check"></i>
+                    </div>
                 </div>
-                <div class="table-row">
-                    <div class="table-cell">Boat Dives Included</div>
-                    <div class="table-cell"><i class="fas fa-times cross"></i></div>
-                    <div class="table-cell"><i class="fas fa-check check"></i></div>
-                    <div class="table-cell"><i class="fas fa-check check"></i></div>
-                    <div class="table-cell"><i class="fas fa-check check"></i></div>
-                </div>
-                <div class="table-row">
-                    <div class="table-cell">Emergency Training</div>
-                    <div class="table-cell">Basic</div>
-                    <div class="table-cell">Standard</div>
-                    <div class="table-cell">Advanced</div>
-                    <div class="table-cell">Full Rescue</div>
-                </div>
+                
                 <div class="table-row">
                     <div class="table-cell">Prerequisites</div>
                     <div class="table-cell">None</div>
@@ -1011,89 +1578,339 @@
                     <div class="table-cell">Open Water Certified</div>
                     <div class="table-cell">Advanced Certified</div>
                 </div>
+                
+                <div class="table-row">
+                    <div class="table-cell">Emergency Training</div>
+                    <div class="table-cell">Basic</div>
+                    <div class="table-cell">Standard</div>
+                    <div class="table-cell">Advanced</div>
+                    <div class="table-cell">Full Rescue</div>
+                </div>
+                
+                <div class="table-row">
+                    <div class="table-cell">Boat Dives Included</div>
+                    <div class="table-cell">
+                        <i class="fas fa-times cross"></i>
+                    </div>
+                    <div class="table-cell">
+                        <i class="fas fa-check check"></i>
+                    </div>
+                    <div class="table-cell">
+                        <i class="fas fa-check check"></i>
+                    </div>
+                    <div class="table-cell">
+                        <i class="fas fa-check check"></i>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
+    <!-- Instructors -->
     <section class="instructors">
         <div class="container">
             <div class="section-title">
                 <h2>MEET OUR INSTRUCTORS</h2>
-                <p>Learn from experienced PADI professionals who are passionate about diving and teaching.</p>
+                <p>Learn from experienced PADI professionals passionate about diving and teaching</p>
             </div>
+            
             <div class="instructors-grid">
+                <!-- Instructor 1 -->
                 <div class="instructor-card">
                     <div class="instructor-avatar">AJ</div>
                     <h3>Ali Juma</h3>
-                    <p>PADI Course Director<br>15+ Years Experience</p>
+                    <p>PADI Course Director • 15+ Years Experience</p>
+                    
                     <div class="cert-badges">
                         <span class="badge">Course Director</span>
                         <span class="badge">Emergency First Response</span>
                         <span class="badge">Deep Diver</span>
                         <span class="badge">Wreck Diver</span>
                     </div>
-                    <p style="margin-top: 20px; font-size: 0.9rem;">Ali has certified over 500 divers and specializes in technical diving courses.</p>
+                    
+                    <p style="margin-top: 20px; font-size: 0.9rem; line-height: 1.6;">
+                        Ali has certified over 500 divers and specializes in technical diving courses. Fluent in English and Swahili.
+                    </p>
                 </div>
+                
+                <!-- Instructor 2 -->
                 <div class="instructor-card">
                     <div class="instructor-avatar">SM</div>
                     <h3>Sarah Mwamba</h3>
-                    <p>PADI Master Instructor<br>Marine Biologist</p>
+                    <p>PADI Master Instructor • Marine Biologist</p>
+                    
                     <div class="cert-badges">
                         <span class="badge">Master Instructor</span>
                         <span class="badge">Marine Biology</span>
                         <span class="badge">Underwater Photographer</span>
                         <span class="badge">Coral Reef Conservation</span>
                     </div>
-                    <p style="margin-top: 20px; font-size: 0.9rem;">Sarah combines diving instruction with marine conservation education.</p>
+                    
+                    <p style="margin-top: 20px; font-size: 0.9rem; line-height: 1.6;">
+                        Sarah combines diving instruction with marine conservation education. Specializes in underwater photography.
+                    </p>
                 </div>
+                
+                <!-- Instructor 3 -->
                 <div class="instructor-card">
                     <div class="instructor-avatar">JM</div>
                     <h3>Juma Mohamed</h3>
-                    <p>PADI IDC Staff Instructor<br>Local Dive Expert</p>
+                    <p>PADI IDC Staff Instructor • Local Dive Expert</p>
+                    
                     <div class="cert-badges">
                         <span class="badge">IDC Staff</span>
                         <span class="badge">Deep Diver</span>
                         <span class="badge">Night Diver</span>
                         <span class="badge">Search & Recovery</span>
                     </div>
-                    <p style="margin-top: 20px; font-size: 0.9rem;">Juma knows every dive site in Dar es Salaam and specializes in local marine life.</p>
+                    
+                    <p style="margin-top: 20px; font-size: 0.9rem; line-height: 1.6;">
+                        Juma knows every dive site in Dar es Salaam and specializes in local marine life identification.
+                    </p>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Schedule Section -->
     <section class="schedule">
         <div class="container">
             <div class="section-title">
-                <h2>UPCOMING COURSE SCHEDULE</h2>
-                <p>Check availability for our upcoming courses and book your spot in advance.</p>
+                <h2>COURSE SCHEDULE</h2>
+                <p>Check availability and book your spot for upcoming courses</p>
             </div>
-            <div class="schedule-calendar">
-                <div class="calendar-placeholder">
-                    <i class="fas fa-calendar-alt calendar-icon"></i>
-                    <div style="text-align: left;">
-                        <h3 style="color: white; margin-bottom: 15px;">Course Calendar</h3>
-                        <p style="color: #90e0ef; margin-bottom: 20px;">Our courses run weekly throughout the year. Contact us for specific dates and availability.</p>
-                        <ul style="color: #caf0f8; list-style: none; margin-left: 0;">
-                            <li style="margin-bottom: 10px;"><i class="fas fa-check" style="color: #00b4d8; margin-right: 10px;"></i> Open Water Diver: Every Monday</li>
-                            <li style="margin-bottom: 10px;"><i class="fas fa-check" style="color: #00b4d8; margin-right: 10px;"></i> Advanced Open Water: Flexible scheduling</li>
-                            <li style="margin-bottom: 10px;"><i class="fas fa-check" style="color: #00b4d8; margin-right: 10px;"></i> Discover Scuba: Daily availability</li>
-                            <li><i class="fas fa-check" style="color: #00b4d8; margin-right: 10px;"></i> Rescue Diver: Monthly courses</li>
-                        </ul>
+            
+            <div class="schedule-container">
+                <!-- Calendar View -->
+                <div class="calendar-view">
+                    <div class="calendar-header">
+                        <h3>September 2024</h3>
+                        <div class="calendar-controls">
+                            <button class="btn-secondary" style="padding: 8px 15px;">
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                            <button class="btn-secondary" style="padding: 8px 15px; margin-left: 10px;">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="calendar-grid">
+                        <!-- Week Days -->
+                        <div class="calendar-day">Sun</div>
+                        <div class="calendar-day">Mon</div>
+                        <div class="calendar-day">Tue</div>
+                        <div class="calendar-day">Wed</div>
+                        <div class="calendar-day">Thu</div>
+                        <div class="calendar-day">Fri</div>
+                        <div class="calendar-day">Sat</div>
+                        
+                        <!-- Calendar Dates (Sample) -->
+                        <div class="calendar-date">1</div>
+                        <div class="calendar-date">2</div>
+                        <div class="calendar-date available">3</div>
+                        <div class="calendar-date available">4</div>
+                        <div class="calendar-date available">5</div>
+                        <div class="calendar-date booked">6</div>
+                        <div class="calendar-date">7</div>
+                        
+                        <!-- More dates would continue here... -->
+                    </div>
+                    
+                    <div class="calendar-legend" style="display: flex; gap: 15px; justify-content: center; margin-top: 20px;">
+                        <div style="display: flex; align-items: center; gap: 5px;">
+                            <div style="width: 15px; height: 15px; background: rgba(0, 180, 216, 0.15); border-radius: 3px;"></div>
+                            <span style="font-size: 0.8rem;">Available</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 5px;">
+                            <div style="width: 15px; height: 15px; background: rgba(255, 71, 87, 0.1); border-radius: 3px;"></div>
+                            <span style="font-size: 0.8rem;">Booked</span>
+                        </div>
                     </div>
                 </div>
-                <div style="text-align: center; margin-top: 40px;">
-                    <a href="contact.html" class="btn-course" style="width: auto; padding: 18px 45px; display: inline-flex;">
-                        <i class="fas fa-calendar-alt"></i> CHECK AVAILABILITY & BOOK
-                    </a>
+                
+                <!-- Course Information -->
+                <div class="course-info">
+                    <h3 style="color: white; margin-bottom: 25px;">Upcoming Course Dates</h3>
+                    
+                    <ul class="course-list">
+                        <li>
+                            <div>
+                                <strong>Open Water Diver</strong>
+                                <div style="color: var(--light-teal); font-size: 0.9rem; margin-top: 5px;">
+                                    <i class="fas fa-calendar"></i> September 3-6, 2024
+                                </div>
+                            </div>
+                            <span class="badge">4 SPOTS LEFT</span>
+                        </li>
+                        
+                        <li>
+                            <div>
+                                <strong>Advanced Open Water</strong>
+                                <div style="color: var(--light-teal); font-size: 0.9rem; margin-top: 5px;">
+                                    <i class="fas fa-calendar"></i> September 10-12, 2024
+                                </div>
+                            </div>
+                            <span class="badge">6 SPOTS LEFT</span>
+                        </li>
+                        
+                        <li>
+                            <div>
+                                <strong>Discover Scuba Diving</strong>
+                                <div style="color: var(--light-teal); font-size: 0.9rem; margin-top: 5px;">
+                                    <i class="fas fa-calendar"></i> Daily Availability
+                                </div>
+                            </div>
+                            <span class="badge">AVAILABLE</span>
+                        </li>
+                        
+                        <li>
+                            <div>
+                                <strong>Rescue Diver Course</strong>
+                                <div style="color: var(--light-teal); font-size: 0.9rem; margin-top: 5px;">
+                                    <i class="fas fa-calendar"></i> September 20-22, 2024
+                                </div>
+                            </div>
+                            <span class="badge">3 SPOTS LEFT</span>
+                        </li>
+                    </ul>
+                    
+                    <div style="text-align: center; margin-top: 30px;">
+                        <a href="contact.html" class="btn-course" style="width: auto; padding: 18px 40px;">
+                            <i class="fas fa-calendar-alt"></i> CHECK FULL SCHEDULE
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- FAQ Section -->
+    <section class="faq">
+        <div class="container">
+            <div class="section-title">
+                <h2>FREQUENTLY ASKED QUESTIONS</h2>
+                <p>Find answers to common questions about our diving courses</p>
+            </div>
+            
+            <div class="faq-container">
+                <!-- FAQ Item 1 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>What are the prerequisites for taking a diving course?</h3>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>For beginner courses like Discover Scuba and Open Water Diver, you must be at least 10 years old, in good physical health, and able to swim. You'll need to complete a medical questionnaire. For advanced courses, you must hold the prerequisite certification (e.g., Open Water certification for Advanced Open Water).</p>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 2 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Is diving safe for beginners?</h3>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, scuba diving is very safe when taught by certified professionals. Our instructors follow PADI standards and maintain a maximum 4:1 student-to-instructor ratio for safety. All equipment is regularly serviced and maintained to the highest standards.</p>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 3 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>What equipment do I need to bring?</h3>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We provide all necessary diving equipment including wetsuit, BCD, regulator, tanks, weights, and mask. You only need to bring your swimwear, towel, and sunscreen. If you prefer to use your own mask, snorkel, or fins, you're welcome to bring them.</p>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 4 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>How long does PADI certification last?</h3>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>PADI certifications are lifetime certifications that never expire. However, if you haven't dived in a while (more than 6-12 months), we recommend taking a Scuba Review or ReActivate program to refresh your skills before diving again.</p>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 5 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Can I get a refund if I need to cancel?</h3>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We offer full refunds for cancellations made at least 7 days before the course start date. For cancellations within 7 days, we offer course credit that can be used within one year. No-shows are non-refundable. We recommend travel insurance for unexpected circumstances.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-title">
+                <h2>STUDENT TESTIMONIALS</h2>
+                <p>Hear from divers who started their journey with us</p>
+            </div>
+            
+            <div class="testimonials-grid">
+                <!-- Testimonial 1 -->
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "The Open Water course with Thalassa was absolutely incredible! Ali was patient, knowledgeable, and made me feel completely safe throughout. The dive sites around Dar es Salaam are stunning!"
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">MK</div>
+                        <div class="author-info">
+                            <h4>Michael K.</h4>
+                            <p>Open Water Diver • September 2024</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 2 -->
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "As a complete beginner, I was nervous about diving. The Discover Scuba experience was the perfect introduction. The instructors were amazing and the underwater world took my breath away!"
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">SN</div>
+                        <div class="author-info">
+                            <h4>Sarah N.</h4>
+                            <p>Discover Scuba • August 2024</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 3 -->
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "I completed my Advanced Open Water certification with Juma. The night dive was an unforgettable experience! The team at Thalassa is professional, friendly, and truly passionate about diving."
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">TJ</div>
+                        <div class="author-info">
+                            <h4>Thomas J.</h4>
+                            <p>Advanced Open Water • July 2024</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
     <footer>
         <div class="container">
             <div class="footer-grid">
+                <!-- Column 1: About -->
                 <div class="footer-col">
                     <div class="footer-logo">
                         <i class="fas fa-water"></i>
@@ -1102,95 +1919,116 @@
                             <div class="footer-logo-sub">DIVE CENTER</div>
                         </div>
                     </div>
-                    <p class="footer-description">Dar es Salaam's premier PADI 5-Star Dive Center offering courses, dive trips, and equipment rental since 2010.</p>
+                    <p class="footer-description">
+                        Dar es Salaam's premier PADI 5-Star Dive Center offering courses, dive trips, and equipment rental since 2010. Certified by PADI International.
+                    </p>
                     <div class="social-links">
-                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
-                        <a href="https://instagram.com/thalassatz" class="social-link" target="_blank"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-tripadvisor"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://instagram.com/thalassatz" class="social-link" target="_blank">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-tripadvisor"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-youtube"></i>
+                        </a>
                     </div>
                 </div>
+                
+                <!-- Column 2: Contact -->
                 <div class="footer-col">
                     <h3>Contact Info</h3>
                     <div class="contact-info">
-                        <p><i class="fas fa-map-marker-alt"></i> <span>Shop 17C, Maga Beach, Masaki, Dar es Salaam, Tanzania</span></p>
-                        <p><i class="fas fa-phone"></i> <span>+255 769 474 643</span></p>
-                        <p><i class="fas fa-envelope"></i> <span>info@thalassatz.com</span></p>
-                        <p><i class="fas fa-clock"></i> <span>Open Daily: 8:00 AM - 6:00 PM</span></p>
+                        <p>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Shop 17C, Maga Beach, Masaki, Dar es Salaam, Tanzania</span>
+                        </p>
+                        <p>
+                            <i class="fas fa-phone"></i>
+                            <span>+255 769 474 643</span>
+                        </p>
+                        <p>
+                            <i class="fas fa-envelope"></i>
+                            <span>info@thalassatz.com</span>
+                        </p>
+                        <p>
+                            <i class="fas fa-clock"></i>
+                            <span>Open Daily: 8:00 AM - 6:00 PM</span>
+                        </p>
                     </div>
                     <a href="https://wa.me/255769474643" class="whatsapp-link" target="_blank">
                         <i class="fab fa-whatsapp"></i> Message us on WhatsApp
                     </a>
                 </div>
+                
+                <!-- Column 3: Quick Links -->
                 <div class="footer-col">
                     <h3>Quick Links</h3>
-                    <ul style="list-style: none; color: #caf0f8;">
-                        <li style="margin-bottom: 12px;"><a href="courses.html" style="color: #caf0f8; text-decoration: none;">All Diving Courses</a></li>
-                        <li style="margin-bottom: 12px;"><a href="dives.html" style="color: #caf0f8; text-decoration: none;">Daily Dive Trips</a></li>
-                        <li style="margin-bottom: 12px;"><a href="snorkeling.html" style="color: #caf0f8; text-decoration: none;">Snorkeling Tours</a></li>
-                        <li style="margin-bottom: 12px;"><a href="about.html" style="color: #caf0f8; text-decoration: none;">About Our Center</a></li>
-                        <li><a href="contact.html" style="color: #caf0f8; text-decoration: none;">Contact & Location</a></li>
+                    <ul class="quick-links">
+                        <li>
+                            <a href="courses.html">
+                                <i class="fas fa-chevron-right"></i> All Diving Courses
+                            </a>
+                        </li>
+                        <li>
+                            <a href="dives.html">
+                                <i class="fas fa-chevron-right"></i> Daily Dive Trips
+                            </a>
+                        </li>
+                        <li>
+                            <a href="snorkeling.html">
+                                <i class="fas fa-chevron-right"></i> Snorkeling Tours
+                            </a>
+                        </li>
+                        <li>
+                            <a href="about.html">
+                                <i class="fas fa-chevron-right"></i> About Our Center
+                            </a>
+                        </li>
+                        <li>
+                            <a href="contact.html">
+                                <i class="fas fa-chevron-right"></i> Contact & Location
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
+            
             <div class="footer-bottom">
-                <p>&copy; 2023 Thalassa Dive Center. PADI 5-Star Dive Center. All rights reserved. | <a href="#" style="color: #90e0ef; text-decoration: none;">Privacy Policy</a> | <a href="#" style="color: #90e0ef; text-decoration: none;">Terms of Service</a></p>
+                <p>
+                    &copy; 2024 Thalassa Dive Center. PADI 5-Star Dive Center. All rights reserved. | 
+                    <a href="#">Privacy Policy</a> | 
+                    <a href="#">Terms of Service</a> | 
+                    <a href="#">Sitemap</a>
+                </p>
+                <p style="margin-top: 10px; font-size: 0.8rem;">
+                    PADI International Resort Association Member #12345 • Registered with Tanzania Tourism Board
+                </p>
             </div>
         </div>
     </footer>
 
     <script>
-        // JavaScript for Courses Page
+        // ===== MAIN JAVASCRIPT =====
         document.addEventListener('DOMContentLoaded', function() {
-            // Mobile menu toggle
+            
+            // ===== MOBILE MENU =====
             const mobileMenu = document.getElementById('mobileMenu');
             const navMenu = document.getElementById('navMenu');
             
             mobileMenu.addEventListener('click', () => {
                 navMenu.classList.toggle('show');
                 const icon = mobileMenu.querySelector('i');
-                if (icon.classList.contains('fa-bars')) {
-                    icon.classList.replace('fa-bars', 'fa-times');
-                } else {
-                    icon.classList.replace('fa-times', 'fa-bars');
-                }
+                icon.classList.toggle('fa-bars');
+                icon.classList.toggle('fa-times');
             });
             
-            // Language switcher
-            const currentLang = document.getElementById('currentLang');
-            const languageDropdown = document.getElementById('languageDropdown');
-            const languageOptions = document.querySelectorAll('.language-option');
-            
-            currentLang.addEventListener('click', () => {
-                languageDropdown.classList.toggle('show');
-            });
-            
-            languageOptions.forEach(option => {
-                option.addEventListener('click', function() {
-                    const lang = this.getAttribute('data-lang');
-                    const langText = this.querySelector('span').textContent;
-                    
-                    // Update current language display
-                    currentLang.querySelector('span').textContent = lang.toUpperCase();
-                    
-                    // Update active state
-                    languageOptions.forEach(opt => opt.classList.remove('active'));
-                    this.classList.add('active');
-                    
-                    // Close dropdown
-                    languageDropdown.classList.remove('show');
-                    
-                    // In a real implementation, you would load language content here
-                    console.log(`Language changed to: ${langText}`);
-                });
-            });
-            
-            // Close dropdowns when clicking outside
+            // Close mobile menu when clicking outside
             document.addEventListener('click', (e) => {
-                if (!currentLang.contains(e.target) && !languageDropdown.contains(e.target)) {
-                    languageDropdown.classList.remove('show');
-                }
-                if (!mobileMenu.contains(e.target) && !navMenu.contains(e.target) && window.innerWidth <= 992) {
+                if (!mobileMenu.contains(e.target) && !navMenu.contains(e.target)) {
                     navMenu.classList.remove('show');
                     const icon = mobileMenu.querySelector('i');
                     if (icon.classList.contains('fa-times')) {
@@ -1199,161 +2037,48 @@
                 }
             });
             
-            // Level card interactions
-            document.querySelectorAll('.level-card').forEach(card => {
-                card.addEventListener('mouseenter', () => {
-                    card.style.transform = 'translateY(-15px)';
-                });
-                card.addEventListener('mouseleave', () => {
-                    card.style.transform = 'translateY(0)';
+            // ===== LANGUAGE SWITCHER =====
+            const currentLang = document.getElementById('currentLang');
+            const languageDropdown = document.getElementById('languageDropdown');
+            const languageOptions = document.querySelectorAll('.language-option');
+            
+            currentLang.addEventListener('click', (e) => {
+                e.stopPropagation();
+                languageDropdown.classList.toggle('show');
+            });
+            
+            languageOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    const lang = this.getAttribute('data-lang');
+                    const langText = this.querySelector('span').textContent;
+                    
+                    // Update current language
+                    const currentLangSpan = currentLang.querySelector('span');
+                    currentLangSpan.textContent = lang.toUpperCase();
+                    
+                    // Update active state
+                    languageOptions.forEach(opt => opt.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Close dropdown
+                    languageDropdown.classList.remove('show');
+                    
+                    // Show language change confirmation
+                    showNotification(`Language changed to ${langText}`);
                 });
             });
             
-            // Course enrollment buttons
-            document.querySelectorAll('.enroll-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const courseName = this.getAttribute('data-course');
-                    
-                    // Create enrollment modal
-                    const modal = document.createElement('div');
-                    modal.className = 'enroll-modal';
-                    modal.innerHTML = `
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h3><i class="fas fa-graduation-cap"></i> Enroll in ${courseName}</h3>
-                                <button class="modal-close">&times;</button>
-                            </div>
-                            <div class="modal-body">
-                                <p>You are about to enroll in <strong>${courseName}</strong>.</p>
-                                <p>You will be redirected to our booking page to complete your enrollment.</p>
-                                <div class="modal-buttons">
-                                    <button class="modal-btn cancel-btn">Cancel</button>
-                                    <a href="contact.html?course=${encodeURIComponent(courseName)}" class="modal-btn confirm-btn">Continue to Booking</a>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                    
-                    // Add modal styles
-                    const modalStyle = document.createElement('style');
-                    modalStyle.textContent = `
-                        .enroll-modal {
-                            position: fixed;
-                            top: 0;
-                            left: 0;
-                            width: 100%;
-                            height: 100%;
-                            background: rgba(2, 62, 138, 0.95);
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                            z-index: 10000;
-                            animation: fadeIn 0.3s ease;
-                        }
-                        .modal-content {
-                            background: #0a192f;
-                            border-radius: 20px;
-                            padding: 30px;
-                            max-width: 500px;
-                            width: 90%;
-                            border: 1px solid rgba(0, 180, 216, 0.3);
-                            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-                        }
-                        .modal-header {
-                            display: flex;
-                            justify-content: space-between;
-                            align-items: center;
-                            margin-bottom: 25px;
-                            padding-bottom: 15px;
-                            border-bottom: 1px solid rgba(0, 180, 216, 0.2);
-                        }
-                        .modal-header h3 {
-                            color: white;
-                            font-size: 1.5rem;
-                            display: flex;
-                            align-items: center;
-                            gap: 10px;
-                        }
-                        .modal-header h3 i {
-                            color: #00b4d8;
-                        }
-                        .modal-close {
-                            background: none;
-                            border: none;
-                            color: #90e0ef;
-                            font-size: 2rem;
-                            cursor: pointer;
-                            line-height: 1;
-                        }
-                        .modal-body {
-                            color: #caf0f8;
-                        }
-                        .modal-body p {
-                            margin-bottom: 15px;
-                            line-height: 1.6;
-                        }
-                        .modal-buttons {
-                            display: flex;
-                            gap: 15px;
-                            margin-top: 30px;
-                        }
-                        .modal-btn {
-                            flex: 1;
-                            padding: 15px;
-                            border-radius: 10px;
-                            font-weight: 600;
-                            cursor: pointer;
-                            text-align: center;
-                            text-decoration: none;
-                            transition: all 0.3s;
-                        }
-                        .cancel-btn {
-                            background: rgba(255, 255, 255, 0.1);
-                            color: #e6f1ff;
-                            border: 1px solid rgba(255, 255, 255, 0.2);
-                        }
-                        .cancel-btn:hover {
-                            background: rgba(255, 255, 255, 0.2);
-                        }
-                        .confirm-btn {
-                            background: linear-gradient(135deg, #00b4d8, #0077b6);
-                            color: white;
-                            border: none;
-                        }
-                        .confirm-btn:hover {
-                            transform: translateY(-3px);
-                            box-shadow: 0 10px 20px rgba(0, 180, 216, 0.3);
-                        }
-                    `;
-                    
-                    document.head.appendChild(modalStyle);
-                    document.body.appendChild(modal);
-                    
-                    // Modal close functionality
-                    const closeBtn = modal.querySelector('.modal-close');
-                    const cancelBtn = modal.querySelector('.cancel-btn');
-                    
-                    const closeModal = () => {
-                        modal.style.animation = 'fadeIn 0.3s ease reverse';
-                        setTimeout(() => {
-                            document.body.removeChild(modal);
-                        }, 300);
-                    };
-                    
-                    closeBtn.addEventListener('click', closeModal);
-                    cancelBtn.addEventListener('click', closeModal);
-                    
-                    // Close modal when clicking outside
-                    modal.addEventListener('click', (e) => {
-                        if (e.target === modal) {
-                            closeModal();
-                        }
-                    });
-                });
+            // Close language dropdown when clicking outside
+            document.addEventListener('click', () => {
+                languageDropdown.classList.remove('show');
             });
             
-            // Scroll progress and back to top
-            const scrollProgress = document.getElementById('scrollProgress');
+            // ===== SCROLL PROGRESS & BACK TO TOP =====
+            const scrollProgress = document.createElement('div');
+            scrollProgress.className = 'scroll-progress';
+            scrollProgress.id = 'scrollProgress';
+            document.body.prepend(scrollProgress);
+            
             const backToTop = document.getElementById('backToTop');
             const header = document.getElementById('mainHeader');
             
@@ -1365,18 +2090,10 @@
                 scrollProgress.style.width = scrolled + "%";
                 
                 // Header background on scroll
-                if (window.scrollY > 100) {
-                    header.classList.add('scrolled');
-                } else {
-                    header.classList.remove('scrolled');
-                }
+                header.classList.toggle('scrolled', window.scrollY > 100);
                 
                 // Back to top button
-                if (window.scrollY > 500) {
-                    backToTop.classList.add('visible');
-                } else {
-                    backToTop.classList.remove('visible');
-                }
+                backToTop.classList.toggle('visible', window.scrollY > 500);
             });
             
             // Back to top functionality
@@ -1388,18 +2105,334 @@
                 });
             });
             
-            // Smooth scrolling for anchor links
+            // ===== COURSE ENROLLMENT =====
+            const enrollButtons = document.querySelectorAll('.enroll-btn');
+            
+            enrollButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const courseName = this.getAttribute('data-course');
+                    showEnrollmentModal(courseName);
+                });
+            });
+            
+            // ===== FAQ ACCORDION =====
+            const faqItems = document.querySelectorAll('.faq-item');
+            
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                
+                question.addEventListener('click', () => {
+                    // Close other items
+                    faqItems.forEach(otherItem => {
+                        if (otherItem !== item && otherItem.classList.contains('active')) {
+                            otherItem.classList.remove('active');
+                        }
+                    });
+                    
+                    // Toggle current item
+                    item.classList.toggle('active');
+                });
+            });
+            
+            // ===== CALENDAR INTERACTION =====
+            const calendarDates = document.querySelectorAll('.calendar-date.available');
+            
+            calendarDates.forEach(date => {
+                date.addEventListener('click', function() {
+                    const day = this.textContent;
+                    showNotification(`Selected September ${day}, 2024 for booking`);
+                    
+                    // Visual feedback
+                    calendarDates.forEach(d => d.classList.remove('selected'));
+                    this.classList.add('selected');
+                    
+                    // Update style for selected date
+                    this.style.background = 'rgba(0, 180, 216, 0.3)';
+                    this.style.borderColor = 'var(--accent-teal)';
+                    this.style.color = 'white';
+                });
+            });
+            
+            // ===== ANIMATIONS ON SCROLL =====
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animated');
+                    }
+                });
+            }, observerOptions);
+            
+            // Observe elements for animation
+            document.querySelectorAll('.level-card, .instructor-card, .testimonial-card').forEach(el => {
+                observer.observe(el);
+            });
+            
+            // ===== HELPER FUNCTIONS =====
+            function showEnrollmentModal(courseName) {
+                // Create modal
+                const modal = document.createElement('div');
+                modal.className = 'enrollment-modal';
+                modal.innerHTML = `
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3><i class="fas fa-graduation-cap"></i> Enroll in ${courseName}</h3>
+                            <button class="modal-close">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <p>You are about to enroll in <strong class="gradient-text">${courseName}</strong>.</p>
+                            <p>You will be redirected to our secure booking page to complete your enrollment and select your preferred dates.</p>
+                            <div class="modal-actions">
+                                <button class="modal-btn cancel-btn">Cancel</button>
+                                <a href="contact.html?course=${encodeURIComponent(courseName)}" class="modal-btn confirm-btn">Continue to Booking</a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                // Add modal styles
+                const modalStyles = document.createElement('style');
+                modalStyles.textContent = `
+                    .enrollment-modal {
+                        position: fixed;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        background: rgba(2, 62, 138, 0.95);
+                        backdrop-filter: blur(5px);
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        z-index: 10000;
+                        animation: fadeIn 0.3s ease;
+                    }
+                    
+                    @keyframes fadeIn {
+                        from { opacity: 0; }
+                        to { opacity: 1; }
+                    }
+                    
+                    .modal-content {
+                        background: var(--primary-dark);
+                        border-radius: 20px;
+                        padding: 40px;
+                        max-width: 500px;
+                        width: 90%;
+                        border: 1px solid rgba(0, 180, 216, 0.3);
+                        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+                        animation: fadeInUp 0.5s ease;
+                    }
+                    
+                    @keyframes fadeInUp {
+                        from {
+                            opacity: 0;
+                            transform: translateY(30px);
+                        }
+                        to {
+                            opacity: 1;
+                            transform: translateY(0);
+                        }
+                    }
+                    
+                    .modal-header {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        margin-bottom: 25px;
+                        padding-bottom: 15px;
+                        border-bottom: 1px solid rgba(0, 180, 216, 0.2);
+                    }
+                    
+                    .modal-header h3 {
+                        color: white;
+                        font-size: 1.5rem;
+                        display: flex;
+                        align-items: center;
+                        gap: 10px;
+                    }
+                    
+                    .modal-header h3 i {
+                        color: var(--accent-teal);
+                    }
+                    
+                    .modal-close {
+                        background: none;
+                        border: none;
+                        color: var(--light-teal);
+                        font-size: 2rem;
+                        cursor: pointer;
+                        line-height: 1;
+                        transition: color 0.3s;
+                    }
+                    
+                    .modal-close:hover {
+                        color: var(--accent-teal);
+                    }
+                    
+                    .modal-body {
+                        color: var(--pale-blue);
+                    }
+                    
+                    .modal-body p {
+                        margin-bottom: 15px;
+                        line-height: 1.6;
+                    }
+                    
+                    .modal-actions {
+                        display: flex;
+                        gap: 15px;
+                        margin-top: 30px;
+                    }
+                    
+                    .modal-btn {
+                        flex: 1;
+                        padding: 15px;
+                        border-radius: 10px;
+                        font-weight: 600;
+                        cursor: pointer;
+                        text-align: center;
+                        text-decoration: none;
+                        transition: all 0.3s;
+                        border: none;
+                        font-size: 1rem;
+                    }
+                    
+                    .cancel-btn {
+                        background: rgba(255, 255, 255, 0.1);
+                        color: var(--pale-blue);
+                        border: 1px solid rgba(255, 255, 255, 0.2);
+                    }
+                    
+                    .cancel-btn:hover {
+                        background: rgba(255, 255, 255, 0.2);
+                    }
+                    
+                    .confirm-btn {
+                        background: var(--gradient-ocean);
+                        color: white;
+                    }
+                    
+                    .confirm-btn:hover {
+                        transform: translateY(-3px);
+                        box-shadow: 0 10px 20px rgba(0, 180, 216, 0.3);
+                    }
+                `;
+                
+                document.head.appendChild(modalStyles);
+                document.body.appendChild(modal);
+                
+                // Modal functionality
+                const closeBtn = modal.querySelector('.modal-close');
+                const cancelBtn = modal.querySelector('.cancel-btn');
+                
+                const closeModal = () => {
+                    modal.style.animation = 'fadeIn 0.3s ease reverse';
+                    setTimeout(() => {
+                        document.body.removeChild(modal);
+                    }, 300);
+                };
+                
+                closeBtn.addEventListener('click', closeModal);
+                cancelBtn.addEventListener('click', closeModal);
+                
+                // Close modal when clicking outside
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) {
+                        closeModal();
+                    }
+                });
+                
+                // Prevent scrolling when modal is open
+                document.body.style.overflow = 'hidden';
+                
+                // Cleanup when modal closes
+                const cleanup = () => {
+                    document.body.style.overflow = '';
+                };
+                
+                closeBtn.addEventListener('click', cleanup);
+                cancelBtn.addEventListener('click', cleanup);
+            }
+            
+            function showNotification(message) {
+                // Create notification
+                const notification = document.createElement('div');
+                notification.className = 'notification';
+                notification.textContent = message;
+                
+                // Add styles
+                notification.style.cssText = `
+                    position: fixed;
+                    bottom: 30px;
+                    right: 30px;
+                    background: var(--gradient-ocean);
+                    color: white;
+                    padding: 15px 25px;
+                    border-radius: 10px;
+                    z-index: 10001;
+                    animation: slideIn 0.3s ease;
+                    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+                    max-width: 300px;
+                `;
+                
+                // Add animation
+                const animationStyle = document.createElement('style');
+                animationStyle.textContent = `
+                    @keyframes slideIn {
+                        from {
+                            transform: translateX(100%);
+                            opacity: 0;
+                        }
+                        to {
+                            transform: translateX(0);
+                            opacity: 1;
+                        }
+                    }
+                    
+                    @keyframes slideOut {
+                        from {
+                            transform: translateX(0);
+                            opacity: 1;
+                        }
+                        to {
+                            transform: translateX(100%);
+                            opacity: 0;
+                        }
+                    }
+                `;
+                
+                document.head.appendChild(animationStyle);
+                document.body.appendChild(notification);
+                
+                // Remove notification after 3 seconds
+                setTimeout(() => {
+                    notification.style.animation = 'slideOut 0.3s ease';
+                    setTimeout(() => {
+                        if (notification.parentNode) {
+                            notification.parentNode.removeChild(notification);
+                        }
+                    }, 300);
+                }, 3000);
+            }
+            
+            // ===== SMOOTH SCROLLING =====
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function(e) {
-                    if (this.getAttribute('href') !== '#') {
+                    const href = this.getAttribute('href');
+                    if (href !== '#') {
                         e.preventDefault();
-                        const targetId = this.getAttribute('href');
-                        if (targetId === '#') return;
-                        
-                        const targetElement = document.querySelector(targetId);
+                        const targetElement = document.querySelector(href);
                         if (targetElement) {
+                            const headerHeight = header.offsetHeight;
+                            const targetPosition = targetElement.offsetTop - headerHeight;
+                            
                             window.scrollTo({
-                                top: targetElement.offsetTop - 100,
+                                top: targetPosition,
                                 behavior: 'smooth'
                             });
                             
@@ -1416,31 +2449,25 @@
                 });
             });
             
-            // Instructor card hover effect
-            document.querySelectorAll('.instructor-card').forEach(card => {
-                card.addEventListener('mouseenter', function() {
-                    const avatar = this.querySelector('.instructor-avatar');
-                    avatar.style.transform = 'scale(1.1)';
-                    avatar.style.transition = 'transform 0.3s ease';
+            // ===== HOVER EFFECTS =====
+            document.querySelectorAll('.level-card, .instructor-card').forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    card.style.transform = 'translateY(-10px)';
                 });
                 
-                card.addEventListener('mouseleave', function() {
-                    const avatar = this.querySelector('.instructor-avatar');
-                    avatar.style.transform = 'scale(1)';
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'translateY(0)';
                 });
             });
             
-            // Table row hover effect
-            document.querySelectorAll('.table-row:not(.header)').forEach(row => {
-                row.addEventListener('mouseenter', function() {
-                    this.style.backgroundColor = 'rgba(0, 180, 216, 0.08)';
+            // ===== INITIAL ANIMATIONS =====
+            setTimeout(() => {
+                document.querySelectorAll('.level-card, .instructor-card').forEach((card, index) => {
+                    card.style.animationDelay = `${index * 0.2}s`;
                 });
-                
-                row.addEventListener('mouseleave', function() {
-                    this.style.backgroundColor = '';
-                });
-            });
-        });
+            }, 100);
+            
+        }); // End of DOMContentLoaded
     </script>
 </body>
 </html>
