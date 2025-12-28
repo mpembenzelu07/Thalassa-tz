@@ -7,97 +7,826 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Open+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
-        /* GLOBAL STYLES (Same as previous pages) */
+        /* GLOBAL STYLES */
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Open Sans', sans-serif; background: #0a192f; color: #333; overflow-x: hidden; }
-        .container { max-width: 1400px; margin: 0 auto; padding: 0 20px; }
+        body { 
+            font-family: 'Open Sans', sans-serif; 
+            background: #0a192f; 
+            color: #e6f1ff; 
+            overflow-x: hidden; 
+            line-height: 1.6;
+        }
+        h1, h2, h3, h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+        }
+        .container { 
+            max-width: 1400px; 
+            margin: 0 auto; 
+            padding: 0 20px; 
+        }
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+        .section-title h2 {
+            font-size: 3rem;
+            background: linear-gradient(45deg, #00b4d8, #90e0ef);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+        }
+        .section-title p {
+            font-size: 1.2rem;
+            color: #90e0ef;
+            max-width: 700px;
+            margin: 0 auto;
+        }
         
         /* ANIMATIONS */
-        @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
-        @keyframes neonPulse { 0%,100% { text-shadow: 0 0 10px #00b4d8,0 0 20px #00b4d8,0 0 30px #0077b6; } 50% { text-shadow: 0 0 20px #00b4d8,0 0 40px #00b4d8,0 0 60px #0077b6,0 0 80px #023e8a; } }
+        @keyframes float { 
+            0%, 100% { transform: translateY(0); } 
+            50% { transform: translateY(-20px); } 
+        }
+        @keyframes neonPulse { 
+            0%, 100% { 
+                text-shadow: 0 0 10px #00b4d8, 0 0 20px #00b4d8, 0 0 30px #0077b6; 
+            } 
+            50% { 
+                text-shadow: 0 0 20px #00b4d8, 0 0 40px #00b4d8, 0 0 60px #0077b6, 0 0 80px #023e8a; 
+            } 
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
         
-        /* HEADER (Same structure) */
-        header { background: rgba(10,25,47,0.95); backdrop-filter: blur(10px); position: fixed; width: 100%; top: 0; z-index: 1000; border-bottom: 1px solid rgba(0,180,216,0.2); }
-        .header-container { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; }
-        .logo { display: flex; align-items: center; text-decoration: none; }
-        .logo-icon { font-size: 32px; color: #00b4d8; margin-right: 15px; animation: float 6s ease-in-out infinite; }
-        .logo-text { font-family: 'Montserrat', sans-serif; font-weight: 900; color: white; }
-        .logo-main { font-size: 28px; line-height: 1; background: linear-gradient(45deg,#00b4d8,#90e0ef); -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: neonPulse 3s ease-in-out infinite; }
-        .logo-sub { font-size: 10px; color: #90e0ef; letter-spacing: 3px; text-transform: uppercase; margin-top: 2px; }
-        nav ul { display: flex; list-style: none; gap: 30px; align-items: center; }
-        nav a { text-decoration: none; color: white; font-weight: 600; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; padding: 8px 0; position: relative; transition: all 0.3s; }
-        nav a:before { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: linear-gradient(90deg,#00b4d8,#90e0ef); transition: width 0.3s; }
-        nav a:hover:before, nav a.active:before { width: 100%; }
-        nav a:hover, nav a.active { color: #00b4d8; }
-        .btn-book { background: linear-gradient(135deg,#00b4d8,#0077b6); color: white; padding: 12px 30px; border-radius: 30px; font-weight: 700; font-size: 14px; letter-spacing: 1px; transition: all 0.3s; position: relative; overflow: hidden; }
-        .btn-book:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,180,216,0.3); }
+        /* SCROLL PROGRESS & BACK TO TOP */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #00b4d8, #0077b6);
+            z-index: 1001;
+            width: 0%;
+            transition: width 0.1s ease;
+        }
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #00b4d8, #0077b6);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 20px;
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 180, 216, 0.3);
+        }
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .back-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 180, 216, 0.4);
+        }
+        
+        /* HEADER */
+        header { 
+            background: rgba(10, 25, 47, 0.95); 
+            backdrop-filter: blur(10px); 
+            position: fixed; 
+            width: 100%; 
+            top: 0; 
+            z-index: 1000; 
+            border-bottom: 1px solid rgba(0, 180, 216, 0.2); 
+            transition: all 0.3s;
+        }
+        header.scrolled {
+            padding: 5px 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        .header-container { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            padding: 15px 0; 
+        }
+        .logo { 
+            display: flex; 
+            align-items: center; 
+            text-decoration: none; 
+        }
+        .logo-icon { 
+            font-size: 32px; 
+            color: #00b4d8; 
+            margin-right: 15px; 
+            animation: float 6s ease-in-out infinite; 
+        }
+        .logo-text { 
+            font-family: 'Montserrat', sans-serif; 
+            font-weight: 900; 
+            color: white; 
+        }
+        .logo-main { 
+            font-size: 28px; 
+            line-height: 1; 
+            background: linear-gradient(45deg, #00b4d8, #90e0ef); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+            animation: neonPulse 3s ease-in-out infinite; 
+        }
+        .logo-sub { 
+            font-size: 10px; 
+            color: #90e0ef; 
+            letter-spacing: 3px; 
+            text-transform: uppercase; 
+            margin-top: 2px; 
+        }
+        nav ul { 
+            display: flex; 
+            list-style: none; 
+            gap: 30px; 
+            align-items: center; 
+        }
+        nav a { 
+            text-decoration: none; 
+            color: #e6f1ff; 
+            font-weight: 600; 
+            font-size: 14px; 
+            text-transform: uppercase; 
+            letter-spacing: 1px; 
+            padding: 8px 0; 
+            position: relative; 
+            transition: all 0.3s; 
+        }
+        nav a:before { 
+            content: ''; 
+            position: absolute; 
+            bottom: 0; 
+            left: 0; 
+            width: 0; 
+            height: 2px; 
+            background: linear-gradient(90deg, #00b4d8, #90e0ef); 
+            transition: width 0.3s; 
+        }
+        nav a:hover:before, 
+        nav a.active:before { 
+            width: 100%; 
+        }
+        nav a:hover, 
+        nav a.active { 
+            color: #00b4d8; 
+        }
+        .btn-book { 
+            background: linear-gradient(135deg, #00b4d8, #0077b6); 
+            color: white; 
+            padding: 12px 30px; 
+            border-radius: 30px; 
+            font-weight: 700; 
+            font-size: 14px; 
+            letter-spacing: 1px; 
+            transition: all 0.3s; 
+            position: relative; 
+            overflow: hidden; 
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn-book:hover { 
+            transform: translateY(-3px); 
+            box-shadow: 0 10px 20px rgba(0, 180, 216, 0.3); 
+        }
         
         /* LANGUAGE SWITCHER */
-        .language-switcher { position: relative; margin-left: 20px; }
-        .current-language { display: flex; align-items: center; gap: 8px; padding: 8px 15px; background: rgba(0,180,216,0.1); border-radius: 20px; cursor: pointer; transition: all 0.3s; color: white; font-weight: 600; border: 1px solid rgba(0,180,216,0.3); }
-        .language-dropdown { position: absolute; top: 100%; right: 0; width: 180px; background: rgba(10,25,47,0.95); backdrop-filter: blur(10px); border-radius: 10px; padding: 10px; margin-top: 10px; opacity: 0; visibility: hidden; transform: translateY(-10px); transition: all 0.3s; z-index: 1001; border: 1px solid rgba(0,180,216,0.2); }
-        .language-dropdown.show { opacity: 1; visibility: visible; transform: translateY(0); }
-        .mobile-menu { display: none; font-size: 24px; cursor: pointer; color: white; }
+        .language-switcher { 
+            position: relative; 
+            margin-left: 20px; 
+        }
+        .current-language { 
+            display: flex; 
+            align-items: center; 
+            gap: 8px; 
+            padding: 8px 15px; 
+            background: rgba(0, 180, 216, 0.1); 
+            border-radius: 20px; 
+            cursor: pointer; 
+            transition: all 0.3s; 
+            color: white; 
+            font-weight: 600; 
+            border: 1px solid rgba(0, 180, 216, 0.3); 
+        }
+        .current-language:hover {
+            background: rgba(0, 180, 216, 0.2);
+        }
+        .language-dropdown { 
+            position: absolute; 
+            top: 100%; 
+            right: 0; 
+            width: 180px; 
+            background: rgba(10, 25, 47, 0.95); 
+            backdrop-filter: blur(10px); 
+            border-radius: 10px; 
+            padding: 10px; 
+            margin-top: 10px; 
+            opacity: 0; 
+            visibility: hidden; 
+            transform: translateY(-10px); 
+            transition: all 0.3s; 
+            z-index: 1001; 
+            border: 1px solid rgba(0, 180, 216, 0.2); 
+        }
+        .language-dropdown.show { 
+            opacity: 1; 
+            visibility: visible; 
+            transform: translateY(0); 
+        }
+        .language-option {
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #e6f1ff;
+            transition: all 0.3s;
+        }
+        .language-option:hover {
+            background: rgba(0, 180, 216, 0.1);
+        }
+        .language-option.active {
+            background: rgba(0, 180, 216, 0.2);
+            color: #00b4d8;
+        }
+        .mobile-menu { 
+            display: none; 
+            font-size: 24px; 
+            cursor: pointer; 
+            color: white; 
+            margin-left: 20px;
+        }
         
         /* COURSES HERO */
-        .courses-hero { background: linear-gradient(rgba(2,62,138,0.9),rgba(0,119,182,0.8)), url('https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80'); background-size: cover; padding: 180px 0 100px; text-align: center; color: white; margin-top: 80px; position: relative; }
-        .courses-hero h1 { font-size: 5rem; font-weight: 900; margin-bottom: 20px; text-transform: uppercase; font-family: 'Montserrat', sans-serif; animation: neonPulse 3s ease-in-out infinite; }
-        .courses-hero p { font-size: 1.5rem; max-width: 800px; margin: 0 auto; opacity: 0.9; }
+        .courses-hero { 
+            background: linear-gradient(rgba(2, 62, 138, 0.9), rgba(0, 119, 182, 0.8)), 
+                        url('https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80'); 
+            background-size: cover; 
+            background-position: center;
+            background-attachment: fixed;
+            padding: 180px 0 100px; 
+            text-align: center; 
+            color: white; 
+            margin-top: 80px; 
+            position: relative; 
+            overflow: hidden;
+        }
+        .courses-hero:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            z-index: -1;
+            animation: float 20s infinite ease-in-out;
+        }
+        .courses-hero h1 { 
+            font-size: 5rem; 
+            font-weight: 900; 
+            margin-bottom: 20px; 
+            text-transform: uppercase; 
+            font-family: 'Montserrat', sans-serif; 
+            animation: neonPulse 3s ease-in-out infinite; 
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        .courses-hero p { 
+            font-size: 1.5rem; 
+            max-width: 800px; 
+            margin: 0 auto 40px; 
+            opacity: 0.9; 
+        }
+        .hero-badges {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+        .hero-badge {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 10px 25px;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
         
         /* COURSE LEVELS */
-        .course-levels { padding: 150px 0; background: linear-gradient(180deg,#0a192f 0%,#023e8a 100%); }
-        .levels-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-        .level-card { background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); border-radius: 20px; padding: 40px; border: 1px solid rgba(0,180,216,0.2); transition: all 0.3s; position: relative; overflow: hidden; }
-        .level-card:hover { transform: translateY(-10px); border-color: #00b4d8; box-shadow: 0 20px 40px rgba(0,180,216,0.3); }
-        .level-badge { position: absolute; top: 20px; right: 20px; background: linear-gradient(135deg,#00b4d8,#0077b6); color: white; padding: 8px 20px; border-radius: 20px; font-size: 12px; font-weight: 700; }
-        .level-icon { font-size: 50px; color: #00b4d8; margin-bottom: 20px; }
-        .level-card h3 { color: white; font-size: 1.8rem; margin-bottom: 15px; font-family: 'Montserrat', sans-serif; }
-        .level-details { list-style: none; margin: 20px 0; }
-        .level-details li { color: #90e0ef; margin-bottom: 10px; padding-left: 25px; position: relative; }
-        .level-details li:before { content: '✓'; position: absolute; left: 0; color: #00b4d8; font-weight: bold; }
+        .course-levels { 
+            padding: 150px 0; 
+            background: linear-gradient(180deg, #0a192f 0%, #023e8a 100%); 
+        }
+        .levels-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); 
+            gap: 40px; 
+        }
+        .level-card { 
+            background: rgba(255, 255, 255, 0.05); 
+            backdrop-filter: blur(10px); 
+            border-radius: 20px; 
+            padding: 40px; 
+            border: 1px solid rgba(0, 180, 216, 0.2); 
+            transition: all 0.3s; 
+            position: relative; 
+            overflow: hidden; 
+            animation: fadeIn 0.8s ease-out;
+        }
+        .level-card:nth-child(2) { animation-delay: 0.2s; }
+        .level-card:nth-child(3) { animation-delay: 0.4s; }
+        .level-card:hover { 
+            transform: translateY(-15px); 
+            border-color: #00b4d8; 
+            box-shadow: 0 20px 40px rgba(0, 180, 216, 0.3); 
+        }
+        .level-badge { 
+            position: absolute; 
+            top: 20px; 
+            right: 20px; 
+            background: linear-gradient(135deg, #00b4d8, #0077b6); 
+            color: white; 
+            padding: 8px 20px; 
+            border-radius: 20px; 
+            font-size: 12px; 
+            font-weight: 700; 
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .level-card:nth-child(2) .level-badge {
+            background: linear-gradient(135deg, #ffd700, #ffa500);
+        }
+        .level-icon { 
+            font-size: 50px; 
+            color: #00b4d8; 
+            margin-bottom: 20px; 
+        }
+        .level-card h3 { 
+            color: white; 
+            font-size: 1.8rem; 
+            margin-bottom: 15px; 
+            font-family: 'Montserrat', sans-serif; 
+        }
+        .level-card > p {
+            color: #90e0ef;
+            margin-bottom: 25px;
+            font-size: 1.1rem;
+        }
+        .level-details { 
+            list-style: none; 
+            margin: 25px 0 30px; 
+        }
+        .level-details li { 
+            color: #caf0f8; 
+            margin-bottom: 12px; 
+            padding-left: 30px; 
+            position: relative; 
+        }
+        .level-details li:before { 
+            content: '✓'; 
+            position: absolute; 
+            left: 0; 
+            color: #00b4d8; 
+            font-weight: bold; 
+            font-size: 1.2rem;
+        }
+        .price {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: white;
+            margin: 20px 0;
+            font-family: 'Montserrat', sans-serif;
+        }
+        .price:before {
+            content: 'FROM ';
+            font-size: 1rem;
+            color: #90e0ef;
+            font-weight: 400;
+        }
         
         /* COURSE COMPARISON */
-        .comparison { padding: 150px 0; background: linear-gradient(180deg,#023e8a 0%,#0a192f 100%); }
-        .comparison-table { background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); border-radius: 20px; overflow: hidden; border: 1px solid rgba(0,180,216,0.2); }
-        .table-row { display: grid; grid-template-columns: 2fr repeat(4, 1fr); border-bottom: 1px solid rgba(0,180,216,0.2); }
-        .table-row.header { background: linear-gradient(135deg,#00b4d8,#0077b6); }
-        .table-cell { padding: 20px; color: white; display: flex; align-items: center; justify-content: center; }
-        .table-row .table-cell:first-child { justify-content: flex-start; }
-        .check { color: #00b4d8; font-size: 20px; }
-        .cross { color: #ff4757; font-size: 20px; }
+        .comparison { 
+            padding: 150px 0; 
+            background: linear-gradient(180deg, #023e8a 0%, #0a192f 100%); 
+        }
+        .comparison-table { 
+            background: rgba(255, 255, 255, 0.05); 
+            backdrop-filter: blur(10px); 
+            border-radius: 20px; 
+            overflow: hidden; 
+            border: 1px solid rgba(0, 180, 216, 0.2); 
+            overflow-x: auto;
+        }
+        .table-row { 
+            display: grid; 
+            grid-template-columns: 2fr repeat(4, 1fr); 
+            border-bottom: 1px solid rgba(0, 180, 216, 0.2); 
+            min-width: 800px;
+        }
+        .table-row.header { 
+            background: linear-gradient(135deg, #00b4d8, #0077b6); 
+        }
+        .table-cell { 
+            padding: 25px 20px; 
+            color: white; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+        }
+        .table-row .table-cell:first-child { 
+            justify-content: flex-start; 
+            font-weight: 600;
+            color: #e6f1ff;
+        }
+        .check { 
+            color: #00b4d8; 
+            font-size: 20px; 
+        }
+        .cross { 
+            color: #ff4757; 
+            font-size: 20px; 
+        }
+        .table-row:nth-child(even) {
+            background: rgba(255, 255, 255, 0.02);
+        }
+        .table-row:hover:not(.header) {
+            background: rgba(0, 180, 216, 0.05);
+        }
         
         /* INSTRUCTORS */
-        .instructors { padding: 150px 0; background: linear-gradient(180deg,#0a192f 0%,#023e8a 100%); }
-        .instructors-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
-        .instructor-card { background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); border-radius: 20px; padding: 30px; text-align: center; border: 1px solid rgba(0,180,216,0.2); transition: all 0.3s; }
-        .instructor-card:hover { transform: translateY(-10px); border-color: #00b4d8; }
-        .instructor-avatar { width: 100px; height: 100px; background: linear-gradient(135deg,#00b4d8,#0077b6); border-radius: 50%; margin: 0 auto 20px; color: white; display: flex; align-items: center; justify-content: center; font-size: 40px; font-weight: 700; }
+        .instructors { 
+            padding: 150px 0; 
+            background: linear-gradient(180deg, #0a192f 0%, #023e8a 100%); 
+        }
+        .instructors-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            gap: 40px; 
+        }
+        .instructor-card { 
+            background: rgba(255, 255, 255, 0.05); 
+            backdrop-filter: blur(10px); 
+            border-radius: 20px; 
+            padding: 40px 30px; 
+            text-align: center; 
+            border: 1px solid rgba(0, 180, 216, 0.2); 
+            transition: all 0.3s; 
+        }
+        .instructor-card:hover { 
+            transform: translateY(-10px); 
+            border-color: #00b4d8; 
+            box-shadow: 0 15px 30px rgba(0, 180, 216, 0.2);
+        }
+        .instructor-avatar { 
+            width: 120px; 
+            height: 120px; 
+            background: linear-gradient(135deg, #00b4d8, #0077b6); 
+            border-radius: 50%; 
+            margin: 0 auto 25px; 
+            color: white; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 40px; 
+            font-weight: 700; 
+            border: 5px solid rgba(255, 255, 255, 0.1);
+        }
+        .instructor-card h3 { 
+            color: white; 
+            font-size: 1.8rem; 
+            margin-bottom: 10px; 
+        }
+        .instructor-card > p {
+            color: #90e0ef;
+            margin-bottom: 20px;
+            font-size: 1rem;
+        }
+        .cert-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .badge {
+            background: rgba(0, 180, 216, 0.2);
+            color: #00b4d8;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: 1px solid rgba(0, 180, 216, 0.3);
+        }
         
         /* SCHEDULE */
-        .schedule { padding: 150px 0; background: linear-gradient(180deg,#023e8a 0%,#0a192f 100%); }
-        .schedule-calendar { background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); border-radius: 20px; padding: 40px; border: 1px solid rgba(0,180,216,0.2); }
+        .schedule { 
+            padding: 150px 0; 
+            background: linear-gradient(180deg, #023e8a 0%, #0a192f 100%); 
+        }
+        .schedule-calendar { 
+            background: rgba(255, 255, 255, 0.05); 
+            backdrop-filter: blur(10px); 
+            border-radius: 20px; 
+            padding: 50px; 
+            border: 1px solid rgba(0, 180, 216, 0.2); 
+            text-align: center;
+        }
+        .calendar-placeholder {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            margin: 30px 0;
+        }
+        .calendar-icon {
+            font-size: 80px;
+            color: #00b4d8;
+            animation: float 4s ease-in-out infinite;
+        }
         
         /* BUTTONS */
-        .btn-course { display: inline-flex; align-items: center; gap: 10px; padding: 15px 35px; background: linear-gradient(135deg,#00b4d8,#0077b6); color: white; text-decoration: none; border-radius: 50px; font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s; position: relative; overflow: hidden; margin: 10px 0; width: 100%; justify-content: center; }
-        .btn-course:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,180,216,0.3); }
+        .btn-course { 
+            display: inline-flex; 
+            align-items: center; 
+            gap: 10px; 
+            padding: 18px 35px; 
+            background: linear-gradient(135deg, #00b4d8, #0077b6); 
+            color: white; 
+            text-decoration: none; 
+            border-radius: 50px; 
+            font-weight: 700; 
+            font-size: 14px; 
+            text-transform: uppercase; 
+            letter-spacing: 1px; 
+            transition: all 0.3s; 
+            position: relative; 
+            overflow: hidden; 
+            margin: 10px 0; 
+            width: 100%; 
+            justify-content: center; 
+            border: none;
+            cursor: pointer;
+        }
+        .btn-course:hover { 
+            transform: translateY(-5px); 
+            box-shadow: 0 15px 25px rgba(0, 180, 216, 0.3); 
+        }
+        .btn-course:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        .btn-course:hover:after {
+            left: 100%;
+        }
         
         /* FOOTER */
-        footer { background: #0a192f; color: white; padding: 100px 0 30px; border-top: 1px solid rgba(0,180,216,0.2); }
-        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 50px; margin-bottom: 50px; }
-        .footer-bottom { text-align: center; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); color: #90e0ef; opacity: 0.6; font-size: 14px; }
+        footer { 
+            background: #0a192f; 
+            color: white; 
+            padding: 100px 0 30px; 
+            border-top: 1px solid rgba(0, 180, 216, 0.2); 
+        }
+        .footer-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+            gap: 50px; 
+            margin-bottom: 50px; 
+        }
+        .footer-col h3 {
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+            color: white;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        .footer-col h3:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, #00b4d8, #90e0ef);
+            border-radius: 3px;
+        }
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        .footer-logo i {
+            font-size: 40px;
+            color: #00b4d8;
+        }
+        .footer-logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+        .footer-logo-main {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+            font-size: 24px;
+            color: white;
+        }
+        .footer-logo-sub {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 10px;
+            color: #90e0ef;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .footer-description {
+            color: #caf0f8;
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background: rgba(0, 180, 216, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #00b4d8;
+            text-decoration: none;
+            transition: all 0.3s;
+            border: 1px solid rgba(0, 180, 216, 0.3);
+        }
+        .social-link:hover {
+            background: #00b4d8;
+            color: white;
+            transform: translateY(-5px);
+        }
+        .contact-info p {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 20px;
+            color: #caf0f8;
+        }
+        .contact-info i {
+            color: #00b4d8;
+            font-size: 18px;
+            margin-top: 3px;
+        }
+        .whatsapp-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #25D366;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 20px;
+            transition: all 0.3s;
+        }
+        .whatsapp-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(37, 211, 102, 0.3);
+        }
+        .footer-bottom { 
+            text-align: center; 
+            padding-top: 30px; 
+            border-top: 1px solid rgba(255, 255, 255, 0.1); 
+            color: #90e0ef; 
+            opacity: 0.6; 
+            font-size: 14px; 
+        }
         
         /* RESPONSIVE */
+        @media (max-width: 1200px) {
+            .courses-hero h1 { font-size: 4rem; }
+            .section-title h2 { font-size: 2.5rem; }
+        }
         @media (max-width: 992px) {
-            nav ul { display: none; position: fixed; top: 80px; left: 0; width: 100%; background: rgba(2,62,138,0.98); flex-direction: column; padding: 30px; z-index: 1000; }
-            nav ul.show { display: flex; }
-            .mobile-menu { display: block; order: 2; }
-            .language-switcher { order: 3; }
-            .courses-hero h1 { font-size: 3rem; }
+            nav ul { 
+                display: none; 
+                position: fixed; 
+                top: 80px; 
+                left: 0; 
+                width: 100%; 
+                background: rgba(2, 62, 138, 0.98); 
+                flex-direction: column; 
+                padding: 30px; 
+                z-index: 1000; 
+                backdrop-filter: blur(10px);
+                border-bottom: 1px solid rgba(0, 180, 216, 0.2);
+            }
+            nav ul.show { 
+                display: flex; 
+            }
+            .mobile-menu { 
+                display: block; 
+                order: 2; 
+            }
+            .language-switcher { 
+                order: 3; 
+            }
+            .courses-hero h1 { 
+                font-size: 3rem; 
+            }
+            .courses-hero p {
+                font-size: 1.3rem;
+            }
+            .levels-grid {
+                grid-template-columns: 1fr;
+                max-width: 500px;
+                margin: 0 auto;
+            }
+            .table-row {
+                min-width: 600px;
+            }
         }
         @media (max-width: 768px) {
-            .courses-hero h1 { font-size: 2.5rem; }
-            .table-row { grid-template-columns: 1fr; }
-            .table-row.header { display: none; }
+            .courses-hero { 
+                padding: 150px 0 80px; 
+                background-attachment: scroll;
+            }
+            .courses-hero h1 { 
+                font-size: 2.5rem; 
+            }
+            .courses-hero p {
+                font-size: 1.1rem;
+            }
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            .section-title p {
+                font-size: 1rem;
+            }
+            .course-levels,
+            .comparison,
+            .instructors,
+            .schedule {
+                padding: 100px 0;
+            }
+            .level-card {
+                padding: 30px;
+            }
+            .schedule-calendar {
+                padding: 30px;
+            }
+            .calendar-placeholder {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+        @media (max-width: 576px) {
+            .courses-hero h1 { 
+                font-size: 2rem; 
+            }
+            .hero-badges {
+                flex-direction: column;
+                align-items: center;
+            }
+            .instructors-grid {
+                grid-template-columns: 1fr;
+            }
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
         }
     </style>
 </head>
@@ -143,56 +872,77 @@
     <section class="courses-hero">
         <div class="container">
             <h1>PADI DIVING COURSES</h1>
-            <p>Become a certified diver with our internationally recognized PADI courses in Dar es Salaam</p>
+            <p>Become a certified diver with our internationally recognized PADI courses in Dar es Salaam. From beginner to professional levels, we offer comprehensive training in the beautiful waters of Tanzania.</p>
+            <a href="#levels" class="btn-book" style="margin-top: 20px;">
+                <i class="fas fa-arrow-down"></i> EXPLORE COURSES
+            </a>
+            <div class="hero-badges">
+                <div class="hero-badge"><i class="fas fa-shield-alt"></i> PADI 5-Star Center</div>
+                <div class="hero-badge"><i class="fas fa-user-graduate"></i> Certified Instructors</div>
+                <div class="hero-badge"><i class="fas fa-globe-africa"></i> Local & International</div>
+            </div>
         </div>
     </section>
 
-    <section class="course-levels">
+    <section class="course-levels" id="levels">
         <div class="container">
+            <div class="section-title">
+                <h2>DIVING COURSES</h2>
+                <p>Choose the right course for your diving journey. All courses include equipment, materials, and certification fees.</p>
+            </div>
             <div class="levels-grid">
                 <div class="level-card">
                     <span class="level-badge">BEGINNER</span>
                     <div class="level-icon"><i class="fas fa-swimmer"></i></div>
-                    <h3>Discover Scuba</h3>
-                    <p>Perfect first experience for non-divers</p>
+                    <h3>Discover Scuba Diving</h3>
+                    <p>Perfect first experience for non-divers who want to try scuba in a pool or confined water.</p>
                     <ul class="level-details">
-                        <li>Pool/Confined Water Session</li>
-                        <li>One Open Water Dive</li>
+                        <li>Pool/Confined Water Session (2 hours)</li>
+                        <li>One Open Water Dive with Instructor</li>
                         <li>All Equipment Included</li>
-                        <li>Certified Instructor</li>
+                        <li>Maximum Depth: 12 meters</li>
+                        <li>Certified PADI Instructor</li>
                     </ul>
                     <div class="price">$85</div>
-                    <a href="contact.html" class="btn-course">BOOK NOW</a>
+                    <button class="btn-course enroll-btn" data-course="Discover Scuba Diving">
+                        <i class="fas fa-calendar-check"></i> BOOK NOW
+                    </button>
                 </div>
                 
                 <div class="level-card">
-                    <span class="level-badge" style="background:linear-gradient(135deg,#ffd700,#ffa500)">POPULAR</span>
+                    <span class="level-badge" style="background:linear-gradient(135deg,#ffd700,#ffa500)">MOST POPULAR</span>
                     <div class="level-icon"><i class="fas fa-water"></i></div>
                     <h3>Open Water Diver</h3>
-                    <p>Full PADI certification course</p>
+                    <p>Full PADI certification course that allows you to dive independently anywhere in the world.</p>
                     <ul class="level-details">
-                        <li>5 Pool Sessions</li>
+                        <li>5 Theory/Pool Sessions</li>
                         <li>4 Open Water Dives</li>
-                        <li>PADI Manual & Materials</li>
-                        <li>International Certification</li>
+                        <li>PADI Manual & Digital Materials</li>
+                        <li>International Certification Card</li>
+                        <li>Maximum Depth: 18 meters</li>
                     </ul>
                     <div class="price">$450</div>
-                    <a href="contact.html" class="btn-course">ENROLL NOW</a>
+                    <button class="btn-course enroll-btn" data-course="Open Water Diver">
+                        <i class="fas fa-graduation-cap"></i> ENROLL NOW
+                    </button>
                 </div>
                 
                 <div class="level-card">
                     <span class="level-badge">ADVANCED</span>
                     <div class="level-icon"><i class="fas fa-graduation-cap"></i></div>
                     <h3>Advanced Open Water</h3>
-                    <p>Expand your diving skills</p>
+                    <p>Expand your diving skills with specialized adventure dives and deeper diving.</p>
                     <ul class="level-details">
-                        <li>Deep Dive (30m)</li>
-                        <li>Underwater Navigation</li>
-                        <li>3 Adventure Dives</li>
+                        <li>Deep Dive (30m maximum)</li>
+                        <li>Underwater Navigation Dive</li>
+                        <li>3 Adventure Dives of Your Choice</li>
                         <li>Night Dive Included</li>
+                        <li>Boat Dive Experience</li>
                     </ul>
                     <div class="price">$380</div>
-                    <a href="contact.html" class="btn-course">UPGRADE NOW</a>
+                    <button class="btn-course enroll-btn" data-course="Advanced Open Water">
+                        <i class="fas fa-arrow-up"></i> UPGRADE NOW
+                    </button>
                 </div>
             </div>
         </div>
@@ -200,7 +950,10 @@
 
     <section class="comparison">
         <div class="container">
-            <h2 style="color:white;text-align:center;font-size:3rem;margin-bottom:50px;font-family:'Montserrat',sans-serif;">COURSE COMPARISON</h2>
+            <div class="section-title">
+                <h2>COURSE COMPARISON</h2>
+                <p>Compare features across our most popular courses to find the perfect match for your diving goals.</p>
+            </div>
             <div class="comparison-table">
                 <div class="table-row header">
                     <div class="table-cell">Features</div>
@@ -224,11 +977,11 @@
                     <div class="table-cell"><i class="fas fa-check check"></i></div>
                 </div>
                 <div class="table-row">
-                    <div class="table-cell">Deep Dives (30m)</div>
-                    <div class="table-cell"><i class="fas fa-times cross"></i></div>
-                    <div class="table-cell"><i class="fas fa-times cross"></i></div>
-                    <div class="table-cell"><i class="fas fa-check check"></i></div>
-                    <div class="table-cell"><i class="fas fa-check check"></i></div>
+                    <div class="table-cell">Maximum Depth</div>
+                    <div class="table-cell">12m</div>
+                    <div class="table-cell">18m</div>
+                    <div class="table-cell">30m</div>
+                    <div class="table-cell">30m</div>
                 </div>
                 <div class="table-row">
                     <div class="table-cell">Night Dives</div>
@@ -237,40 +990,73 @@
                     <div class="table-cell"><i class="fas fa-check check"></i></div>
                     <div class="table-cell"><i class="fas fa-check check"></i></div>
                 </div>
+                <div class="table-row">
+                    <div class="table-cell">Boat Dives Included</div>
+                    <div class="table-cell"><i class="fas fa-times cross"></i></div>
+                    <div class="table-cell"><i class="fas fa-check check"></i></div>
+                    <div class="table-cell"><i class="fas fa-check check"></i></div>
+                    <div class="table-cell"><i class="fas fa-check check"></i></div>
+                </div>
+                <div class="table-row">
+                    <div class="table-cell">Emergency Training</div>
+                    <div class="table-cell">Basic</div>
+                    <div class="table-cell">Standard</div>
+                    <div class="table-cell">Advanced</div>
+                    <div class="table-cell">Full Rescue</div>
+                </div>
+                <div class="table-row">
+                    <div class="table-cell">Prerequisites</div>
+                    <div class="table-cell">None</div>
+                    <div class="table-cell">Medical Form</div>
+                    <div class="table-cell">Open Water Certified</div>
+                    <div class="table-cell">Advanced Certified</div>
+                </div>
             </div>
         </div>
     </section>
 
     <section class="instructors">
         <div class="container">
-            <h2 style="color:white;text-align:center;font-size:3rem;margin-bottom:50px;font-family:'Montserrat',sans-serif;">MEET OUR INSTRUCTORS</h2>
+            <div class="section-title">
+                <h2>MEET OUR INSTRUCTORS</h2>
+                <p>Learn from experienced PADI professionals who are passionate about diving and teaching.</p>
+            </div>
             <div class="instructors-grid">
                 <div class="instructor-card">
                     <div class="instructor-avatar">AJ</div>
-                    <h3>Ali J.</h3>
+                    <h3>Ali Juma</h3>
                     <p>PADI Course Director<br>15+ Years Experience</p>
                     <div class="cert-badges">
                         <span class="badge">Course Director</span>
                         <span class="badge">Emergency First Response</span>
+                        <span class="badge">Deep Diver</span>
+                        <span class="badge">Wreck Diver</span>
                     </div>
+                    <p style="margin-top: 20px; font-size: 0.9rem;">Ali has certified over 500 divers and specializes in technical diving courses.</p>
                 </div>
                 <div class="instructor-card">
                     <div class="instructor-avatar">SM</div>
-                    <h3>Sarah M.</h3>
+                    <h3>Sarah Mwamba</h3>
                     <p>PADI Master Instructor<br>Marine Biologist</p>
                     <div class="cert-badges">
                         <span class="badge">Master Instructor</span>
                         <span class="badge">Marine Biology</span>
+                        <span class="badge">Underwater Photographer</span>
+                        <span class="badge">Coral Reef Conservation</span>
                     </div>
+                    <p style="margin-top: 20px; font-size: 0.9rem;">Sarah combines diving instruction with marine conservation education.</p>
                 </div>
                 <div class="instructor-card">
                     <div class="instructor-avatar">JM</div>
-                    <h3>Juma M.</h3>
-                    <p>PADI IDC Staff<br>Local Dive Expert</p>
+                    <h3>Juma Mohamed</h3>
+                    <p>PADI IDC Staff Instructor<br>Local Dive Expert</p>
                     <div class="cert-badges">
                         <span class="badge">IDC Staff</span>
                         <span class="badge">Deep Diver</span>
+                        <span class="badge">Night Diver</span>
+                        <span class="badge">Search & Recovery</span>
                     </div>
+                    <p style="margin-top: 20px; font-size: 0.9rem;">Juma knows every dive site in Dar es Salaam and specializes in local marine life.</p>
                 </div>
             </div>
         </div>
@@ -278,13 +1064,27 @@
 
     <section class="schedule">
         <div class="container">
-            <h2 style="color:white;text-align:center;font-size:3rem;margin-bottom:50px;font-family:'Montserrat',sans-serif;">UPCOMING COURSE SCHEDULE</h2>
+            <div class="section-title">
+                <h2>UPCOMING COURSE SCHEDULE</h2>
+                <p>Check availability for our upcoming courses and book your spot in advance.</p>
+            </div>
             <div class="schedule-calendar">
-                <!-- Calendar content here -->
-                <p style="color:#90e0ef;text-align:center;">Contact us for the latest course schedules and availability</p>
-                <div style="text-align:center;margin-top:30px;">
-                    <a href="contact.html" class="btn-course" style="width:auto;padding:18px 45px;">
-                        <i class="fas fa-calendar-alt"></i> CHECK AVAILABILITY
+                <div class="calendar-placeholder">
+                    <i class="fas fa-calendar-alt calendar-icon"></i>
+                    <div style="text-align: left;">
+                        <h3 style="color: white; margin-bottom: 15px;">Course Calendar</h3>
+                        <p style="color: #90e0ef; margin-bottom: 20px;">Our courses run weekly throughout the year. Contact us for specific dates and availability.</p>
+                        <ul style="color: #caf0f8; list-style: none; margin-left: 0;">
+                            <li style="margin-bottom: 10px;"><i class="fas fa-check" style="color: #00b4d8; margin-right: 10px;"></i> Open Water Diver: Every Monday</li>
+                            <li style="margin-bottom: 10px;"><i class="fas fa-check" style="color: #00b4d8; margin-right: 10px;"></i> Advanced Open Water: Flexible scheduling</li>
+                            <li style="margin-bottom: 10px;"><i class="fas fa-check" style="color: #00b4d8; margin-right: 10px;"></i> Discover Scuba: Daily availability</li>
+                            <li><i class="fas fa-check" style="color: #00b4d8; margin-right: 10px;"></i> Rescue Diver: Monthly courses</li>
+                        </ul>
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: 40px;">
+                    <a href="contact.html" class="btn-course" style="width: auto; padding: 18px 45px; display: inline-flex;">
+                        <i class="fas fa-calendar-alt"></i> CHECK AVAILABILITY & BOOK
                     </a>
                 </div>
             </div>
@@ -302,131 +1102,345 @@
                             <div class="footer-logo-sub">DIVE CENTER</div>
                         </div>
                     </div>
-                    <p class="footer-description">Dar es Salaam's premier PADI-registered dive center.</p>
+                    <p class="footer-description">Dar es Salaam's premier PADI 5-Star Dive Center offering courses, dive trips, and equipment rental since 2010.</p>
                     <div class="social-links">
                         <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
                         <a href="https://instagram.com/thalassatz" class="social-link" target="_blank"><i class="fab fa-instagram"></i></a>
                         <a href="#" class="social-link"><i class="fab fa-tripadvisor"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
                     </div>
                 </div>
                 <div class="footer-col">
                     <h3>Contact Info</h3>
                     <div class="contact-info">
-                        <p><i class="fas fa-map-marker-alt"></i> <span>Shop 17C, Maga Beach, Dar es Salaam</span></p>
+                        <p><i class="fas fa-map-marker-alt"></i> <span>Shop 17C, Maga Beach, Masaki, Dar es Salaam, Tanzania</span></p>
                         <p><i class="fas fa-phone"></i> <span>+255 769 474 643</span></p>
                         <p><i class="fas fa-envelope"></i> <span>info@thalassatz.com</span></p>
+                        <p><i class="fas fa-clock"></i> <span>Open Daily: 8:00 AM - 6:00 PM</span></p>
                     </div>
                     <a href="https://wa.me/255769474643" class="whatsapp-link" target="_blank">
-                        <i class="fab fa-whatsapp"></i> WhatsApp
+                        <i class="fab fa-whatsapp"></i> Message us on WhatsApp
                     </a>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul style="list-style: none; color: #caf0f8;">
+                        <li style="margin-bottom: 12px;"><a href="courses.html" style="color: #caf0f8; text-decoration: none;">All Diving Courses</a></li>
+                        <li style="margin-bottom: 12px;"><a href="dives.html" style="color: #caf0f8; text-decoration: none;">Daily Dive Trips</a></li>
+                        <li style="margin-bottom: 12px;"><a href="snorkeling.html" style="color: #caf0f8; text-decoration: none;">Snorkeling Tours</a></li>
+                        <li style="margin-bottom: 12px;"><a href="about.html" style="color: #caf0f8; text-decoration: none;">About Our Center</a></li>
+                        <li><a href="contact.html" style="color: #caf0f8; text-decoration: none;">Contact & Location</a></li>
+                    </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2023 Thalassa Dive Center. PADI Registered Dive Center.</p>
+                <p>&copy; 2023 Thalassa Dive Center. PADI 5-Star Dive Center. All rights reserved. | <a href="#" style="color: #90e0ef; text-decoration: none;">Privacy Policy</a> | <a href="#" style="color: #90e0ef; text-decoration: none;">Terms of Service</a></p>
             </div>
         </div>
     </footer>
 
     <script>
         // JavaScript for Courses Page
-        const mobileMenu = document.getElementById('mobileMenu');
-        const navMenu = document.getElementById('navMenu');
-        mobileMenu.addEventListener('click', () => {
-            navMenu.classList.toggle('show');
-            mobileMenu.classList.toggle('fa-bars');
-            mobileMenu.classList.toggle('fa-times');
-        });
-        
-        const currentLang = document.getElementById('currentLang');
-        const languageDropdown = document.getElementById('languageDropdown');
-        currentLang.addEventListener('click', () => languageDropdown.classList.toggle('show'));
-        
-        document.addEventListener('click', (e) => {
-            if (!currentLang.contains(e.target) && !languageDropdown.contains(e.target)) {
-                languageDropdown.classList.remove('show');
-            }
-            if (!mobileMenu.contains(e.target) && !navMenu.contains(e.target) && window.innerWidth <= 992) {
-                navMenu.classList.remove('show');
-            }
-        });
-        
-        // Level card interactions
-        document.querySelectorAll('.level-card').forEach(card => {
-            card.addEventListener('mouseenter', () => {
-                card.style.transform = 'translateY(-15px) scale(1.05)';
-            });
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = 'translateY(0) scale(1)';
-            });
-        });
-        
-        // Scroll progress
-        window.addEventListener('scroll', () => {
-            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const scrolled = (winScroll / height) * 100;
-            document.getElementById('scrollProgress').style.width = scrolled + "%";
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu toggle
+            const mobileMenu = document.getElementById('mobileMenu');
+            const navMenu = document.getElementById('navMenu');
             
-            const header = document.getElementById('mainHeader');
-            header.classList.toggle('scrolled', window.scrollY > 100);
-            
-            const backToTop = document.getElementById('backToTop');
-            backToTop.classList.toggle('visible', window.scrollY > 500);
-        });
-        
-        document.getElementById('backToTop').addEventListener('click', (e) => {
-            e.preventDefault();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-        
-        // Course enrollment animation
-        document.querySelectorAll('.btn-course').forEach(btn => {
-            btn.addEventListener('click', function(e) {
-                if (!this.href.includes('#')) {
-                    e.preventDefault();
-                    // Create enrollment animation
-                    const enrollAnimation = document.createElement('div');
-                    enrollAnimation.className = 'enroll-animation';
-                    enrollAnimation.innerHTML = `
-                        <div class="animation-content">
-                            <i class="fas fa-graduation-cap"></i>
-                            <h3>Enrolling in Course...</h3>
-                            <p>Redirecting to booking page</p>
-                        </div>
-                    `;
-                    document.body.appendChild(enrollAnimation);
-                    
-                    setTimeout(() => {
-                        window.location.href = this.href;
-                    }, 1500);
+            mobileMenu.addEventListener('click', () => {
+                navMenu.classList.toggle('show');
+                const icon = mobileMenu.querySelector('i');
+                if (icon.classList.contains('fa-bars')) {
+                    icon.classList.replace('fa-bars', 'fa-times');
+                } else {
+                    icon.classList.replace('fa-times', 'fa-bars');
                 }
             });
+            
+            // Language switcher
+            const currentLang = document.getElementById('currentLang');
+            const languageDropdown = document.getElementById('languageDropdown');
+            const languageOptions = document.querySelectorAll('.language-option');
+            
+            currentLang.addEventListener('click', () => {
+                languageDropdown.classList.toggle('show');
+            });
+            
+            languageOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    const lang = this.getAttribute('data-lang');
+                    const langText = this.querySelector('span').textContent;
+                    
+                    // Update current language display
+                    currentLang.querySelector('span').textContent = lang.toUpperCase();
+                    
+                    // Update active state
+                    languageOptions.forEach(opt => opt.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Close dropdown
+                    languageDropdown.classList.remove('show');
+                    
+                    // In a real implementation, you would load language content here
+                    console.log(`Language changed to: ${langText}`);
+                });
+            });
+            
+            // Close dropdowns when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!currentLang.contains(e.target) && !languageDropdown.contains(e.target)) {
+                    languageDropdown.classList.remove('show');
+                }
+                if (!mobileMenu.contains(e.target) && !navMenu.contains(e.target) && window.innerWidth <= 992) {
+                    navMenu.classList.remove('show');
+                    const icon = mobileMenu.querySelector('i');
+                    if (icon.classList.contains('fa-times')) {
+                        icon.classList.replace('fa-times', 'fa-bars');
+                    }
+                }
+            });
+            
+            // Level card interactions
+            document.querySelectorAll('.level-card').forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    card.style.transform = 'translateY(-15px)';
+                });
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'translateY(0)';
+                });
+            });
+            
+            // Course enrollment buttons
+            document.querySelectorAll('.enroll-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const courseName = this.getAttribute('data-course');
+                    
+                    // Create enrollment modal
+                    const modal = document.createElement('div');
+                    modal.className = 'enroll-modal';
+                    modal.innerHTML = `
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h3><i class="fas fa-graduation-cap"></i> Enroll in ${courseName}</h3>
+                                <button class="modal-close">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                                <p>You are about to enroll in <strong>${courseName}</strong>.</p>
+                                <p>You will be redirected to our booking page to complete your enrollment.</p>
+                                <div class="modal-buttons">
+                                    <button class="modal-btn cancel-btn">Cancel</button>
+                                    <a href="contact.html?course=${encodeURIComponent(courseName)}" class="modal-btn confirm-btn">Continue to Booking</a>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    
+                    // Add modal styles
+                    const modalStyle = document.createElement('style');
+                    modalStyle.textContent = `
+                        .enroll-modal {
+                            position: fixed;
+                            top: 0;
+                            left: 0;
+                            width: 100%;
+                            height: 100%;
+                            background: rgba(2, 62, 138, 0.95);
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            z-index: 10000;
+                            animation: fadeIn 0.3s ease;
+                        }
+                        .modal-content {
+                            background: #0a192f;
+                            border-radius: 20px;
+                            padding: 30px;
+                            max-width: 500px;
+                            width: 90%;
+                            border: 1px solid rgba(0, 180, 216, 0.3);
+                            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+                        }
+                        .modal-header {
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+                            margin-bottom: 25px;
+                            padding-bottom: 15px;
+                            border-bottom: 1px solid rgba(0, 180, 216, 0.2);
+                        }
+                        .modal-header h3 {
+                            color: white;
+                            font-size: 1.5rem;
+                            display: flex;
+                            align-items: center;
+                            gap: 10px;
+                        }
+                        .modal-header h3 i {
+                            color: #00b4d8;
+                        }
+                        .modal-close {
+                            background: none;
+                            border: none;
+                            color: #90e0ef;
+                            font-size: 2rem;
+                            cursor: pointer;
+                            line-height: 1;
+                        }
+                        .modal-body {
+                            color: #caf0f8;
+                        }
+                        .modal-body p {
+                            margin-bottom: 15px;
+                            line-height: 1.6;
+                        }
+                        .modal-buttons {
+                            display: flex;
+                            gap: 15px;
+                            margin-top: 30px;
+                        }
+                        .modal-btn {
+                            flex: 1;
+                            padding: 15px;
+                            border-radius: 10px;
+                            font-weight: 600;
+                            cursor: pointer;
+                            text-align: center;
+                            text-decoration: none;
+                            transition: all 0.3s;
+                        }
+                        .cancel-btn {
+                            background: rgba(255, 255, 255, 0.1);
+                            color: #e6f1ff;
+                            border: 1px solid rgba(255, 255, 255, 0.2);
+                        }
+                        .cancel-btn:hover {
+                            background: rgba(255, 255, 255, 0.2);
+                        }
+                        .confirm-btn {
+                            background: linear-gradient(135deg, #00b4d8, #0077b6);
+                            color: white;
+                            border: none;
+                        }
+                        .confirm-btn:hover {
+                            transform: translateY(-3px);
+                            box-shadow: 0 10px 20px rgba(0, 180, 216, 0.3);
+                        }
+                    `;
+                    
+                    document.head.appendChild(modalStyle);
+                    document.body.appendChild(modal);
+                    
+                    // Modal close functionality
+                    const closeBtn = modal.querySelector('.modal-close');
+                    const cancelBtn = modal.querySelector('.cancel-btn');
+                    
+                    const closeModal = () => {
+                        modal.style.animation = 'fadeIn 0.3s ease reverse';
+                        setTimeout(() => {
+                            document.body.removeChild(modal);
+                        }, 300);
+                    };
+                    
+                    closeBtn.addEventListener('click', closeModal);
+                    cancelBtn.addEventListener('click', closeModal);
+                    
+                    // Close modal when clicking outside
+                    modal.addEventListener('click', (e) => {
+                        if (e.target === modal) {
+                            closeModal();
+                        }
+                    });
+                });
+            });
+            
+            // Scroll progress and back to top
+            const scrollProgress = document.getElementById('scrollProgress');
+            const backToTop = document.getElementById('backToTop');
+            const header = document.getElementById('mainHeader');
+            
+            window.addEventListener('scroll', () => {
+                // Scroll progress
+                const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrolled = (winScroll / height) * 100;
+                scrollProgress.style.width = scrolled + "%";
+                
+                // Header background on scroll
+                if (window.scrollY > 100) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+                
+                // Back to top button
+                if (window.scrollY > 500) {
+                    backToTop.classList.add('visible');
+                } else {
+                    backToTop.classList.remove('visible');
+                }
+            });
+            
+            // Back to top functionality
+            backToTop.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    if (this.getAttribute('href') !== '#') {
+                        e.preventDefault();
+                        const targetId = this.getAttribute('href');
+                        if (targetId === '#') return;
+                        
+                        const targetElement = document.querySelector(targetId);
+                        if (targetElement) {
+                            window.scrollTo({
+                                top: targetElement.offsetTop - 100,
+                                behavior: 'smooth'
+                            });
+                            
+                            // Close mobile menu if open
+                            if (window.innerWidth <= 992 && navMenu.classList.contains('show')) {
+                                navMenu.classList.remove('show');
+                                const icon = mobileMenu.querySelector('i');
+                                if (icon.classList.contains('fa-times')) {
+                                    icon.classList.replace('fa-times', 'fa-bars');
+                                }
+                            }
+                        }
+                    }
+                });
+            });
+            
+            // Instructor card hover effect
+            document.querySelectorAll('.instructor-card').forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    const avatar = this.querySelector('.instructor-avatar');
+                    avatar.style.transform = 'scale(1.1)';
+                    avatar.style.transition = 'transform 0.3s ease';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    const avatar = this.querySelector('.instructor-avatar');
+                    avatar.style.transform = 'scale(1)';
+                });
+            });
+            
+            // Table row hover effect
+            document.querySelectorAll('.table-row:not(.header)').forEach(row => {
+                row.addEventListener('mouseenter', function() {
+                    this.style.backgroundColor = 'rgba(0, 180, 216, 0.08)';
+                });
+                
+                row.addEventListener('mouseleave', function() {
+                    this.style.backgroundColor = '';
+                });
+            });
         });
-        
-        // Add animation styles
-        const style = document.createElement('style');
-        style.textContent = `
-            .enroll-animation {
-                position: fixed;
-                top: 0; left: 0;
-                width: 100%; height: 100%;
-                background: rgba(2,62,138,0.95);
-                display: flex; align-items: center;
-                justify-content: center;
-                z-index: 10000;
-            }
-            .animation-content {
-                text-align: center;
-                color: white;
-            }
-            .animation-content i {
-                font-size: 80px;
-                color: #00b4d8;
-                margin-bottom: 20px;
-                animation: float 2s ease-in-out infinite;
-            }
-        `;
-        document.head.appendChild(style);
     </script>
 </body>
 </html>
