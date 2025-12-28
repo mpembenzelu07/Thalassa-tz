@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thalassa Dive Center - Dar es Salaam</title>
+    <title>Snorkeling Tours | Thalassa Dive Center - Dar es Salaam</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Open+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         /* ===== CUSTOM PROPERTIES ===== */
         :root {
@@ -12,6 +13,7 @@
             --ocean-blue: #023e8a;
             --teal: #00b4d8;
             --light-teal: #90e0ef;
+            --pale-blue: #caf0f8;
             --white: #ffffff;
             --gradient-teal: linear-gradient(135deg, #00b4d8, #0077b6);
             --gradient-blue: linear-gradient(135deg, #023e8a, #03045e);
@@ -24,12 +26,21 @@
             box-sizing: border-box;
         }
         
+        html {
+            scroll-behavior: smooth;
+        }
+        
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Open Sans', sans-serif;
             color: #333;
             line-height: 1.6;
             background: var(--deep-blue);
             overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
         }
         
         .container {
@@ -38,78 +49,120 @@
             padding: 0 20px;
         }
         
-        /* ===== MULTILANGUAGE SWITCH (LEFT SIDE) ===== */
-        .language-switch {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            z-index: 1001;
-            display: flex;
-            gap: 10px;
+        section {
+            padding: 100px 0;
         }
         
-        .lang-btn {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(0, 180, 216, 0.3);
-            color: var(--white);
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 14px;
-            cursor: pointer;
-            transition: all 0.3s;
-            backdrop-filter: blur(10px);
-            font-weight: bold;
+        /* ===== ANIMATIONS ===== */
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
         }
         
-        .lang-btn:hover {
-            background: rgba(0, 180, 216, 0.3);
-            transform: translateY(-2px);
+        @keyframes pulseGlow {
+            0%, 100% { 
+                box-shadow: 0 0 20px rgba(0, 180, 216, 0.3),
+                           0 0 40px rgba(0, 119, 182, 0.2);
+            }
+            50% { 
+                box-shadow: 0 0 40px rgba(0, 180, 216, 0.6),
+                           0 0 80px rgba(0, 119, 182, 0.4);
+            }
         }
         
-        .lang-btn.active {
-            background: var(--teal);
-            color: var(--white);
-            box-shadow: 0 0 15px rgba(0, 180, 216, 0.4);
+        @keyframes neonPulse {
+            0%, 100% { 
+                text-shadow: 0 0 10px var(--teal),
+                           0 0 20px var(--teal),
+                           0 0 30px #0077b6;
+            }
+            50% { 
+                text-shadow: 0 0 20px var(--teal),
+                           0 0 40px var(--teal),
+                           0 0 60px #0077b6,
+                           0 0 80px var(--ocean-blue);
+            }
         }
         
-        /* ===== HEADER ===== */
+        @keyframes bubbleFloat {
+            0% { transform: translateY(100vh) scale(0); opacity: 0; }
+            10% { opacity: 0.7; }
+            90% { opacity: 0.7; }
+            100% { transform: translateY(-100px) scale(1); opacity: 0; }
+        }
+        
+        @keyframes ripple {
+            0% { transform: scale(0); opacity: 1; }
+            100% { transform: scale(4); opacity: 0; }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* ===== HEADER (MATCHING INDEX.HTML) ===== */
         header {
-            background: linear-gradient(135deg, var(--ocean-blue), var(--deep-blue));
-            position: relative;
-            padding: 20px 0;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            background: rgba(10, 25, 47, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0, 180, 216, 0.2);
+            transition: all 0.3s;
+        }
+        
+        header.scrolled {
+            background: rgba(2, 62, 138, 0.98);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
         
         .header-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 15px 0;
         }
         
         .logo {
             display: flex;
             align-items: center;
             text-decoration: none;
-            z-index: 1002;
+            position: relative;
+            transition: transform 0.3s;
+        }
+        
+        .logo:hover {
+            transform: scale(1.05);
         }
         
         .logo-icon {
             font-size: 32px;
             color: var(--teal);
             margin-right: 15px;
+            animation: float 6s ease-in-out infinite;
         }
         
         .logo-text {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
             color: var(--white);
         }
         
         .logo-main {
             font-size: 28px;
-            font-weight: 900;
-            letter-spacing: 1px;
+            line-height: 1;
             background: linear-gradient(45deg, var(--teal), var(--light-teal));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            animation: neonPulse 3s ease-in-out infinite;
         }
         
         .logo-sub {
@@ -117,23 +170,18 @@
             color: var(--light-teal);
             letter-spacing: 3px;
             text-transform: uppercase;
+            margin-top: 2px;
         }
         
-        /* ===== NAVIGATION (CENTERED ON DESKTOP) ===== */
-        .main-nav {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-        
-        .nav-links {
+        /* ===== NAVIGATION (CENTERED LIKE INDEX.HTML) ===== */
+        nav ul {
             display: flex;
             list-style: none;
             gap: 30px;
             align-items: center;
         }
         
-        .nav-links a {
+        nav a {
             text-decoration: none;
             color: var(--white);
             font-weight: 600;
@@ -145,7 +193,7 @@
             transition: all 0.3s;
         }
         
-        .nav-links a::before {
+        nav a::before {
             content: '';
             position: absolute;
             bottom: 0;
@@ -156,17 +204,17 @@
             transition: width 0.3s;
         }
         
-        .nav-links a:hover::before,
-        .nav-links a.active::before {
+        nav a:hover::before,
+        nav a.active::before {
             width: 100%;
         }
         
-        .nav-links a:hover,
-        .nav-links a.active {
+        nav a:hover,
+        nav a.active {
             color: var(--teal);
         }
         
-        .book-now-btn {
+        .btn-header {
             background: var(--gradient-teal);
             color: var(--white);
             padding: 12px 30px;
@@ -182,267 +230,273 @@
             cursor: pointer;
         }
         
-        .book-now-btn:hover {
+        .btn-header:hover {
             transform: translateY(-3px);
             box-shadow: 0 10px 20px rgba(0, 180, 216, 0.3);
         }
         
-        /* ===== HAMBURGER MENU (MOBILE) ===== */
-        .hamburger-menu {
-            display: none;
-            font-size: 24px;
-            color: var(--white);
-            cursor: pointer;
-            z-index: 1002;
-            transition: all 0.3s;
+        /* ===== LANGUAGE SWITCHER (RIGHT SIDE LIKE INDEX.HTML) ===== */
+        .language-switcher {
+            position: relative;
+            margin-left: 20px;
         }
         
-        .hamburger-menu:hover {
-            color: var(--teal);
-        }
-        
-        /* ===== MOBILE NAV OVERLAY ===== */
-        .mobile-nav-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(2, 62, 138, 0.98);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            flex-direction: column;
-            justify-content: center;
+        .current-language {
+            display: flex;
             align-items: center;
-        }
-        
-        .mobile-nav-links {
-            list-style: none;
-            text-align: center;
-        }
-        
-        .mobile-nav-links li {
-            margin: 25px 0;
-        }
-        
-        .mobile-nav-links a {
-            text-decoration: none;
-            color: var(--white);
-            font-size: 24px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            transition: all 0.3s;
-            display: block;
-            padding: 10px 20px;
-        }
-        
-        .mobile-nav-links a:hover,
-        .mobile-nav-links a.active {
-            color: var(--teal);
-            transform: scale(1.1);
-        }
-        
-        .close-menu {
-            position: absolute;
-            top: 30px;
-            right: 30px;
-            font-size: 30px;
-            color: var(--white);
+            gap: 8px;
+            padding: 8px 15px;
+            background: rgba(0, 180, 216, 0.1);
+            border-radius: 20px;
             cursor: pointer;
             transition: all 0.3s;
+            color: var(--white);
+            font-weight: 600;
+            border: 1px solid rgba(0, 180, 216, 0.3);
         }
         
-        .close-menu:hover {
+        .current-language:hover {
+            background: rgba(0, 180, 216, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .language-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 180px;
+            background: rgba(10, 25, 47, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            padding: 10px;
+            margin-top: 10px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s;
+            z-index: 1001;
+            border: 1px solid rgba(0, 180, 216, 0.2);
+        }
+        
+        .language-dropdown.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .language-option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: var(--white);
+        }
+        
+        .language-option:hover {
+            background: rgba(0, 180, 216, 0.2);
+            transform: translateX(5px);
+        }
+        
+        .language-option.active {
+            background: var(--gradient-teal);
+        }
+        
+        .mobile-menu {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--white);
+            transition: all 0.3s;
+        }
+        
+        .mobile-menu:hover {
             color: var(--teal);
         }
         
         /* ===== HERO SECTION ===== */
-        .hero {
-            min-height: 70vh;
-            background: linear-gradient(rgba(2, 62, 138, 0.8), rgba(0, 119, 182, 0.7)), 
+        .snorkeling-hero {
+            height: 90vh;
+            background: linear-gradient(rgba(2, 62, 138, 0.7), rgba(0, 119, 182, 0.6)), 
                         url('https://images.unsplash.com/photo-1536922246289-88c42f957773?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80');
             background-size: cover;
             background-position: center;
             display: flex;
             align-items: center;
+            justify-content: center;
+            text-align: center;
             color: var(--white);
-            padding: 100px 0;
+            margin-top: 80px;
+            position: relative;
+            overflow: hidden;
         }
         
         .hero-content {
+            position: relative;
+            z-index: 2;
             max-width: 800px;
-            margin: 0 auto;
-            text-align: center;
+            padding: 0 20px;
+            animation: fadeInUp 1s ease-out;
         }
         
-        .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 20px;
-            font-weight: 900;
-        }
-        
-        .hero p {
-            font-size: 1.2rem;
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 30px;
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
             margin-bottom: 30px;
+            border: 1px solid rgba(255,255,255,0.2);
+            animation: pulseGlow 2s infinite;
+        }
+        
+        .hero-badge i {
+            color: var(--teal);
+            font-size: 18px;
+        }
+        
+        .hero-content h1 {
+            font-size: 4.5rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            font-family: 'Montserrat', sans-serif;
+            animation: neonPulse 3s ease-in-out infinite;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .hero-content p {
+            font-size: 1.5rem;
+            margin-bottom: 40px;
             opacity: 0.9;
         }
         
-        /* ===== SECTIONS ===== */
-        section {
-            padding: 80px 0;
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
         }
         
+        /* ===== SECTION TITLE ===== */
         .section-title {
             text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: 60px;
+            position: relative;
         }
         
         .section-title h2 {
-            font-size: 2.5rem;
+            font-size: 3rem;
             color: var(--white);
             margin-bottom: 15px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+            text-transform: uppercase;
+            background: linear-gradient(45deg, var(--teal), var(--light-teal));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
         
         .section-title p {
             color: var(--light-teal);
+            font-size: 1.2rem;
             max-width: 600px;
             margin: 0 auto;
         }
         
-        /* ===== PADI COURSES SECTION ===== */
-        .courses-section {
+        /* ===== SNORKELING TOURS ===== */
+        .tours-section {
             background: linear-gradient(180deg, var(--deep-blue) 0%, var(--ocean-blue) 100%);
         }
         
-        .courses-grid {
+        .tours-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-bottom: 50px;
-        }
-        
-        .course-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            padding: 30px;
-            border: 1px solid rgba(0, 180, 216, 0.2);
-            transition: all 0.3s;
-        }
-        
-        .course-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--teal);
-            box-shadow: 0 15px 30px rgba(0, 180, 216, 0.2);
-        }
-        
-        .course-icon {
-            font-size: 40px;
-            color: var(--teal);
-            margin-bottom: 20px;
-        }
-        
-        .course-card h3 {
-            color: var(--white);
-            margin-bottom: 15px;
-            font-size: 1.3rem;
-        }
-        
-        .course-card p {
-            color: var(--light-teal);
-            margin-bottom: 20px;
-        }
-        
-        .course-list {
-            list-style: none;
-            margin: 20px 0;
-        }
-        
-        .course-list li {
-            color: var(--light-teal);
-            margin-bottom: 10px;
-            padding-left: 25px;
-            position: relative;
-        }
-        
-        .course-list li::before {
-            content: '✓';
-            position: absolute;
-            left: 0;
-            color: var(--teal);
-            font-weight: bold;
-        }
-        
-        /* ===== DIVE TRIPS SECTION ===== */
-        .trips-section {
-            background: linear-gradient(180deg, var(--ocean-blue) 0%, var(--deep-blue) 100%);
-        }
-        
-        .trips-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 30px;
         }
         
-        .trip-card {
+        .tour-card {
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
-            border-radius: 15px;
+            border-radius: 20px;
             overflow: hidden;
             border: 1px solid rgba(0, 180, 216, 0.2);
-            transition: all 0.3s;
+            transition: all 0.5s;
+            animation: fadeInUp 0.8s ease-out;
         }
         
-        .trip-card:hover {
-            transform: translateY(-10px);
+        .tour-card:hover {
+            transform: translateY(-15px);
             border-color: var(--teal);
+            box-shadow: 0 20px 40px rgba(0, 180, 216, 0.3);
         }
         
-        .trip-image {
+        .tour-image {
             height: 200px;
             overflow: hidden;
         }
         
-        .trip-image img {
+        .tour-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             transition: transform 0.5s;
         }
         
-        .trip-card:hover .trip-image img {
+        .tour-card:hover .tour-image img {
             transform: scale(1.1);
         }
         
-        .trip-content {
-            padding: 25px;
+        .tour-content {
+            padding: 30px;
         }
         
-        .trip-content h3 {
+        .tour-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .tour-title {
             color: var(--white);
-            margin-bottom: 10px;
+            font-size: 1.5rem;
+            margin: 0;
         }
         
-        .trip-content p {
-            color: var(--light-teal);
+        .tour-badge {
+            background: var(--gradient-teal);
+            color: var(--white);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .tour-description {
+            color: var(--pale-blue);
             margin-bottom: 20px;
         }
         
-        .trip-list {
+        .tour-features {
             list-style: none;
-            margin: 15px 0;
+            margin-bottom: 25px;
         }
         
-        .trip-list li {
+        .tour-features li {
             color: var(--light-teal);
             margin-bottom: 8px;
             padding-left: 25px;
             position: relative;
         }
         
-        .trip-list li::before {
+        .tour-features li::before {
             content: '✓';
             position: absolute;
             left: 0;
@@ -450,559 +504,625 @@
             font-weight: bold;
         }
         
-        /* ===== EQUIPMENT SECTION ===== */
-        .equipment-section {
+        .tour-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .tour-price {
+            font-size: 1.8rem;
+            color: var(--white);
+            font-weight: 700;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .tour-price span {
+            font-size: 0.9rem;
+            color: var(--light-teal);
+            font-weight: 400;
+        }
+        
+        /* ===== ACTIVITY FINDER ===== */
+        .activity-finder {
+            background: linear-gradient(180deg, var(--ocean-blue) 0%, var(--deep-blue) 100%);
+        }
+        
+        .finder-container {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            border: 1px solid rgba(0, 180, 216, 0.2);
+        }
+        
+        .finder-form {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .form-group label {
+            color: var(--white);
+            font-weight: 600;
+        }
+        
+        .form-control {
+            background: rgba(0, 180, 216, 0.1);
+            border: 1px solid rgba(0, 180, 216, 0.3);
+            color: var(--white);
+            padding: 12px 15px;
+            border-radius: 8px;
+            font-family: inherit;
+            transition: all 0.3s;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--teal);
+            box-shadow: 0 0 0 3px rgba(0, 180, 216, 0.2);
+        }
+        
+        .finder-results {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .result-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 25px;
+            border: 1px solid rgba(0, 180, 216, 0.2);
+            transition: all 0.3s;
+        }
+        
+        .result-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--teal);
+            box-shadow: 0 10px 20px rgba(0, 180, 216, 0.2);
+        }
+        
+        /* ===== DIFFICULTY LEVELS ===== */
+        .difficulty-section {
             background: linear-gradient(180deg, var(--deep-blue) 0%, var(--ocean-blue) 100%);
         }
         
-        .equipment-content {
+        .difficulty-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-            align-items: center;
+            gap: 30px;
         }
         
-        .equipment-text {
-            color: var(--white);
+        .difficulty-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            border: 1px solid rgba(0, 180, 216, 0.2);
+            transition: all 0.3s;
         }
         
-        .equipment-text h3 {
-            font-size: 2rem;
-            margin-bottom: 20px;
+        .difficulty-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--teal);
+            box-shadow: 0 15px 30px rgba(0, 180, 216, 0.2);
+        }
+        
+        .difficulty-icon {
+            font-size: 40px;
             color: var(--teal);
+            margin-bottom: 20px;
         }
         
-        .equipment-text p {
-            color: var(--light-teal);
-            margin-bottom: 20px;
+        .difficulty-card h3 {
+            color: var(--white);
+            margin-bottom: 15px;
+        }
+        
+        .difficulty-bars {
+            display: flex;
+            gap: 5px;
+            justify-content: center;
+            margin: 15px 0;
+        }
+        
+        .difficulty-bar {
+            width: 20px;
+            height: 6px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 3px;
+            transition: all 0.3s;
+        }
+        
+        .difficulty-bar.active {
+            background: var(--teal);
+            box-shadow: 0 0 10px var(--teal);
+        }
+        
+        /* ===== MARINE LIFE GUIDE ===== */
+        .marine-guide-section {
+            background: linear-gradient(180deg, var(--ocean-blue) 0%, var(--deep-blue) 100%);
+        }
+        
+        .marine-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        
+        .marine-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid rgba(0, 180, 216, 0.2);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .marine-card:hover {
+            transform: translateY(-5px) scale(1.05);
+            border-color: var(--teal);
+        }
+        
+        .marine-icon {
+            font-size: 50px;
+            margin-bottom: 15px;
+        }
+        
+        .marine-card h3 {
+            color: var(--white);
+            margin-bottom: 10px;
         }
         
         /* ===== BUTTONS ===== */
-        .btn {
-            display: inline-block;
-            padding: 12px 30px;
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 35px;
             background: var(--gradient-teal);
             color: var(--white);
             text-decoration: none;
-            border-radius: 30px;
-            font-weight: 600;
-            text-transform: uppercase;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 16px;
             letter-spacing: 1px;
             transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
             border: none;
             cursor: pointer;
         }
         
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 180, 216, 0.3);
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
         }
         
-        .btn-outline {
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 180, 216, 0.4);
+        }
+        
+        .btn-secondary {
             background: transparent;
             border: 2px solid var(--teal);
             color: var(--teal);
         }
         
-        .btn-outline:hover {
+        .btn-secondary:hover {
             background: var(--teal);
             color: var(--white);
         }
         
-        .btn-arrow {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
+        /* ===== BUBBLES ===== */
+        .bubble {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, rgba(0,180,216,0.2) 100%);
+            z-index: 1;
+            animation: bubbleFloat linear infinite;
+            pointer-events: none;
         }
         
-        .btn-arrow::after {
-            content: '→';
-            font-size: 18px;
-            transition: transform 0.3s;
-        }
-        
-        .btn-arrow:hover::after {
-            transform: translateX(5px);
-        }
-        
-        /* ===== HELP SECTION ===== */
-        .help-section {
-            background: linear-gradient(135deg, var(--ocean-blue), var(--deep-blue));
-            text-align: center;
-            color: var(--white);
-            padding: 100px 0;
-        }
-        
-        .help-content {
-            max-width: 600px;
-            margin: 0 auto;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            padding: 50px;
-            border-radius: 20px;
-            border: 1px solid rgba(0, 180, 216, 0.2);
-        }
-        
-        .help-icon {
-            font-size: 50px;
-            color: var(--teal);
-            margin-bottom: 20px;
-        }
-        
-        /* ===== FOOTER ===== */
-        footer {
-            background: var(--deep-blue);
-            color: var(--white);
-            padding: 50px 0;
-            text-align: center;
-            border-top: 1px solid rgba(0, 180, 216, 0.2);
-        }
-        
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin: 30px 0;
-            flex-wrap: wrap;
-        }
-        
-        .footer-links a {
-            color: var(--light-teal);
-            text-decoration: none;
-            transition: color 0.3s;
-            font-weight: 600;
-        }
-        
-        .footer-links a:hover {
-            color: var(--teal);
-        }
-        
-        .copyright {
-            color: var(--light-teal);
-            opacity: 0.7;
-            font-size: 14px;
-            margin-top: 20px;
-        }
-        
-        /* ===== RESPONSIVE DESIGN ===== */
+        /* ===== RESPONSIVE ===== */
         @media (max-width: 1200px) {
-            .main-nav {
+            .hero-content h1 {
+                font-size: 3.5rem;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            nav ul {
                 display: none;
+                position: fixed;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background: rgba(2, 62, 138, 0.98);
+                backdrop-filter: blur(10px);
+                flex-direction: column;
+                padding: 30px;
+                box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+                z-index: 1000;
+                height: calc(100vh - 80px);
+                overflow-y: auto;
             }
             
-            .hamburger-menu {
+            nav ul.show {
+                display: flex;
+            }
+            
+            .mobile-menu {
                 display: block;
+                order: 2;
             }
             
-            .header-container {
-                justify-content: space-between;
+            .hero-content h1 {
+                font-size: 3rem;
             }
             
-            .book-now-btn {
-                display: none;
+            .section-title h2 {
+                font-size: 2.5rem;
             }
         }
         
         @media (max-width: 768px) {
-            .hero h1 {
+            .hero-content h1 {
                 font-size: 2.5rem;
+            }
+            
+            .hero-content p {
+                font-size: 1.2rem;
+            }
+            
+            .finder-form {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero-content h1 {
+                font-size: 2rem;
             }
             
             .section-title h2 {
                 font-size: 2rem;
             }
             
-            .courses-grid,
-            .trips-grid {
+            .finder-container {
+                padding: 20px;
+            }
+            
+            .marine-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .tours-grid {
                 grid-template-columns: 1fr;
             }
-            
-            .equipment-content {
-                grid-template-columns: 1fr;
-            }
-            
-            .footer-links {
-                flex-direction: column;
-                gap: 15px;
-            }
-            
-            .help-content {
-                padding: 30px;
-            }
-        }
-        
-        @media (max-width: 576px) {
-            .language-switch {
-                top: 15px;
-                left: 15px;
-            }
-            
-            .hero h1 {
-                font-size: 2rem;
-            }
-            
-            .hero p {
-                font-size: 1rem;
-            }
-            
-            .logo-main {
-                font-size: 22px;
-            }
-            
-            .logo-icon {
-                font-size: 24px;
-                margin-right: 10px;
-            }
-        }
-        
-        /* ===== LANGUAGE CONTENT ===== */
-        .content-english {
-            display: block;
-        }
-        
-        .content-swahili {
-            display: none;
-        }
-        
-        body.swahili .content-english {
-            display: none;
-        }
-        
-        body.swahili .content-swahili {
-            display: block;
         }
     </style>
 </head>
-<body class="english">
-    <!-- Multilanguage Switch (Left Side) - Only EN/SWA -->
-    <div class="language-switch">
-        <button class="lang-btn active" data-lang="en">EN</button>
-        <button class="lang-btn" data-lang="sw">SWA</button>
-    </div>
-
-    <!-- Header -->
-    <header>
+<body>
+    <!-- Header (EXACTLY LIKE INDEX.HTML) -->
+    <header id="mainHeader">
         <div class="container header-container">
-            <!-- Logo -->
             <a href="index.html" class="logo">
                 <i class="fas fa-water logo-icon"></i>
                 <div class="logo-text">
-                    <div class="logo-main content-english">THALASSA DIVE CENTER</div>
-                    <div class="logo-main content-swahili">KITUO CHA KUZAMA THALASSA</div>
-                    <div class="logo-sub content-english">PREMIUM DIVING SERVICES</div>
-                    <div class="logo-sub content-swahili">HUDUMA BORA ZA KUZAMA</div>
+                    <div class="logo-main">THALASSA</div>
+                    <div class="logo-sub">DIVE CENTER</div>
                 </div>
             </a>
             
-            <!-- Navigation (Centered on Desktop) -->
-            <nav class="main-nav">
-                <ul class="nav-links">
-                    <li><a href="#" class="active content-english">Home</a><a href="#" class="active content-swahili">Nyumbani</a></li>
-                    <li><a href="#" class="content-english">Services</a><a href="#" class="content-swahili">Huduma</a></li>
-                    <li><a href="#" class="content-english">Courses</a><a href="#" class="content-swahili">Kozi</a></li>
-                    <li><a href="#" class="content-english">Dive Trips</a><a href="#" class="content-swahili">Safari za Kuzama</a></li>
-                    <li><a href="#" class="content-english">Snorkelling</a><a href="#" class="content-swahili">Snorkeling</a></li>
-                    <li><a href="#" class="content-english">About</a><a href="#" class="content-swahili">Kuhusu</a></li>
-                    <li><a href="#" class="book-now-btn content-english">Book Now</a><a href="#" class="book-now-btn content-swahili">Nunua Sasa</a></li>
+            <nav>
+                <ul id="navMenu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="courses.html">Courses</a></li>
+                    <li><a href="dives.html">Dive Trips</a></li>
+                    <li><a href="snorkeling.html" class="active">Snorkeling</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html" class="btn-header">Book Now</a></li>
                 </ul>
             </nav>
             
-            <!-- Hamburger Menu (Mobile) -->
-            <div class="hamburger-menu" id="hamburgerMenu">
-                <i class="fas fa-bars"></i>
+            <!-- Language Switcher (EXACTLY LIKE INDEX.HTML) -->
+            <div class="language-switcher">
+                <div class="current-language" id="currentLang">
+                    <i class="fas fa-globe"></i>
+                    <span>EN</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="language-dropdown" id="languageDropdown">
+                    <div class="language-option active" data-lang="en">
+                        <i class="fas fa-language"></i>
+                        <span>English</span>
+                    </div>
+                    <div class="language-option" data-lang="sw">
+                        <i class="fas fa-language"></i>
+                        <span>Swahili</span>
+                    </div>
+                </div>
             </div>
             
-            <!-- Book Now Button (Desktop) -->
-            <a href="#" class="book-now-btn content-english" id="desktopBookBtn">Book Now</a>
-            <a href="#" class="book-now-btn content-swahili" id="desktopBookBtnSw">Nunua Sasa</a>
-        </div>
-        
-        <!-- Mobile Navigation Overlay -->
-        <div class="mobile-nav-overlay" id="mobileNavOverlay">
-            <div class="close-menu" id="closeMenu">
-                <i class="fas fa-times"></i>
+            <div class="mobile-menu" id="mobileMenu">
+                <i class="fas fa-bars"></i>
             </div>
-            <ul class="mobile-nav-links">
-                <li><a href="#" class="active content-english">Home</a><a href="#" class="active content-swahili">Nyumbani</a></li>
-                <li><a href="#" class="content-english">Services</a><a href="#" class="content-swahili">Huduma</a></li>
-                <li><a href="#" class="content-english">Courses</a><a href="#" class="content-swahili">Kozi</a></li>
-                <li><a href="#" class="content-english">Dive Trips</a><a href="#" class="content-swahili">Safari za Kuzama</a></li>
-                <li><a href="#" class="content-english">Snorkelling</a><a href="#" class="content-swahili">Snorkeling</a></li>
-                <li><a href="#" class="content-english">About</a><a href="#" class="content-swahili">Kuhusu</a></li>
-                <li><a href="#" class="book-now-btn content-english" style="margin-top: 30px;">Book Now</a><a href="#" class="book-now-btn content-swahili" style="margin-top: 30px;">Nunua Sasa</a></li>
-            </ul>
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <h1 class="content-english">Experience World-Class Diving in Dar es Salaam</h1>
-                <h1 class="content-swahili">Pata Uzoefu wa Kuzama wa Kimaandazi Dar es Salaam</h1>
-                <p class="content-english">Join our PADI certified professionals for unforgettable underwater adventures. Discover the vibrant marine life of Tanzania's beautiful coast.</p>
-                <p class="content-swahili">Jiunge na wataalamu wetu wenye vyeti vya PADI kwa ajili ya safari zisizosahaulika chini ya maji. Gundua maisha ya baharini ya pwani nzuri ya Tanzania.</p>
-                <a href="#" class="btn content-english">Book Your Dive</a>
-                <a href="#" class="btn content-swahili">Nunua Kuzama Kwako</a>
+    <!-- Snorkeling Hero -->
+    <section class="snorkeling-hero">
+        <!-- Background bubbles will be added by JavaScript -->
+        <div class="hero-content">
+            <div class="hero-badge">
+                <i class="fas fa-swimmer"></i>
+                <span>FAMILY FRIENDLY | ALL AGES WELCOME</span>
+            </div>
+            <h1>SNORKELING ADVENTURES</h1>
+            <p>Discover Dar es Salaam's vibrant marine life from the surface. Perfect for families, beginners, and anyone wanting to explore without diving deep.</p>
+            
+            <div class="hero-buttons">
+                <a href="#tours" class="btn-primary">
+                    <i class="fas fa-water"></i>
+                    VIEW TOURS
+                </a>
+                <a href="#activity-finder" class="btn-primary btn-secondary">
+                    <i class="fas fa-search"></i>
+                    FIND YOUR TOUR
+                </a>
             </div>
         </div>
     </section>
 
-    <!-- PADI Certification Courses -->
-    <section class="courses-section">
+    <!-- Snorkeling Tours -->
+    <section class="tours-section" id="tours">
         <div class="container">
             <div class="section-title">
-                <h2 class="content-english">PADI CERTIFICATION COURSES</h2>
-                <h2 class="content-swahili">KOZI ZA USHAHIDI WA PADI</h2>
-                <p class="content-english">Become a certified diver with our internationally recognized PADI courses</p>
-                <p class="content-swahili">Kuwa msafiri aliyesajiliwa na kozi zetu za PADI zinazotambulika kimataifa</p>
+                <h2>POPULAR SNORKELING TOURS</h2>
+                <p>Choose from our curated selection of snorkeling adventures around Dar es Salaam</p>
             </div>
             
-            <div class="courses-grid">
-                <div class="course-card">
-                    <div class="course-icon">
-                        <i class="fas fa-water"></i>
+            <div class="tours-grid">
+                <!-- Tour 1 -->
+                <div class="tour-card">
+                    <div class="tour-image">
+                        <img src="https://images.unsplash.com/photo-1536922246289-88c42f957773?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80" alt="Bongoyo Island">
                     </div>
-                    <h3 class="content-english">Discover Scuba Diving</h3>
-                    <h3 class="content-swahili">Gundua Kuzama Scuba</h3>
-                    <p class="content-english">Introductory experience for beginners. No certification needed.</p>
-                    <p class="content-swahili">Uzoefu wa utangulizi kwa wanaoanza. Hakuna cheti kinachohitajika.</p>
-                    
-                    <ul class="course-list">
-                        <li class="content-english">Discover Scuba Diving (Intro)</li>
-                        <li class="content-swahili">Gundua Kuzama Scuba (Utangulizi)</li>
-                        <li class="content-english">Open Water Diver Certification</li>
-                        <li class="content-swahili">Uhalali wa Kuzama Maji Wazi</li>
-                        <li class="content-english">Advanced Open Water Diver</li>
-                        <li class="content-swahili">Msafiri wa Maji Wazi wa Juu</li>
-                        <li class="content-english">Rescue Diver & Emergency Training</li>
-                        <li class="content-swahili">Msafiri wa Uokoaji & Mafunzo ya Dharura</li>
-                    </ul>
-                    
-                    <a href="#" class="btn btn-arrow content-english">View Courses</a>
-                    <a href="#" class="btn btn-arrow content-swahili">Angalia Kozi</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Guided Dive Trips -->
-    <section class="trips-section">
-        <div class="container">
-            <div class="section-title">
-                <h2 class="content-english">GUIDED DIVE TRIPS</h2>
-                <h2 class="content-swahili">SAFARI ZA KUZAMA ZILIZOONGEA</h2>
-                <p class="content-english">Explore Dar es Salaam's best dive sites with expert local guides</p>
-                <p class="content-swahili">Chunguza maeneo bora ya kuzama Dar es Salaam na waongozaji wa ndani wenye ujuzi</p>
-            </div>
-            
-            <div class="trips-grid">
-                <div class="trip-card">
-                    <div class="trip-image">
-                        <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80" alt="Bongoyo Island">
-                    </div>
-                    <div class="trip-content">
-                        <h3 class="content-english">Bongoyo Island Marine Reserve</h3>
-                        <h3 class="content-swahili">Hifadhi ya Bahari ya Kisiwa cha Bongoyo</h3>
+                    <div class="tour-content">
+                        <div class="tour-header">
+                            <h3 class="tour-title">Bongoyo Island Discovery</h3>
+                            <span class="tour-badge">MOST POPULAR</span>
+                        </div>
+                        <p class="tour-description">Explore the pristine coral reefs of Bongoyo Island Marine Reserve. Perfect for families and beginners.</p>
                         
-                        <ul class="trip-list">
-                            <li class="content-english">Bongoyo Island Marine Reserve</li>
-                            <li class="content-swahili">Hifadhi ya Bahari ya Kisiwa cha Bongoyo</li>
-                            <li class="content-english">Mbudya Island Coral Gardens</li>
-                            <li class="content-swahili">Bustani za Matumbawe ya Kisiwa cha Mbudya</li>
-                            <li class="content-english">Fungu Yasin Deep Reefs</li>
-                            <li class="content-swahili">Matumbawe ya Kinamasi ya Fungu Yasin</li>
-                            <li class="content-english">Sunrise & Sunset Dives</li>
-                            <li class="content-swahili">Kuzama kwa Jua Linapochomoza na Kutua</li>
+                        <ul class="tour-features">
+                            <li>4-5 hour guided tour</li>
+                            <li>All equipment included</li>
+                            <li>Snacks & refreshments</li>
+                            <li>Marine life briefing</li>
+                            <li>Underwater photography</li>
                         </ul>
                         
-                        <a href="#" class="btn btn-arrow content-english">Explore Trips</a>
-                        <a href="#" class="btn btn-arrow content-swahili">Chunguza Safari</a>
+                        <div class="tour-footer">
+                            <div class="tour-price">
+                                $65 <span>per person</span>
+                            </div>
+                            <button class="btn-primary book-tour-btn" data-tour="Bongoyo Island Discovery">
+                                BOOK NOW
+                            </button>
+                        </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Equipment Services -->
-    <section class="equipment-section">
-        <div class="container">
-            <div class="section-title">
-                <h2 class="content-english">EQUIPMENT SERVICES</h2>
-                <h2 class="content-swahili">HUDUMA ZA VIFAA</h2>
-                <p class="content-english">Top-quality diving equipment rental and maintenance services</p>
-                <p class="content-swahili">Huduma za kukodisha na kudumisha vifaa vya kuzama vya hali ya juu</p>
-            </div>
-            
-            <div class="equipment-content">
-                <div class="equipment-text">
-                    <h3 class="content-english">Professional Equipment</h3>
-                    <h3 class="content-swahili">Vifaa vya Kitaalamu</h3>
-                    <p class="content-english">We provide state-of-the-art diving equipment from leading brands. All equipment is regularly serviced and maintained to the highest standards.</p>
-                    <p class="content-swahili">Tunatoa vifaa vya kisasa vya kuzama kutoka kwa chapa zinazoongoza. Vifaa vyote vinahudumiwa na kudumishwa kwa kawaida hadi viwango vya juu.</p>
                 </div>
                 
-                <div style="text-align: center;">
-                    <div style="font-size: 100px; color: var(--teal); margin-bottom: 20px;">
-                        <i class="fas fa-tools"></i>
+                <!-- Tour 2 -->
+                <div class="tour-card">
+                    <div class="tour-image">
+                        <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80" alt="Mbudya Island">
                     </div>
-                    <a href="#" class="btn content-english">Rent Equipment</a>
-                    <a href="#" class="btn content-swahili">Kodisha Vifaa</a>
+                    <div class="tour-content">
+                        <div class="tour-header">
+                            <h3 class="tour-title">Mbudya Island Explorer</h3>
+                            <span class="tour-badge">FULL DAY</span>
+                        </div>
+                        <p class="tour-description">Full-day snorkeling adventure exploring multiple reef sites around Mbudya Island.</p>
+                        
+                        <ul class="tour-features">
+                            <li>6-8 hour expedition</li>
+                            <li>Lunch & drinks included</li>
+                            <li>Visit 3 different reefs</li>
+                            <li>Experienced guides</li>
+                            <li>Beach picnic included</li>
+                        </ul>
+                        
+                        <div class="tour-footer">
+                            <div class="tour-price">
+                                $85 <span>per person</span>
+                            </div>
+                            <button class="btn-primary book-tour-btn" data-tour="Mbudya Island Explorer">
+                                BOOK NOW
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tour 3 -->
+                <div class="tour-card">
+                    <div class="tour-image">
+                        <img src="https://images.unsplash.com/photo-1568483976758-ea53bb6fd3c9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80" alt="Private Charter">
+                    </div>
+                    <div class="tour-content">
+                        <div class="tour-header">
+                            <h3 class="tour-title">Private Island Charter</h3>
+                            <span class="tour-badge">PRIVATE</span>
+                        </div>
+                        <p class="tour-description">Exclusive private boat charter for your group. Custom itinerary and personalized service.</p>
+                        
+                        <ul class="tour-features">
+                            <li>Private boat & guide</li>
+                            <li>Custom itinerary</li>
+                            <li>Gourmet lunch included</li>
+                            <li>Underwater cameras</li>
+                            <li>Maximum 10 people</li>
+                        </ul>
+                        
+                        <div class="tour-footer">
+                            <div class="tour-price">
+                                $120 <span>per person</span>
+                            </div>
+                            <button class="btn-primary book-tour-btn" data-tour="Private Island Charter">
+                                BOOK NOW
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Help Section -->
-    <section class="help-section">
-        <div class="container">
-            <div class="help-content">
-                <div class="help-icon">
-                    <i class="fas fa-comments"></i>
-                </div>
-                <h2 class="content-english">Need Help Booking?</h2>
-                <h2 class="content-swahili">Unahitaji Usaidizi wa Kununua?</h2>
-                <p class="content-english">Chat with our dive experts for personalized assistance and recommendations.</p>
-                <p class="content-swahili">Zungumza na wataalamu wetu wa kuzama kwa usaidizi na mapendekezo ya kibinafsi.</p>
-                <a href="#" class="btn content-english" style="margin-top: 20px;">Get Help Now</a>
-                <a href="#" class="btn content-swahili" style="margin-top: 20px;">Pata Usaidizi Sasa</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="logo" style="justify-content: center; margin-bottom: 20px;">
-                <i class="fas fa-water logo-icon"></i>
-                <div class="logo-text">
-                    <div class="logo-main content-english">THALASSA DIVE CENTER</div>
-                    <div class="logo-main content-swahili">KITUO CHA KUZAMA THALASSA</div>
-                    <div class="logo-sub content-english">PREMIUM DIVING SERVICES</div>
-                    <div class="logo-sub content-swahili">HUDUMA BORA ZA KUZAMA</div>
-                </div>
-            </div>
-            
-            <div class="footer-links">
-                <a href="#" class="content-english">Courses</a>
-                <a href="#" class="content-swahili">Kozi</a>
-                <a href="#" class="content-english">Dive Trips</a>
-                <a href="#" class="content-swahili">Safari za Kuzama</a>
-                <a href="#" class="content-english">Equipment</a>
-                <a href="#" class="content-swahili">Vifaa</a>
-                <a href="#" class="content-english">About Us</a>
-                <a href="#" class="content-swahili">Kuhusu Sisi</a>
-                <a href="#" class="content-english">Contact</a>
-                <a href="#" class="content-swahili">Wasiliana</a>
-            </div>
-            
-            <div class="copyright content-english">
-                &copy; 2024 Thalassa Dive Center. PADI Registered Dive Center. All rights reserved.
-            </div>
-            <div class="copyright content-swahili">
-                &copy; 2024 Kituo cha Kuzama Thalassa. Kituo cha Kuzama Kilichosajiliwa na PADI. Haki zote zimehifadhiwa.
-            </div>
-        </div>
-    </footer>
+    <!-- More sections would continue here... -->
 
     <script>
-        // Language Switching Functionality
-        const langButtons = document.querySelectorAll('.lang-btn');
-        const body = document.body;
+        // ===== LANGUAGE SWITCHER (EXACTLY LIKE INDEX.HTML) =====
+        const currentLang = document.getElementById('currentLang');
+        const languageDropdown = document.getElementById('languageDropdown');
         
-        langButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                const lang = this.getAttribute('data-lang');
-                
-                // Update active button
-                langButtons.forEach(btn => btn.classList.remove('active'));
-                this.classList.add('active');
-                
-                // Switch language
-                if (lang === 'en') {
-                    body.classList.remove('swahili');
-                    body.classList.add('english');
-                } else if (lang === 'sw') {
-                    body.classList.remove('english');
-                    body.classList.add('swahili');
-                }
-                
-                // Save preference to localStorage
-                localStorage.setItem('preferredLanguage', lang);
-            });
+        currentLang.addEventListener('click', () => {
+            languageDropdown.classList.toggle('show');
         });
         
-        // Check for saved language preference
-        const savedLang = localStorage.getItem('preferredLanguage');
-        if (savedLang === 'sw') {
-            body.classList.remove('english');
-            body.classList.add('swahili');
-            langButtons.forEach(btn => {
-                btn.classList.remove('active');
-                if (btn.getAttribute('data-lang') === 'sw') {
-                    btn.classList.add('active');
-                }
-            });
-        }
-        
-        // Mobile Navigation Functionality
-        const hamburgerMenu = document.getElementById('hamburgerMenu');
-        const mobileNavOverlay = document.getElementById('mobileNavOverlay');
-        const closeMenu = document.getElementById('closeMenu');
-        
-        hamburgerMenu.addEventListener('click', function() {
-            mobileNavOverlay.style.display = 'flex';
-            document.body.style.overflow = 'hidden';
-        });
-        
-        closeMenu.addEventListener('click', function() {
-            mobileNavOverlay.style.display = 'none';
-            document.body.style.overflow = '';
-        });
-        
-        // Close mobile menu when clicking on a link
-        const mobileLinks = mobileNavOverlay.querySelectorAll('a');
-        mobileLinks.forEach(link => {
-            link.addEventListener('click', function() {
-                mobileNavOverlay.style.display = 'none';
-                document.body.style.overflow = '';
-            });
-        });
-        
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-        
-        // Hide desktop book buttons on mobile
-        function checkScreenSize() {
-            const desktopBookBtn = document.querySelector('#desktopBookBtn');
-            const desktopBookBtnSw = document.querySelector('#desktopBookBtnSw');
-            
-            if (window.innerWidth <= 1200) {
-                if (desktopBookBtn) desktopBookBtn.style.display = 'none';
-                if (desktopBookBtnSw) desktopBookBtnSw.style.display = 'none';
-            } else {
-                if (desktopBookBtn) desktopBookBtn.style.display = 'block';
-                if (desktopBookBtnSw) desktopBookBtnSw.style.display = 'block';
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!currentLang.contains(e.target) && !languageDropdown.contains(e.target)) {
+                languageDropdown.classList.remove('show');
             }
+        });
+        
+        // Language selection
+        const languageOptions = document.querySelectorAll('.language-option');
+        languageOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                const lang = option.getAttribute('data-lang');
+                languageOptions.forEach(opt => opt.classList.remove('active'));
+                option.classList.add('active');
+                
+                // Update current language display
+                currentLang.querySelector('span').textContent = lang.toUpperCase();
+                languageDropdown.classList.remove('show');
+                
+                // Language change logic here
+                if (lang === 'sw') {
+                    // Switch to Swahili
+                    alert('Swahili language selected. In a real implementation, this would change all text on the page.');
+                } else {
+                    // Switch to English
+                    alert('English language selected. In a real implementation, this would change all text on the page.');
+                }
+            });
+        });
+        
+        // ===== MOBILE MENU =====
+        const mobileMenu = document.getElementById('mobileMenu');
+        const navMenu = document.getElementById('navMenu');
+        
+        mobileMenu.addEventListener('click', () => {
+            navMenu.classList.toggle('show');
+            const icon = mobileMenu.querySelector('i');
+            if (icon.classList.contains('fa-bars')) {
+                icon.classList.replace('fa-bars', 'fa-times');
+            } else {
+                icon.classList.replace('fa-times', 'fa-bars');
+            }
+        });
+        
+        // ===== HEADER SCROLL EFFECT =====
+        const header = document.getElementById('mainHeader');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+        
+        // ===== BUBBLE ANIMATIONS =====
+        function createBubble() {
+            const bubble = document.createElement('div');
+            bubble.classList.add('bubble');
+            
+            const size = Math.random() * 60 + 20;
+            const left = Math.random() * 100;
+            const duration = Math.random() * 20 + 10;
+            const delay = Math.random() * 5;
+            
+            bubble.style.cssText = `
+                width: ${size}px;
+                height: ${size}px;
+                left: ${left}%;
+                animation-duration: ${duration}s;
+                animation-delay: ${delay}s;
+                opacity: ${Math.random() * 0.3 + 0.1};
+                background: radial-gradient(circle, 
+                    rgba(255,255,255,${Math.random() * 0.4 + 0.1}) 0%, 
+                    rgba(0,180,216,${Math.random() * 0.3 + 0.1}) 100%);
+            `;
+            
+            document.querySelector('.snorkeling-hero').appendChild(bubble);
+            
+            setTimeout(() => {
+                if (bubble.parentNode) {
+                    bubble.remove();
+                }
+            }, (duration + delay) * 1000);
         }
         
-        window.addEventListener('resize', checkScreenSize);
-        window.addEventListener('load', checkScreenSize);
+        // Create initial bubbles
+        for (let i = 0; i < 15; i++) {
+            setTimeout(createBubble, i * 500);
+        }
+        
+        // Continue creating bubbles
+        setInterval(createBubble, 2000);
+        
+        // ===== TOUR BOOKING =====
+        document.querySelectorAll('.book-tour-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const tourName = this.getAttribute('data-tour');
+                alert(`Booking ${tourName}. In a real implementation, this would open a booking form.`);
+            });
+        });
     </script>
 </body>
 </html>
