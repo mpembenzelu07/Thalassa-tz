@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PADI Courses | Thalassa Dive Center</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Open+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* GLOBAL STYLES (Same as previous pages) */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Open Sans', sans-serif; background: #0a192f; color: #333; overflow-x: hidden; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 20px; }
+        
+        /* ANIMATIONS */
+        @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+        @keyframes neonPulse { 0%,100% { text-shadow: 0 0 10px #00b4d8,0 0 20px #00b4d8,0 0 30px #0077b6; } 50% { text-shadow: 0 0 20px #00b4d8,0 0 40px #00b4d8,0 0 60px #0077b6,0 0 80px #023e8a; } }
+        
+        /* HEADER (Same structure) */
+        header { background: rgba(10,25,47,0.95); backdrop-filter: blur(10px); position: fixed; width: 100%; top: 0; z-index: 1000; border-bottom: 1px solid rgba(0,180,216,0.2); }
+        .header-container { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; }
+        .logo { display: flex; align-items: center; text-decoration: none; }
+        .logo-icon { font-size: 32px; color: #00b4d8; margin-right: 15px; animation: float 6s ease-in-out infinite; }
+        .logo-text { font-family: 'Montserrat', sans-serif; font-weight: 900; color: white; }
+        .logo-main { font-size: 28px; line-height: 1; background: linear-gradient(45deg,#00b4d8,#90e0ef); -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: neonPulse 3s ease-in-out infinite; }
+        .logo-sub { font-size: 10px; color: #90e0ef; letter-spacing: 3px; text-transform: uppercase; margin-top: 2px; }
+        nav ul { display: flex; list-style: none; gap: 30px; align-items: center; }
+        nav a { text-decoration: none; color: white; font-weight: 600; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; padding: 8px 0; position: relative; transition: all 0.3s; }
+        nav a:before { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: linear-gradient(90deg,#00b4d8,#90e0ef); transition: width 0.3s; }
+        nav a:hover:before, nav a.active:before { width: 100%; }
+        nav a:hover, nav a.active { color: #00b4d8; }
+        .btn-book { background: linear-gradient(135deg,#00b4d8,#0077b6); color: white; padding: 12px 30px; border-radius: 30px; font-weight: 700; font-size: 14px; letter-spacing: 1px; transition: all 0.3s; position: relative; overflow: hidden; }
+        .btn-book:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,180,216,0.3); }
+        
+        /* LANGUAGE SWITCHER */
+        .language-switcher { position: relative; margin-left: 20px; }
+        .current-language { display: flex; align-items: center; gap: 8px; padding: 8px 15px; background: rgba(0,180,216,0.1); border-radius: 20px; cursor: pointer; transition: all 0.3s; color: white; font-weight: 600; border: 1px solid rgba(0,180,216,0.3); }
+        .language-dropdown { position: absolute; top: 100%; right: 0; width: 180px; background: rgba(10,25,47,0.95); backdrop-filter: blur(10px); border-radius: 10px; padding: 10px; margin-top: 10px; opacity: 0; visibility: hidden; transform: translateY(-10px); transition: all 0.3s; z-index: 1001; border: 1px solid rgba(0,180,216,0.2); }
+        .language-dropdown.show { opacity: 1; visibility: visible; transform: translateY(0); }
+        .mobile-menu { display: none; font-size: 24px; cursor: pointer; color: white; }
+        
+        /* COURSES HERO */
+        .courses-hero { background: linear-gradient(rgba(2,62,138,0.9),rgba(0,119,182,0.8)), url('https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80'); background-size: cover; padding: 180px 0 100px; text-align: center; color: white; margin-top: 80px; position: relative; }
+        .courses-hero h1 { font-size: 5rem; font-weight: 900; margin-bottom: 20px; text-transform: uppercase; font-family: 'Montserrat', sans-serif; animation: neonPulse 3s ease-in-out infinite; }
+        .courses-hero p { font-size: 1.5rem; max-width: 800px; margin: 0 auto; opacity: 0.9; }
+        
+        /* COURSE LEVELS */
+        .course-levels { padding: 150px 0; background: linear-gradient(180deg,#0a192f 0%,#023e8a 100%); }
+        .levels-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .level-card { background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); border-radius: 20px; padding: 40px; border: 1px solid rgba(0,180,216,0.2); transition: all 0.3s; position: relative; overflow: hidden; }
+        .level-card:hover { transform: translateY(-10px); border-color: #00b4d8; box-shadow: 0 20px 40px rgba(0,180,216,0.3); }
+        .level-badge { position: absolute; top: 20px; right: 20px; background: linear-gradient(135deg,#00b4d8,#0077b6); color: white; padding: 8px 20px; border-radius: 20px; font-size: 12px; font-weight: 700; }
+        .level-icon { font-size: 50px; color: #00b4d8; margin-bottom: 20px; }
+        .level-card h3 { color: white; font-size: 1.8rem; margin-bottom: 15px; font-family: 'Montserrat', sans-serif; }
+        .level-details { list-style: none; margin: 20px 0; }
+        .level-details li { color: #90e0ef; margin-bottom: 10px; padding-left: 25px; position: relative; }
+        .level-details li:before { content: '✓'; position: absolute; left: 0; color: #00b4d8; font-weight: bold; }
+        
+        /* COURSE COMPARISON */
+        .comparison { padding: 150px 0; background: linear-gradient(180deg,#023e8a 0%,#0a192f 100%); }
+        .comparison-table { background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); border-radius: 20px; overflow: hidden; border: 1px solid rgba(0,180,216,0.2); }
+        .table-row { display: grid; grid-template-columns: 2fr repeat(4, 1fr); border-bottom: 1px solid rgba(0,180,216,0.2); }
+        .table-row.header { background: linear-gradient(135deg,#00b4d8,#0077b6); }
+        .table-cell { padding: 20px; color: white; display: flex; align-items: center; justify-content: center; }
+        .table-row .table-cell:first-child { justify-content: flex-start; }
+        .check { color: #00b4d8; font-size: 20px; }
+        .cross { color: #ff4757; font-size: 20px; }
+        
+        /* INSTRUCTORS */
+        .instructors { padding: 150px 0; background: linear-gradient(180deg,#0a192f 0%,#023e8a 100%); }
+        .instructors-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
+        .instructor-card { background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); border-radius: 20px; padding: 30px; text-align: center; border: 1px solid rgba(0,180,216,0.2); transition: all 0.3s; }
+        .instructor-card:hover { transform: translateY(-10px); border-color: #00b4d8; }
+        .instructor-avatar { width: 100px; height: 100px; background: linear-gradient(135deg,#00b4d8,#0077b6); border-radius: 50%; margin: 0 auto 20px; color: white; display: flex; align-items: center; justify-content: center; font-size: 40px; font-weight: 700; }
+        
+        /* SCHEDULE */
+        .schedule { padding: 150px 0; background: linear-gradient(180deg,#023e8a 0%,#0a192f 100%); }
+        .schedule-calendar { background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); border-radius: 20px; padding: 40px; border: 1px solid rgba(0,180,216,0.2); }
+        
+        /* BUTTONS */
+        .btn-course { display: inline-flex; align-items: center; gap: 10px; padding: 15px 35px; background: linear-gradient(135deg,#00b4d8,#0077b6); color: white; text-decoration: none; border-radius: 50px; font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s; position: relative; overflow: hidden; margin: 10px 0; width: 100%; justify-content: center; }
+        .btn-course:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,180,216,0.3); }
+        
+        /* FOOTER */
+        footer { background: #0a192f; color: white; padding: 100px 0 30px; border-top: 1px solid rgba(0,180,216,0.2); }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 50px; margin-bottom: 50px; }
+        .footer-bottom { text-align: center; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); color: #90e0ef; opacity: 0.6; font-size: 14px; }
+        
+        /* RESPONSIVE */
+        @media (max-width: 992px) {
+            nav ul { display: none; position: fixed; top: 80px; left: 0; width: 100%; background: rgba(2,62,138,0.98); flex-direction: column; padding: 30px; z-index: 1000; }
+            nav ul.show { display: flex; }
+            .mobile-menu { display: block; order: 2; }
+            .language-switcher { order: 3; }
+            .courses-hero h1 { font-size: 3rem; }
+        }
+        @media (max-width: 768px) {
+            .courses-hero h1 { font-size: 2.5rem; }
+            .table-row { grid-template-columns: 1fr; }
+            .table-row.header { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="scroll-progress" id="scrollProgress"></div>
+    <a href="#" class="back-to-top" id="backToTop"><i class="fas fa-chevron-up"></i></a>
+    
+    <header id="mainHeader">
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-water logo-icon"></i>
+                <div class="logo-text">
+                    <div class="logo-main">THALASSA</div>
+                    <div class="logo-sub">DIVE CENTER</div>
+                </div>
+            </a>
+            <nav>
+                <ul id="navMenu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="courses.html" class="active">Courses</a></li>
+                    <li><a href="dives.html">Dive Trips</a></li>
+                    <li><a href="snorkeling.html">Snorkeling</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html" class="btn-book">Book Now</a></li>
+                </ul>
+            </nav>
+            <div class="language-switcher">
+                <div class="current-language" id="currentLang">
+                    <i class="fas fa-globe"></i><span>EN</span><i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="language-dropdown" id="languageDropdown">
+                    <div class="language-option active" data-lang="en"><i class="fas fa-language"></i><span>English</span></div>
+                    <div class="language-option" data-lang="sw"><i class="fas fa-language"></i><span>Kiswahili</span></div>
+                    <div class="language-option" data-lang="fr"><i class="fas fa-language"></i><span>Français</span></div>
+                    <div class="language-option" data-lang="de"><i class="fas fa-language"></i><span>Deutsch</span></div>
+                </div>
+            </div>
+            <div class="mobile-menu" id="mobileMenu"><i class="fas fa-bars"></i></div>
+        </div>
+    </header>
+
+    <section class="courses-hero">
+        <div class="container">
+            <h1>PADI DIVING COURSES</h1>
+            <p>Become a certified diver with our internationally recognized PADI courses in Dar es Salaam</p>
+        </div>
+    </section>
+
+    <section class="course-levels">
+        <div class="container">
+            <div class="levels-grid">
+                <div class="level-card">
+                    <span class="level-badge">BEGINNER</span>
+                    <div class="level-icon"><i class="fas fa-swimmer"></i></div>
+                    <h3>Discover Scuba</h3>
+                    <p>Perfect first experience for non-divers</p>
+                    <ul class="level-details">
+                        <li>Pool/Confined Water Session</li>
+                        <li>One Open Water Dive</li>
+                        <li>All Equipment Included</li>
+                        <li>Certified Instructor</li>
+                    </ul>
+                    <div class="price">$85</div>
+                    <a href="contact.html" class="btn-course">BOOK NOW</a>
+                </div>
+                
+                <div class="level-card">
+                    <span class="level-badge" style="background:linear-gradient(135deg,#ffd700,#ffa500)">POPULAR</span>
+                    <div class="level-icon"><i class="fas fa-water"></i></div>
+                    <h3>Open Water Diver</h3>
+                    <p>Full PADI certification course</p>
+                    <ul class="level-details">
+                        <li>5 Pool Sessions</li>
+                        <li>4 Open Water Dives</li>
+                        <li>PADI Manual & Materials</li>
+                        <li>International Certification</li>
+                    </ul>
+                    <div class="price">$450</div>
+                    <a href="contact.html" class="btn-course">ENROLL NOW</a>
+                </div>
+                
+                <div class="level-card">
+                    <span class="level-badge">ADVANCED</span>
+                    <div class="level-icon"><i class="fas fa-graduation-cap"></i></div>
+                    <h3>Advanced Open Water</h3>
+                    <p>Expand your diving skills</p>
+                    <ul class="level-details">
+                        <li>Deep Dive (30m)</li>
+                        <li>Underwater Navigation</li>
+                        <li>3 Adventure Dives</li>
+                        <li>Night Dive Included</li>
+                    </ul>
+                    <div class="price">$380</div>
+                    <a href="contact.html" class="btn-course">UPGRADE NOW</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="comparison">
+        <div class="container">
+            <h2 style="color:white;text-align:center;font-size:3rem;margin-bottom:50px;font-family:'Montserrat',sans-serif;">COURSE COMPARISON</h2>
+            <div class="comparison-table">
+                <div class="table-row header">
+                    <div class="table-cell">Features</div>
+                    <div class="table-cell">Discover Scuba</div>
+                    <div class="table-cell">Open Water</div>
+                    <div class="table-cell">Advanced</div>
+                    <div class="table-cell">Rescue Diver</div>
+                </div>
+                <div class="table-row">
+                    <div class="table-cell">Duration</div>
+                    <div class="table-cell">1 Day</div>
+                    <div class="table-cell">3-4 Days</div>
+                    <div class="table-cell">2-3 Days</div>
+                    <div class="table-cell">2-3 Days</div>
+                </div>
+                <div class="table-row">
+                    <div class="table-cell">PADI Certification</div>
+                    <div class="table-cell"><i class="fas fa-times cross"></i></div>
+                    <div class="table-cell"><i class="fas fa-check check"></i></div>
+                    <div class="table-cell"><i class="fas fa-check check"></i></div>
+                    <div class="table-cell"><i class="fas fa-check check"></i></div>
+                </div>
+                <div class="table-row">
+                    <div class="table-cell">Deep Dives (30m)</div>
+                    <div class="table-cell"><i class="fas fa-times cross"></i></div>
+                    <div class="table-cell"><i class="fas fa-times cross"></i></div>
+                    <div class="table-cell"><i class="fas fa-check check"></i></div>
+                    <div class="table-cell"><i class="fas fa-check check"></i></div>
+                </div>
+                <div class="table-row">
+                    <div class="table-cell">Night Dives</div>
+                    <div class="table-cell"><i class="fas fa-times cross"></i></div>
+                    <div class="table-cell"><i class="fas fa-times cross"></i></div>
+                    <div class="table-cell"><i class="fas fa-check check"></i></div>
+                    <div class="table-cell"><i class="fas fa-check check"></i></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="instructors">
+        <div class="container">
+            <h2 style="color:white;text-align:center;font-size:3rem;margin-bottom:50px;font-family:'Montserrat',sans-serif;">MEET OUR INSTRUCTORS</h2>
+            <div class="instructors-grid">
+                <div class="instructor-card">
+                    <div class="instructor-avatar">AJ</div>
+                    <h3>Ali J.</h3>
+                    <p>PADI Course Director<br>15+ Years Experience</p>
+                    <div class="cert-badges">
+                        <span class="badge">Course Director</span>
+                        <span class="badge">Emergency First Response</span>
+                    </div>
+                </div>
+                <div class="instructor-card">
+                    <div class="instructor-avatar">SM</div>
+                    <h3>Sarah M.</h3>
+                    <p>PADI Master Instructor<br>Marine Biologist</p>
+                    <div class="cert-badges">
+                        <span class="badge">Master Instructor</span>
+                        <span class="badge">Marine Biology</span>
+                    </div>
+                </div>
+                <div class="instructor-card">
+                    <div class="instructor-avatar">JM</div>
+                    <h3>Juma M.</h3>
+                    <p>PADI IDC Staff<br>Local Dive Expert</p>
+                    <div class="cert-badges">
+                        <span class="badge">IDC Staff</span>
+                        <span class="badge">Deep Diver</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="schedule">
+        <div class="container">
+            <h2 style="color:white;text-align:center;font-size:3rem;margin-bottom:50px;font-family:'Montserrat',sans-serif;">UPCOMING COURSE SCHEDULE</h2>
+            <div class="schedule-calendar">
+                <!-- Calendar content here -->
+                <p style="color:#90e0ef;text-align:center;">Contact us for the latest course schedules and availability</p>
+                <div style="text-align:center;margin-top:30px;">
+                    <a href="contact.html" class="btn-course" style="width:auto;padding:18px 45px;">
+                        <i class="fas fa-calendar-alt"></i> CHECK AVAILABILITY
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <i class="fas fa-water"></i>
+                        <div class="footer-logo-text">
+                            <div class="footer-logo-main">THALASSA</div>
+                            <div class="footer-logo-sub">DIVE CENTER</div>
+                        </div>
+                    </div>
+                    <p class="footer-description">Dar es Salaam's premier PADI-registered dive center.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://instagram.com/thalassatz" class="social-link" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-tripadvisor"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h3>Contact Info</h3>
+                    <div class="contact-info">
+                        <p><i class="fas fa-map-marker-alt"></i> <span>Shop 17C, Maga Beach, Dar es Salaam</span></p>
+                        <p><i class="fas fa-phone"></i> <span>+255 769 474 643</span></p>
+                        <p><i class="fas fa-envelope"></i> <span>info@thalassatz.com</span></p>
+                    </div>
+                    <a href="https://wa.me/255769474643" class="whatsapp-link" target="_blank">
+                        <i class="fab fa-whatsapp"></i> WhatsApp
+                    </a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Thalassa Dive Center. PADI Registered Dive Center.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // JavaScript for Courses Page
+        const mobileMenu = document.getElementById('mobileMenu');
+        const navMenu = document.getElementById('navMenu');
+        mobileMenu.addEventListener('click', () => {
+            navMenu.classList.toggle('show');
+            mobileMenu.classList.toggle('fa-bars');
+            mobileMenu.classList.toggle('fa-times');
+        });
+        
+        const currentLang = document.getElementById('currentLang');
+        const languageDropdown = document.getElementById('languageDropdown');
+        currentLang.addEventListener('click', () => languageDropdown.classList.toggle('show'));
+        
+        document.addEventListener('click', (e) => {
+            if (!currentLang.contains(e.target) && !languageDropdown.contains(e.target)) {
+                languageDropdown.classList.remove('show');
+            }
+            if (!mobileMenu.contains(e.target) && !navMenu.contains(e.target) && window.innerWidth <= 992) {
+                navMenu.classList.remove('show');
+            }
+        });
+        
+        // Level card interactions
+        document.querySelectorAll('.level-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-15px) scale(1.05)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+        
+        // Scroll progress
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('scrollProgress').style.width = scrolled + "%";
+            
+            const header = document.getElementById('mainHeader');
+            header.classList.toggle('scrolled', window.scrollY > 100);
+            
+            const backToTop = document.getElementById('backToTop');
+            backToTop.classList.toggle('visible', window.scrollY > 500);
+        });
+        
+        document.getElementById('backToTop').addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        
+        // Course enrollment animation
+        document.querySelectorAll('.btn-course').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                if (!this.href.includes('#')) {
+                    e.preventDefault();
+                    // Create enrollment animation
+                    const enrollAnimation = document.createElement('div');
+                    enrollAnimation.className = 'enroll-animation';
+                    enrollAnimation.innerHTML = `
+                        <div class="animation-content">
+                            <i class="fas fa-graduation-cap"></i>
+                            <h3>Enrolling in Course...</h3>
+                            <p>Redirecting to booking page</p>
+                        </div>
+                    `;
+                    document.body.appendChild(enrollAnimation);
+                    
+                    setTimeout(() => {
+                        window.location.href = this.href;
+                    }, 1500);
+                }
+            });
+        });
+        
+        // Add animation styles
+        const style = document.createElement('style');
+        style.textContent = `
+            .enroll-animation {
+                position: fixed;
+                top: 0; left: 0;
+                width: 100%; height: 100%;
+                background: rgba(2,62,138,0.95);
+                display: flex; align-items: center;
+                justify-content: center;
+                z-index: 10000;
+            }
+            .animation-content {
+                text-align: center;
+                color: white;
+            }
+            .animation-content i {
+                font-size: 80px;
+                color: #00b4d8;
+                margin-bottom: 20px;
+                animation: float 2s ease-in-out infinite;
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
