@@ -91,11 +91,6 @@
             100% { transform: translateY(-100px) scale(1); opacity: 0; }
         }
         
-        @keyframes ripple {
-            0% { transform: scale(0); opacity: 1; }
-            100% { transform: scale(4); opacity: 0; }
-        }
-        
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -107,7 +102,7 @@
             }
         }
         
-        /* ===== HEADER (MATCHING INDEX.HTML) ===== */
+        /* ===== HEADER ===== */
         header {
             background: rgba(10, 25, 47, 0.95);
             backdrop-filter: blur(10px);
@@ -173,7 +168,13 @@
             margin-top: 2px;
         }
         
-        /* ===== NAVIGATION (CENTERED LIKE INDEX.HTML) ===== */
+        /* ===== NAVIGATION TABS IN CENTER ===== */
+        nav {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
         nav ul {
             display: flex;
             list-style: none;
@@ -235,10 +236,9 @@
             box-shadow: 0 10px 20px rgba(0, 180, 216, 0.3);
         }
         
-        /* ===== LANGUAGE SWITCHER (RIGHT SIDE LIKE INDEX.HTML) ===== */
+        /* ===== LANGUAGE SWITCHER ON RIGHT ===== */
         .language-switcher {
             position: relative;
-            margin-left: 20px;
         }
         
         .current-language {
@@ -525,6 +525,57 @@
             font-weight: 400;
         }
         
+        /* ===== BUTTONS ===== */
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 35px;
+            background: var(--gradient-teal);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 16px;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 180, 216, 0.4);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid var(--teal);
+            color: var(--teal);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--teal);
+            color: var(--white);
+        }
+        
         /* ===== ACTIVITY FINDER ===== */
         .activity-finder {
             background: linear-gradient(180deg, var(--ocean-blue) 0%, var(--deep-blue) 100%);
@@ -688,55 +739,336 @@
             margin-bottom: 10px;
         }
         
-        /* ===== BUTTONS ===== */
-        .btn-primary {
+        /* ===== FAQ SECTION ===== */
+        .faq-section {
+            background: linear-gradient(180deg, var(--ocean-blue) 0%, var(--deep-blue) 100%);
+        }
+        
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .faq-item {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(0, 180, 216, 0.2);
+        }
+        
+        .faq-question {
+            padding: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .faq-question:hover {
+            background: rgba(0, 180, 216, 0.1);
+        }
+        
+        .faq-question h3 {
+            color: var(--white);
+            font-size: 1.2rem;
+            margin: 0;
+        }
+        
+        .faq-icon {
+            color: var(--teal);
+            font-size: 1.2rem;
+            transition: transform 0.3s;
+        }
+        
+        .faq-answer {
+            padding: 0 25px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+        
+        .faq-item.active .faq-answer {
+            padding: 0 25px 25px;
+            max-height: 500px;
+        }
+        
+        .faq-item.active .faq-icon {
+            transform: rotate(45deg);
+        }
+        
+        /* ===== TESTIMONIALS ===== */
+        .testimonials-section {
+            background: linear-gradient(180deg, var(--deep-blue) 0%, var(--ocean-blue) 100%);
+        }
+        
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid rgba(0, 180, 216, 0.2);
+            position: relative;
+        }
+        
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 60px;
+            color: var(--teal);
+            opacity: 0.3;
+            font-family: serif;
+        }
+        
+        .testimonial-text {
+            color: var(--pale-blue);
+            margin-bottom: 20px;
+            font-style: italic;
+            line-height: 1.8;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--gradient-teal);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: bold;
+        }
+        
+        .author-info h4 {
+            color: var(--white);
+            margin-bottom: 5px;
+        }
+        
+        .author-info p {
+            color: var(--light-teal);
+            font-size: 0.9rem;
+        }
+        
+        /* ===== GALLERY ===== */
+        .gallery-section {
+            background: linear-gradient(180deg, var(--deep-blue) 0%, var(--ocean-blue) 100%);
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .gallery-item {
+            height: 250px;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            border: 2px solid rgba(0, 180, 216, 0.2);
+            transition: all 0.3s;
+        }
+        
+        .gallery-item:hover {
+            transform: scale(1.05);
+            border-color: var(--teal);
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        /* ===== FOOTER ===== */
+        footer {
+            background: var(--deep-blue);
+            color: var(--white);
+            padding: 80px 0 30px;
+            position: relative;
+            border-top: 1px solid rgba(0, 180, 216, 0.2);
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 50px;
+            margin-bottom: 50px;
+        }
+        
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .footer-logo i {
+            font-size: 40px;
+            color: var(--teal);
+            animation: float 4s ease-in-out infinite;
+        }
+        
+        .footer-logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .footer-logo-main {
+            font-size: 26px;
+            font-weight: 900;
+            background: linear-gradient(45deg, var(--teal), var(--light-teal));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .footer-logo-sub {
+            font-size: 11px;
+            color: var(--light-teal);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        
+        .footer-description {
+            color: var(--light-teal);
+            line-height: 1.8;
+            margin-bottom: 25px;
+            opacity: 0.8;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-link {
+            width: 45px;
+            height: 45px;
+            background: rgba(0, 180, 216, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            text-decoration: none;
+            transition: all 0.3s;
+            border: 1px solid rgba(0, 180, 216, 0.3);
+        }
+        
+        .social-link:hover {
+            background: var(--teal);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 180, 216, 0.3);
+        }
+        
+        .footer-col h3 {
+            color: var(--teal);
+            margin-bottom: 25px;
+            font-size: 1.4rem;
+            font-family: 'Montserrat', sans-serif;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--gradient-teal);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: var(--light-teal);
+            text-decoration: none;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .footer-links a:hover {
+            color: var(--teal);
+            padding-left: 10px;
+        }
+        
+        .footer-links a i {
+            font-size: 12px;
+            opacity: 0.7;
+        }
+        
+        .contact-info p {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 20px;
+            color: var(--light-teal);
+        }
+        
+        .contact-info i {
+            color: var(--teal);
+            margin-top: 3px;
+            font-size: 18px;
+        }
+        
+        .whatsapp-link {
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            padding: 15px 35px;
-            background: var(--gradient-teal);
+            background: linear-gradient(135deg, #25D366, #128C7E);
             color: var(--white);
+            padding: 12px 25px;
+            border-radius: 25px;
             text-decoration: none;
-            border-radius: 50px;
-            font-weight: 700;
-            font-size: 16px;
-            letter-spacing: 1px;
+            font-weight: 600;
+            margin-top: 10px;
             transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
-            border: none;
-            cursor: pointer;
         }
         
-        .btn-primary::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: 0.5s;
+        .whatsapp-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(37, 211, 102, 0.3);
         }
         
-        .btn-primary:hover::before {
-            left: 100%;
-        }
-        
-        .btn-primary:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0, 180, 216, 0.4);
-        }
-        
-        .btn-secondary {
-            background: transparent;
-            border: 2px solid var(--teal);
-            color: var(--teal);
-        }
-        
-        .btn-secondary:hover {
-            background: var(--teal);
-            color: var(--white);
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: var(--light-teal);
+            opacity: 0.6;
+            font-size: 14px;
         }
         
         /* ===== BUBBLES ===== */
@@ -753,6 +1085,22 @@
         @media (max-width: 1200px) {
             .hero-content h1 {
                 font-size: 3.5rem;
+            }
+            
+            nav {
+                position: static;
+                transform: none;
+                margin: 20px 0;
+                order: 3;
+                width: 100%;
+            }
+            
+            .header-container {
+                flex-wrap: wrap;
+            }
+            
+            nav ul {
+                justify-content: center;
             }
         }
         
@@ -779,7 +1127,6 @@
             
             .mobile-menu {
                 display: block;
-                order: 2;
             }
             
             .hero-content h1 {
@@ -834,9 +1181,10 @@
     </style>
 </head>
 <body>
-    <!-- Header (EXACTLY LIKE INDEX.HTML) -->
+    <!-- Header -->
     <header id="mainHeader">
         <div class="container header-container">
+            <!-- Logo on Left -->
             <a href="index.html" class="logo">
                 <i class="fas fa-water logo-icon"></i>
                 <div class="logo-text">
@@ -845,6 +1193,7 @@
                 </div>
             </a>
             
+            <!-- Navigation Tabs in Center -->
             <nav>
                 <ul id="navMenu">
                     <li><a href="index.html">Home</a></li>
@@ -857,7 +1206,7 @@
                 </ul>
             </nav>
             
-            <!-- Language Switcher (EXACTLY LIKE INDEX.HTML) -->
+            <!-- Language Switcher on Right -->
             <div class="language-switcher">
                 <div class="current-language" id="currentLang">
                     <i class="fas fa-globe"></i>
@@ -876,15 +1225,15 @@
                 </div>
             </div>
             
+            <!-- Mobile Menu Button -->
             <div class="mobile-menu" id="mobileMenu">
                 <i class="fas fa-bars"></i>
             </div>
         </div>
     </header>
 
-    <!-- Snorkeling Hero -->
+    <!-- Snorkeling Hero Section -->
     <section class="snorkeling-hero">
-        <!-- Background bubbles will be added by JavaScript -->
         <div class="hero-content">
             <div class="hero-badge">
                 <i class="fas fa-swimmer"></i>
@@ -906,7 +1255,7 @@
         </div>
     </section>
 
-    <!-- Snorkeling Tours -->
+    <!-- Snorkeling Tours Section -->
     <section class="tours-section" id="tours">
         <div class="container">
             <div class="section-title">
@@ -939,9 +1288,9 @@
                             <div class="tour-price">
                                 $65 <span>per person</span>
                             </div>
-                            <button class="btn-primary book-tour-btn" data-tour="Bongoyo Island Discovery">
+                            <a href="#contact" class="btn-primary book-tour-btn" data-tour="Bongoyo Island Discovery">
                                 BOOK NOW
-                            </button>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -970,9 +1319,9 @@
                             <div class="tour-price">
                                 $85 <span>per person</span>
                             </div>
-                            <button class="btn-primary book-tour-btn" data-tour="Mbudya Island Explorer">
+                            <a href="#contact" class="btn-primary book-tour-btn" data-tour="Mbudya Island Explorer">
                                 BOOK NOW
-                            </button>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -1001,9 +1350,9 @@
                             <div class="tour-price">
                                 $120 <span>per person</span>
                             </div>
-                            <button class="btn-primary book-tour-btn" data-tour="Private Island Charter">
+                            <a href="#contact" class="btn-primary book-tour-btn" data-tour="Private Island Charter">
                                 BOOK NOW
-                            </button>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -1011,10 +1360,391 @@
         </div>
     </section>
 
-    <!-- More sections would continue here... -->
+    <!-- Family Activity Finder -->
+    <section class="activity-finder" id="activity-finder">
+        <div class="container">
+            <div class="section-title">
+                <h2>FIND YOUR PERFECT TOUR</h2>
+                <p>Tell us about your group and we'll recommend the best snorkeling experience</p>
+            </div>
+            
+            <div class="finder-container">
+                <form class="finder-form" id="activityFinder">
+                    <div class="form-group">
+                        <label for="groupSize">Group Size</label>
+                        <select class="form-control" id="groupSize">
+                            <option value="1-2">1-2 People</option>
+                            <option value="3-5" selected>3-5 People</option>
+                            <option value="6-10">6-10 People</option>
+                            <option value="10+">10+ People</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="experienceLevel">Experience Level</label>
+                        <select class="form-control" id="experienceLevel">
+                            <option value="beginner">Beginner (First Time)</option>
+                            <option value="intermediate" selected>Some Experience</option>
+                            <option value="experienced">Experienced Snorkeler</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="ageRange">Age Range</label>
+                        <select class="form-control" id="ageRange">
+                            <option value="family">Family (Kids & Adults)</option>
+                            <option value="adults">Adults Only</option>
+                            <option value="seniors">Seniors</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="duration">Preferred Duration</label>
+                        <select class="form-control" id="duration">
+                            <option value="half-day">Half Day (3-4 hours)</option>
+                            <option value="full-day" selected>Full Day (6-8 hours)</option>
+                            <option value="multi-day">Multi-Day Trip</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit" class="btn-primary" style="grid-column: 1 / -1; padding: 18px;">
+                        <i class="fas fa-search"></i>
+                        FIND RECOMMENDATIONS
+                    </button>
+                </form>
+                
+                <div class="finder-results" id="finderResults">
+                    <div class="result-card">
+                        <h3 style="color: white; margin-bottom: 10px;">👨‍👩‍👧‍👦 Family Discovery Tour</h3>
+                        <p style="color: var(--light-teal); margin-bottom: 15px;">Perfect for families with children. Calm, shallow waters with plenty of marine life and safety-focused guides.</p>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span style="color: var(--teal); font-weight: bold; font-size: 1.2rem;">$65 per person</span>
+                            <a href="#contact" class="btn-primary" style="padding: 10px 20px;">
+                                BOOK NOW
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="result-card">
+                        <h3 style="color: white; margin-bottom: 10px;">🏝️ Island Explorer Adventure</h3>
+                        <p style="color: var(--light-teal); margin-bottom: 15px;">Full-day exploration of multiple reef sites. Includes lunch, equipment, and experienced guides.</p>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span style="color: var(--teal); font-weight: bold; font-size: 1.2rem;">$85 per person</span>
+                            <a href="#contact" class="btn-primary" style="padding: 10px 20px;">
+                                BOOK NOW
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Snorkeling Difficulty Levels -->
+    <section class="difficulty-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>DIFFICULTY LEVELS</h2>
+                <p>Choose a tour that matches your comfort and experience level</p>
+            </div>
+            
+            <div class="difficulty-grid">
+                <div class="difficulty-card">
+                    <div class="difficulty-icon">
+                        <i class="fas fa-swimming-pool"></i>
+                    </div>
+                    <h3>BEGINNER</h3>
+                    <p>Calm waters, shallow reefs, perfect for first-timers and families with children</p>
+                    <div class="difficulty-bars">
+                        <div class="difficulty-bar active"></div>
+                        <div class="difficulty-bar"></div>
+                        <div class="difficulty-bar"></div>
+                        <div class="difficulty-bar"></div>
+                        <div class="difficulty-bar"></div>
+                    </div>
+                    <a href="#tours" class="btn-primary" style="margin-top: 20px; padding: 12px 25px;">
+                        VIEW TOURS
+                    </a>
+                </div>
+                
+                <div class="difficulty-card">
+                    <div class="difficulty-icon">
+                        <i class="fas fa-water"></i>
+                    </div>
+                    <h3>INTERMEDIATE</h3>
+                    <p>Gentle currents, deeper waters, some snorkeling experience recommended</p>
+                    <div class="difficulty-bars">
+                        <div class="difficulty-bar active"></div>
+                        <div class="difficulty-bar active"></div>
+                        <div class="difficulty-bar"></div>
+                        <div class="difficulty-bar"></div>
+                        <div class="difficulty-bar"></div>
+                    </div>
+                    <a href="#tours" class="btn-primary" style="margin-top: 20px; padding: 12px 25px;">
+                        VIEW TOURS
+                    </a>
+                </div>
+                
+                <div class="difficulty-card">
+                    <div class="difficulty-icon">
+                        <i class="fas fa-tachometer-alt"></i>
+                    </div>
+                    <h3>ADVANCED</h3>
+                    <p>Stronger currents, deeper sites, for confident snorkelers seeking adventure</p>
+                    <div class="difficulty-bars">
+                        <div class="difficulty-bar active"></div>
+                        <div class="difficulty-bar active"></div>
+                        <div class="difficulty-bar active"></div>
+                        <div class="difficulty-bar"></div>
+                        <div class="difficulty-bar"></div>
+                    </div>
+                    <a href="#tours" class="btn-primary" style="margin-top: 20px; padding: 12px 25px;">
+                        VIEW TOURS
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Marine Life Guide -->
+    <section class="marine-guide-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>MARINE LIFE YOU'LL SEE</h2>
+                <p>Discover the amazing underwater creatures around Dar es Salaam</p>
+            </div>
+            
+            <div class="marine-grid">
+                <div class="marine-card">
+                    <div class="marine-icon">🐠</div>
+                    <h3>Clownfish</h3>
+                    <p>Bright orange fish living in sea anemones</p>
+                </div>
+                
+                <div class="marine-card">
+                    <div class="marine-icon">🐢</div>
+                    <h3>Sea Turtles</h3>
+                    <p>Gentle giants that frequent our reefs</p>
+                </div>
+                
+                <div class="marine-card">
+                    <div class="marine-icon">🦀</div>
+                    <h3>Coral Crabs</h3>
+                    <p>Tiny colorful crabs hiding in coral</p>
+                </div>
+                
+                <div class="marine-card">
+                    <div class="marine-icon">🐙</div>
+                    <h3>Octopus</h3>
+                    <p>Masters of camouflage and intelligence</p>
+                </div>
+                
+                <div class="marine-card">
+                    <div class="marine-icon">🦈</div>
+                    <h3>Reef Sharks</h3>
+                    <p>Harmless bottom-dwelling sharks</p>
+                </div>
+                
+                <div class="marine-card">
+                    <div class="marine-icon">⭐</div>
+                    <h3>Starfish</h3>
+                    <p>Colorful star-shaped echinoderms</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>FREQUENTLY ASKED QUESTIONS</h2>
+                <p>Get answers to common questions about snorkeling with us</p>
+            </div>
+            
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Do I need to know how to swim to snorkel?</h3>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Basic swimming ability is required for snorkeling. We provide life vests for all participants, and our guides stay close to assist beginners. For non-swimmers, we recommend trying our beginner tours in shallow, calm waters.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>What equipment is provided?</h3>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We provide all necessary snorkeling equipment: mask, snorkel, fins, and life vest. For tours, we also include waterproof bags, towels, and refreshments. Underwater cameras are available for rent.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>What should I bring?</h3>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Bring swimwear, sunscreen (reef-safe recommended), a hat, and a change of clothes. We recommend bringing a waterproof camera if you have one. All other equipment is provided.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Are there age restrictions?</h3>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Children must be at least 5 years old to snorkel. Those under 12 must be accompanied by an adult. We offer special family tours suitable for children ages 5-12.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>WHAT OUR GUESTS SAY</h2>
+                <p>Read about experiences from snorkelers who explored with us</p>
+            </div>
+            
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "Our family snorkeling trip was absolutely incredible! The guides were patient with our kids and showed us so many amazing fish and corals. The equipment was top quality and the whole experience was unforgettable."
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">SK</div>
+                        <div class="author-info">
+                            <h4>Sarah K.</h4>
+                            <p>Family Trip • August 2024</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "As a solo traveler, I was nervous about snorkeling alone. The team at Thalassa made me feel completely safe and included. I saw turtles, rays, and so many colorful fish. Highly recommend!"
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">MJ</div>
+                        <div class="author-info">
+                            <h4>Michael J.</h4>
+                            <p>Solo Traveler • July 2024</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "Best snorkeling experience of my life! The marine life around Dar es Salaam is incredible. The guides were knowledgeable about every fish and coral we saw. Will definitely be coming back!"
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">AL</div>
+                        <div class="author-info">
+                            <h4>Amanda L.</h4>
+                            <p>Group Tour • June 2024</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery -->
+    <section class="gallery-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>UNDERWATER GALLERY</h2>
+                <p>See what awaits you beneath the waves</p>
+            </div>
+            
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80" alt="Coral Reef">
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80" alt="Snorkeling">
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1568483976758-ea53bb6fd3c9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80" alt="Marine Life">
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1551632436-cbf8dd35adfa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80" alt="Tropical Fish">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <i class="fas fa-water"></i>
+                        <div class="footer-logo-text">
+                            <div class="footer-logo-main">THALASSA</div>
+                            <div class="footer-logo-sub">DIVE CENTER</div>
+                        </div>
+                    </div>
+                    <p class="footer-description">
+                        Dar es Salaam's premier PADI-registered dive center. Offering unforgettable underwater experiences since our establishment at Maga Beach.
+                    </p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://instagram.com/thalassatz" class="social-link" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-tripadvisor"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                        <li><a href="services.html"><i class="fas fa-water"></i> Diving Services</a></li>
+                        <li><a href="courses.html"><i class="fas fa-graduation-cap"></i> PADI Courses</a></li>
+                        <li><a href="dives.html"><i class="fas fa-ship"></i> Dive Trips</a></li>
+                        <li><a href="snorkeling.html"><i class="fas fa-swimmer"></i> Snorkeling Tours</a></li>
+                        <li><a href="about.html"><i class="fas fa-info-circle"></i> About Us</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Contact Info</h3>
+                    <div class="contact-info">
+                        <p><i class="fas fa-map-marker-alt"></i> 
+                            <span>Shop 17C, Maga Beach<br>Slipway Area, Masaki<br>Dar es Salaam, Tanzania</span>
+                        </p>
+                        <p><i class="fas fa-phone"></i> <span>+255 769 474 643</span></p>
+                        <p><i class="fas fa-envelope"></i> <span>info@thalassatz.com</span></p>
+                        <p><i class="fas fa-clock"></i> <span>Open Daily: 7:00 AM - 6:00 PM</span></p>
+                    </div>
+                    <a href="https://wa.me/255769474643" class="whatsapp-link" target="_blank">
+                        <i class="fab fa-whatsapp"></i>
+                        Chat on WhatsApp
+                    </a>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Thalassa Dive Center. PADI Registered Dive Center. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
 
     <script>
-        // ===== LANGUAGE SWITCHER (EXACTLY LIKE INDEX.HTML) =====
+        // ===== LANGUAGE SWITCHER =====
         const currentLang = document.getElementById('currentLang');
         const languageDropdown = document.getElementById('languageDropdown');
         
@@ -1041,13 +1771,11 @@
                 currentLang.querySelector('span').textContent = lang.toUpperCase();
                 languageDropdown.classList.remove('show');
                 
-                // Language change logic here
+                // Language change logic
                 if (lang === 'sw') {
-                    // Switch to Swahili
-                    alert('Swahili language selected. In a real implementation, this would change all text on the page.');
+                    alert('Swahili language selected. Page content would change to Swahili.');
                 } else {
-                    // Switch to English
-                    alert('English language selected. In a real implementation, this would change all text on the page.');
+                    alert('English language selected. Page content would change to English.');
                 }
             });
         });
@@ -1116,13 +1844,96 @@
         // Continue creating bubbles
         setInterval(createBubble, 2000);
         
-        // ===== TOUR BOOKING =====
-        document.querySelectorAll('.book-tour-btn').forEach(button => {
-            button.addEventListener('click', function() {
-                const tourName = this.getAttribute('data-tour');
-                alert(`Booking ${tourName}. In a real implementation, this would open a booking form.`);
+        // ===== FAQ ACCORDION =====
+        const faqItems = document.querySelectorAll('.faq-item');
+        
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            
+            question.addEventListener('click', () => {
+                // Close other items
+                faqItems.forEach(otherItem => {
+                    if (otherItem !== item && otherItem.classList.contains('active')) {
+                        otherItem.classList.remove('active');
+                    }
+                });
+                
+                // Toggle current item
+                item.classList.toggle('active');
             });
         });
+        
+        // ===== ACTIVITY FINDER FORM =====
+        const activityFinder = document.getElementById('activityFinder');
+        const finderResults = document.getElementById('finderResults');
+        
+        activityFinder.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Show loading animation
+            const originalContent = finderResults.innerHTML;
+            finderResults.innerHTML = `
+                <div style="text-align: center; padding: 40px;">
+                    <div style="font-size: 50px; color: var(--teal); margin-bottom: 20px;">
+                        <i class="fas fa-water"></i>
+                    </div>
+                    <h3 style="color: white;">Finding Perfect Tours...</h3>
+                </div>
+            `;
+            
+            // Simulate search delay
+            setTimeout(() => {
+                finderResults.innerHTML = originalContent;
+            }, 1500);
+        });
+        
+        // ===== SMOOTH SCROLLING =====
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href === '#') return;
+                
+                e.preventDefault();
+                const targetElement = document.querySelector(href);
+                if (targetElement) {
+                    const headerHeight = header.offsetHeight;
+                    const targetPosition = targetElement.offsetTop - headerHeight;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    if (navMenu.classList.contains('show')) {
+                        navMenu.classList.remove('show');
+                        const icon = mobileMenu.querySelector('i');
+                        if (icon.classList.contains('fa-times')) {
+                            icon.classList.replace('fa-times', 'fa-bars');
+                        }
+                    }
+                }
+            });
+        });
+        
+        // ===== MARINE LIFE CARDS HOVER EFFECT =====
+        const marineCards = document.querySelectorAll('.marine-card');
+        marineCards.forEach(card => {
+            card.addEventListener('click', function() {
+                const creature = this.querySelector('h3').textContent;
+                alert(`You selected: ${creature}. In a full implementation, this would show detailed information.`);
+            });
+        });
+        
+        // ===== GALLERY IMAGE CLICK =====
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        galleryItems.forEach(item => {
+            item.addEventListener('click', function() {
+                alert('Gallery image clicked. In a full implementation, this would open a lightbox.');
+            });
+        });
+        
+        console.log('🌊 Snorkeling Adventures Page Loaded! 🐠');
     </script>
 </body>
 </html>
