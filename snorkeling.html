@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Premium Diving Services - Dar es Salaam</title>
+    <title>Thalassa Dive Center - Dar es Salaam</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* ===== CUSTOM PROPERTIES ===== */
@@ -58,10 +58,11 @@
             cursor: pointer;
             transition: all 0.3s;
             backdrop-filter: blur(10px);
+            font-weight: bold;
         }
         
         .lang-btn:hover {
-            background: rgba(0, 180, 216, 0.2);
+            background: rgba(0, 180, 216, 0.3);
             transform: translateY(-2px);
         }
         
@@ -89,6 +90,7 @@
             display: flex;
             align-items: center;
             text-decoration: none;
+            z-index: 1002;
         }
         
         .logo-icon {
@@ -104,7 +106,7 @@
         .logo-main {
             font-size: 28px;
             font-weight: 900;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
             background: linear-gradient(45deg, var(--teal), var(--light-teal));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -117,21 +119,21 @@
             text-transform: uppercase;
         }
         
-        /* ===== NAVIGATION (CENTERED) ===== */
+        /* ===== NAVIGATION (CENTERED ON DESKTOP) ===== */
         .main-nav {
             position: absolute;
             left: 50%;
             transform: translateX(-50%);
         }
         
-        .main-nav ul {
+        .nav-links {
             display: flex;
             list-style: none;
             gap: 30px;
             align-items: center;
         }
         
-        .main-nav a {
+        .nav-links a {
             text-decoration: none;
             color: var(--white);
             font-weight: 600;
@@ -143,7 +145,7 @@
             transition: all 0.3s;
         }
         
-        .main-nav a::before {
+        .nav-links a::before {
             content: '';
             position: absolute;
             bottom: 0;
@@ -154,13 +156,105 @@
             transition: width 0.3s;
         }
         
-        .main-nav a:hover::before,
-        .main-nav a.active::before {
+        .nav-links a:hover::before,
+        .nav-links a.active::before {
             width: 100%;
         }
         
-        .main-nav a:hover,
-        .main-nav a.active {
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--teal);
+        }
+        
+        .book-now-btn {
+            background: var(--gradient-teal);
+            color: var(--white);
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 14px;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .book-now-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 180, 216, 0.3);
+        }
+        
+        /* ===== HAMBURGER MENU (MOBILE) ===== */
+        .hamburger-menu {
+            display: none;
+            font-size: 24px;
+            color: var(--white);
+            cursor: pointer;
+            z-index: 1002;
+            transition: all 0.3s;
+        }
+        
+        .hamburger-menu:hover {
+            color: var(--teal);
+        }
+        
+        /* ===== MOBILE NAV OVERLAY ===== */
+        .mobile-nav-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(2, 62, 138, 0.98);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .mobile-nav-links {
+            list-style: none;
+            text-align: center;
+        }
+        
+        .mobile-nav-links li {
+            margin: 25px 0;
+        }
+        
+        .mobile-nav-links a {
+            text-decoration: none;
+            color: var(--white);
+            font-size: 24px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s;
+            display: block;
+            padding: 10px 20px;
+        }
+        
+        .mobile-nav-links a:hover,
+        .mobile-nav-links a.active {
+            color: var(--teal);
+            transform: scale(1.1);
+        }
+        
+        .close-menu {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            font-size: 30px;
+            color: var(--white);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .close-menu:hover {
             color: var(--teal);
         }
         
@@ -261,6 +355,26 @@
             margin-bottom: 20px;
         }
         
+        .course-list {
+            list-style: none;
+            margin: 20px 0;
+        }
+        
+        .course-list li {
+            color: var(--light-teal);
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .course-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--teal);
+            font-weight: bold;
+        }
+        
         /* ===== DIVE TRIPS SECTION ===== */
         .trips-section {
             background: linear-gradient(180deg, var(--ocean-blue) 0%, var(--deep-blue) 100%);
@@ -316,6 +430,26 @@
             margin-bottom: 20px;
         }
         
+        .trip-list {
+            list-style: none;
+            margin: 15px 0;
+        }
+        
+        .trip-list li {
+            color: var(--light-teal);
+            margin-bottom: 8px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .trip-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--teal);
+            font-weight: bold;
+        }
+        
         /* ===== EQUIPMENT SECTION ===== */
         .equipment-section {
             background: linear-gradient(180deg, var(--deep-blue) 0%, var(--ocean-blue) 100%);
@@ -338,24 +472,9 @@
             color: var(--teal);
         }
         
-        .equipment-list {
-            list-style: none;
-            margin-top: 20px;
-        }
-        
-        .equipment-list li {
+        .equipment-text p {
             color: var(--light-teal);
-            margin-bottom: 10px;
-            padding-left: 25px;
-            position: relative;
-        }
-        
-        .equipment-list li::before {
-            content: '✓';
-            position: absolute;
-            left: 0;
-            color: var(--teal);
-            font-weight: bold;
+            margin-bottom: 20px;
         }
         
         /* ===== BUTTONS ===== */
@@ -390,16 +509,38 @@
             color: var(--white);
         }
         
+        .btn-arrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .btn-arrow::after {
+            content: '→';
+            font-size: 18px;
+            transition: transform 0.3s;
+        }
+        
+        .btn-arrow:hover::after {
+            transform: translateX(5px);
+        }
+        
         /* ===== HELP SECTION ===== */
         .help-section {
             background: linear-gradient(135deg, var(--ocean-blue), var(--deep-blue));
             text-align: center;
             color: var(--white);
+            padding: 100px 0;
         }
         
         .help-content {
             max-width: 600px;
             margin: 0 auto;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            padding: 50px;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 180, 216, 0.2);
         }
         
         .help-icon {
@@ -422,12 +563,14 @@
             justify-content: center;
             gap: 30px;
             margin: 30px 0;
+            flex-wrap: wrap;
         }
         
         .footer-links a {
             color: var(--light-teal);
             text-decoration: none;
             transition: color 0.3s;
+            font-weight: 600;
         }
         
         .footer-links a:hover {
@@ -438,29 +581,29 @@
             color: var(--light-teal);
             opacity: 0.7;
             font-size: 14px;
+            margin-top: 20px;
         }
         
         /* ===== RESPONSIVE DESIGN ===== */
         @media (max-width: 1200px) {
             .main-nav {
-                position: static;
-                transform: none;
-                margin: 20px 0;
+                display: none;
+            }
+            
+            .hamburger-menu {
+                display: block;
             }
             
             .header-container {
-                flex-direction: column;
-                gap: 20px;
+                justify-content: space-between;
+            }
+            
+            .book-now-btn {
+                display: none;
             }
         }
         
         @media (max-width: 768px) {
-            .main-nav ul {
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 15px;
-            }
-            
             .hero h1 {
                 font-size: 2.5rem;
             }
@@ -469,30 +612,72 @@
                 font-size: 2rem;
             }
             
+            .courses-grid,
+            .trips-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .equipment-content {
+                grid-template-columns: 1fr;
+            }
+            
             .footer-links {
                 flex-direction: column;
                 gap: 15px;
+            }
+            
+            .help-content {
+                padding: 30px;
             }
         }
         
         @media (max-width: 576px) {
             .language-switch {
-                top: 10px;
-                left: 10px;
+                top: 15px;
+                left: 15px;
             }
             
             .hero h1 {
                 font-size: 2rem;
             }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .logo-main {
+                font-size: 22px;
+            }
+            
+            .logo-icon {
+                font-size: 24px;
+                margin-right: 10px;
+            }
+        }
+        
+        /* ===== LANGUAGE CONTENT ===== */
+        .content-english {
+            display: block;
+        }
+        
+        .content-swahili {
+            display: none;
+        }
+        
+        body.swahili .content-english {
+            display: none;
+        }
+        
+        body.swahili .content-swahili {
+            display: block;
         }
     </style>
 </head>
-<body>
-    <!-- Multilanguage Switch (Left Side) -->
+<body class="english">
+    <!-- Multilanguage Switch (Left Side) - Only EN/SWA -->
     <div class="language-switch">
-        <button class="lang-btn active">EN</button>
-        <button class="lang-btn">FR</button>
-        <button class="lang-btn">SW</button>
+        <button class="lang-btn active" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="sw">SWA</button>
     </div>
 
     <!-- Header -->
@@ -502,21 +687,50 @@
             <a href="index.html" class="logo">
                 <i class="fas fa-water logo-icon"></i>
                 <div class="logo-text">
-                    <div class="logo-main">PREMIUM DIVING SERVICES</div>
-                    <div class="logo-sub">DAR ES SALAAM</div>
+                    <div class="logo-main content-english">THALASSA DIVE CENTER</div>
+                    <div class="logo-main content-swahili">KITUO CHA KUZAMA THALASSA</div>
+                    <div class="logo-sub content-english">PREMIUM DIVING SERVICES</div>
+                    <div class="logo-sub content-swahili">HUDUMA BORA ZA KUZAMA</div>
                 </div>
             </a>
             
-            <!-- Navigation (Centered) -->
+            <!-- Navigation (Centered on Desktop) -->
             <nav class="main-nav">
-                <ul>
-                    <li><a href="#" class="active">Home</a></li>
-                    <li><a href="#">Courses</a></li>
-                    <li><a href="#">Dive Trips</a></li>
-                    <li><a href="#">Equipment</a></li>
-                    <li><a href="#">Contact</a></li>
+                <ul class="nav-links">
+                    <li><a href="#" class="active content-english">Home</a><a href="#" class="active content-swahili">Nyumbani</a></li>
+                    <li><a href="#" class="content-english">Services</a><a href="#" class="content-swahili">Huduma</a></li>
+                    <li><a href="#" class="content-english">Courses</a><a href="#" class="content-swahili">Kozi</a></li>
+                    <li><a href="#" class="content-english">Dive Trips</a><a href="#" class="content-swahili">Safari za Kuzama</a></li>
+                    <li><a href="#" class="content-english">Snorkelling</a><a href="#" class="content-swahili">Snorkeling</a></li>
+                    <li><a href="#" class="content-english">About</a><a href="#" class="content-swahili">Kuhusu</a></li>
+                    <li><a href="#" class="book-now-btn content-english">Book Now</a><a href="#" class="book-now-btn content-swahili">Nunua Sasa</a></li>
                 </ul>
             </nav>
+            
+            <!-- Hamburger Menu (Mobile) -->
+            <div class="hamburger-menu" id="hamburgerMenu">
+                <i class="fas fa-bars"></i>
+            </div>
+            
+            <!-- Book Now Button (Desktop) -->
+            <a href="#" class="book-now-btn content-english" id="desktopBookBtn">Book Now</a>
+            <a href="#" class="book-now-btn content-swahili" id="desktopBookBtnSw">Nunua Sasa</a>
+        </div>
+        
+        <!-- Mobile Navigation Overlay -->
+        <div class="mobile-nav-overlay" id="mobileNavOverlay">
+            <div class="close-menu" id="closeMenu">
+                <i class="fas fa-times"></i>
+            </div>
+            <ul class="mobile-nav-links">
+                <li><a href="#" class="active content-english">Home</a><a href="#" class="active content-swahili">Nyumbani</a></li>
+                <li><a href="#" class="content-english">Services</a><a href="#" class="content-swahili">Huduma</a></li>
+                <li><a href="#" class="content-english">Courses</a><a href="#" class="content-swahili">Kozi</a></li>
+                <li><a href="#" class="content-english">Dive Trips</a><a href="#" class="content-swahili">Safari za Kuzama</a></li>
+                <li><a href="#" class="content-english">Snorkelling</a><a href="#" class="content-swahili">Snorkeling</a></li>
+                <li><a href="#" class="content-english">About</a><a href="#" class="content-swahili">Kuhusu</a></li>
+                <li><a href="#" class="book-now-btn content-english" style="margin-top: 30px;">Book Now</a><a href="#" class="book-now-btn content-swahili" style="margin-top: 30px;">Nunua Sasa</a></li>
+            </ul>
         </div>
     </header>
 
@@ -524,9 +738,12 @@
     <section class="hero">
         <div class="container">
             <div class="hero-content">
-                <h1>Experience World-Class Diving in Dar es Salaam</h1>
-                <p>Join our PADI certified professionals for unforgettable underwater adventures. Discover the vibrant marine life of Tanzania's beautiful coast.</p>
-                <a href="#" class="btn">Book Your Dive</a>
+                <h1 class="content-english">Experience World-Class Diving in Dar es Salaam</h1>
+                <h1 class="content-swahili">Pata Uzoefu wa Kuzama wa Kimaandazi Dar es Salaam</h1>
+                <p class="content-english">Join our PADI certified professionals for unforgettable underwater adventures. Discover the vibrant marine life of Tanzania's beautiful coast.</p>
+                <p class="content-swahili">Jiunge na wataalamu wetu wenye vyeti vya PADI kwa ajili ya safari zisizosahaulika chini ya maji. Gundua maisha ya baharini ya pwani nzuri ya Tanzania.</p>
+                <a href="#" class="btn content-english">Book Your Dive</a>
+                <a href="#" class="btn content-swahili">Nunua Kuzama Kwako</a>
             </div>
         </div>
     </section>
@@ -535,8 +752,10 @@
     <section class="courses-section">
         <div class="container">
             <div class="section-title">
-                <h2>PADI CERTIFICATION COURSES</h2>
-                <p>Become a certified diver with our internationally recognized PADI courses</p>
+                <h2 class="content-english">PADI CERTIFICATION COURSES</h2>
+                <h2 class="content-swahili">KOZI ZA USHAHIDI WA PADI</h2>
+                <p class="content-english">Become a certified diver with our internationally recognized PADI courses</p>
+                <p class="content-swahili">Kuwa msafiri aliyesajiliwa na kozi zetu za PADI zinazotambulika kimataifa</p>
             </div>
             
             <div class="courses-grid">
@@ -544,37 +763,25 @@
                     <div class="course-icon">
                         <i class="fas fa-water"></i>
                     </div>
-                    <h3>Discover Scuba Diving</h3>
-                    <p>Introductory experience for beginners. No certification needed.</p>
+                    <h3 class="content-english">Discover Scuba Diving</h3>
+                    <h3 class="content-swahili">Gundua Kuzama Scuba</h3>
+                    <p class="content-english">Introductory experience for beginners. No certification needed.</p>
+                    <p class="content-swahili">Uzoefu wa utangulizi kwa wanaoanza. Hakuna cheti kinachohitajika.</p>
+                    
+                    <ul class="course-list">
+                        <li class="content-english">Discover Scuba Diving (Intro)</li>
+                        <li class="content-swahili">Gundua Kuzama Scuba (Utangulizi)</li>
+                        <li class="content-english">Open Water Diver Certification</li>
+                        <li class="content-swahili">Uhalali wa Kuzama Maji Wazi</li>
+                        <li class="content-english">Advanced Open Water Diver</li>
+                        <li class="content-swahili">Msafiri wa Maji Wazi wa Juu</li>
+                        <li class="content-english">Rescue Diver & Emergency Training</li>
+                        <li class="content-swahili">Msafiri wa Uokoaji & Mafunzo ya Dharura</li>
+                    </ul>
+                    
+                    <a href="#" class="btn btn-arrow content-english">View Courses</a>
+                    <a href="#" class="btn btn-arrow content-swahili">Angalia Kozi</a>
                 </div>
-                
-                <div class="course-card">
-                    <div class="course-icon">
-                        <i class="fas fa-graduation-cap"></i>
-                    </div>
-                    <h3>Open Water Diver</h3>
-                    <p>Your first diving certification. Dive anywhere in the world.</p>
-                </div>
-                
-                <div class="course-card">
-                    <div class="course-icon">
-                        <i class="fas fa-ship"></i>
-                    </div>
-                    <h3>Advanced Open Water</h3>
-                    <p>Expand your diving skills with advanced techniques.</p>
-                </div>
-                
-                <div class="course-card">
-                    <div class="course-icon">
-                        <i class="fas fa-life-ring"></i>
-                    </div>
-                    <h3>Rescue Diver</h3>
-                    <p>Emergency training and rescue techniques.</p>
-                </div>
-            </div>
-            
-            <div style="text-align: center;">
-                <a href="#" class="btn btn-outline">View All Courses</a>
             </div>
         </div>
     </section>
@@ -583,8 +790,10 @@
     <section class="trips-section">
         <div class="container">
             <div class="section-title">
-                <h2>GUIDED DIVE TRIPS</h2>
-                <p>Explore Dar es Salaam's best dive sites with expert local guides</p>
+                <h2 class="content-english">GUIDED DIVE TRIPS</h2>
+                <h2 class="content-swahili">SAFARI ZA KUZAMA ZILIZOONGEA</h2>
+                <p class="content-english">Explore Dar es Salaam's best dive sites with expert local guides</p>
+                <p class="content-swahili">Chunguza maeneo bora ya kuzama Dar es Salaam na waongozaji wa ndani wenye ujuzi</p>
             </div>
             
             <div class="trips-grid">
@@ -593,31 +802,22 @@
                         <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80" alt="Bongoyo Island">
                     </div>
                     <div class="trip-content">
-                        <h3>Bongoyo Island Marine Reserve</h3>
-                        <p>Pristine coral reefs and abundant marine life in protected waters.</p>
-                        <a href="#" class="btn">Explore Trip</a>
-                    </div>
-                </div>
-                
-                <div class="trip-card">
-                    <div class="trip-image">
-                        <img src="https://images.unsplash.com/photo-1551632436-cbf8dd35adfa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80" alt="Mbudya Island">
-                    </div>
-                    <div class="trip-content">
-                        <h3>Mbudya Island Coral Gardens</h3>
-                        <p>Colorful coral formations and tropical fish in crystal clear waters.</p>
-                        <a href="#" class="btn">Explore Trip</a>
-                    </div>
-                </div>
-                
-                <div class="trip-card">
-                    <div class="trip-image">
-                        <img src="https://images.unsplash.com/photo-1568483976758-ea53bb6fd3c9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80" alt="Fungu Yasin">
-                    </div>
-                    <div class="trip-content">
-                        <h3>Fungu Yasin Deep Reefs</h3>
-                        <p>Deep wall dives and drift dives for experienced divers.</p>
-                        <a href="#" class="btn">Explore Trip</a>
+                        <h3 class="content-english">Bongoyo Island Marine Reserve</h3>
+                        <h3 class="content-swahili">Hifadhi ya Bahari ya Kisiwa cha Bongoyo</h3>
+                        
+                        <ul class="trip-list">
+                            <li class="content-english">Bongoyo Island Marine Reserve</li>
+                            <li class="content-swahili">Hifadhi ya Bahari ya Kisiwa cha Bongoyo</li>
+                            <li class="content-english">Mbudya Island Coral Gardens</li>
+                            <li class="content-swahili">Bustani za Matumbawe ya Kisiwa cha Mbudya</li>
+                            <li class="content-english">Fungu Yasin Deep Reefs</li>
+                            <li class="content-swahili">Matumbawe ya Kinamasi ya Fungu Yasin</li>
+                            <li class="content-english">Sunrise & Sunset Dives</li>
+                            <li class="content-swahili">Kuzama kwa Jua Linapochomoza na Kutua</li>
+                        </ul>
+                        
+                        <a href="#" class="btn btn-arrow content-english">Explore Trips</a>
+                        <a href="#" class="btn btn-arrow content-swahili">Chunguza Safari</a>
                     </div>
                 </div>
             </div>
@@ -628,30 +828,26 @@
     <section class="equipment-section">
         <div class="container">
             <div class="section-title">
-                <h2>EQUIPMENT SERVICES</h2>
-                <p>Top-quality diving equipment rental and maintenance services</p>
+                <h2 class="content-english">EQUIPMENT SERVICES</h2>
+                <h2 class="content-swahili">HUDUMA ZA VIFAA</h2>
+                <p class="content-english">Top-quality diving equipment rental and maintenance services</p>
+                <p class="content-swahili">Huduma za kukodisha na kudumisha vifaa vya kuzama vya hali ya juu</p>
             </div>
             
             <div class="equipment-content">
                 <div class="equipment-text">
-                    <h3>Professional Equipment</h3>
-                    <p>We provide state-of-the-art diving equipment from leading brands. All equipment is regularly serviced and maintained to the highest standards.</p>
-                    
-                    <ul class="equipment-list">
-                        <li>Full Scuba Sets</li>
-                        <li>Underwater Cameras</li>
-                        <li>Wetsuits & Drysuits</li>
-                        <li>Buoyancy Compensators</li>
-                        <li>Regulator Servicing</li>
-                        <li>Equipment Maintenance</li>
-                    </ul>
+                    <h3 class="content-english">Professional Equipment</h3>
+                    <h3 class="content-swahili">Vifaa vya Kitaalamu</h3>
+                    <p class="content-english">We provide state-of-the-art diving equipment from leading brands. All equipment is regularly serviced and maintained to the highest standards.</p>
+                    <p class="content-swahili">Tunatoa vifaa vya kisasa vya kuzama kutoka kwa chapa zinazoongoza. Vifaa vyote vinahudumiwa na kudumishwa kwa kawaida hadi viwango vya juu.</p>
                 </div>
                 
                 <div style="text-align: center;">
                     <div style="font-size: 100px; color: var(--teal); margin-bottom: 20px;">
                         <i class="fas fa-tools"></i>
                     </div>
-                    <a href="#" class="btn">Rent Equipment</a>
+                    <a href="#" class="btn content-english">Rent Equipment</a>
+                    <a href="#" class="btn content-swahili">Kodisha Vifaa</a>
                 </div>
             </div>
         </div>
@@ -664,9 +860,12 @@
                 <div class="help-icon">
                     <i class="fas fa-comments"></i>
                 </div>
-                <h2>Need Help Booking?</h2>
-                <p>Chat with our dive experts for personalized assistance and recommendations.</p>
-                <a href="#" class="btn" style="margin-top: 20px;">Get Help Now</a>
+                <h2 class="content-english">Need Help Booking?</h2>
+                <h2 class="content-swahili">Unahitaji Usaidizi wa Kununua?</h2>
+                <p class="content-english">Chat with our dive experts for personalized assistance and recommendations.</p>
+                <p class="content-swahili">Zungumza na wataalamu wetu wa kuzama kwa usaidizi na mapendekezo ya kibinafsi.</p>
+                <a href="#" class="btn content-english" style="margin-top: 20px;">Get Help Now</a>
+                <a href="#" class="btn content-swahili" style="margin-top: 20px;">Pata Usaidizi Sasa</a>
             </div>
         </div>
     </section>
@@ -677,36 +876,96 @@
             <div class="logo" style="justify-content: center; margin-bottom: 20px;">
                 <i class="fas fa-water logo-icon"></i>
                 <div class="logo-text">
-                    <div class="logo-main">PREMIUM DIVING SERVICES</div>
-                    <div class="logo-sub">DAR ES SALAAM</div>
+                    <div class="logo-main content-english">THALASSA DIVE CENTER</div>
+                    <div class="logo-main content-swahili">KITUO CHA KUZAMA THALASSA</div>
+                    <div class="logo-sub content-english">PREMIUM DIVING SERVICES</div>
+                    <div class="logo-sub content-swahili">HUDUMA BORA ZA KUZAMA</div>
                 </div>
             </div>
             
             <div class="footer-links">
-                <a href="#">Courses</a>
-                <a href="#">Dive Trips</a>
-                <a href="#">Equipment</a>
-                <a href="#">About Us</a>
-                <a href="#">Contact</a>
+                <a href="#" class="content-english">Courses</a>
+                <a href="#" class="content-swahili">Kozi</a>
+                <a href="#" class="content-english">Dive Trips</a>
+                <a href="#" class="content-swahili">Safari za Kuzama</a>
+                <a href="#" class="content-english">Equipment</a>
+                <a href="#" class="content-swahili">Vifaa</a>
+                <a href="#" class="content-english">About Us</a>
+                <a href="#" class="content-swahili">Kuhusu Sisi</a>
+                <a href="#" class="content-english">Contact</a>
+                <a href="#" class="content-swahili">Wasiliana</a>
             </div>
             
-            <div class="copyright">
-                &copy; 2024 Premium Diving Services. All rights reserved.
+            <div class="copyright content-english">
+                &copy; 2024 Thalassa Dive Center. PADI Registered Dive Center. All rights reserved.
+            </div>
+            <div class="copyright content-swahili">
+                &copy; 2024 Kituo cha Kuzama Thalassa. Kituo cha Kuzama Kilichosajiliwa na PADI. Haki zote zimehifadhiwa.
             </div>
         </div>
     </footer>
 
     <script>
-        // Language switch functionality
+        // Language Switching Functionality
         const langButtons = document.querySelectorAll('.lang-btn');
+        const body = document.body;
         
         langButtons.forEach(button => {
             button.addEventListener('click', function() {
+                const lang = this.getAttribute('data-lang');
+                
+                // Update active button
                 langButtons.forEach(btn => btn.classList.remove('active'));
                 this.classList.add('active');
                 
-                // Here you would typically change the language
-                console.log('Switching to:', this.textContent);
+                // Switch language
+                if (lang === 'en') {
+                    body.classList.remove('swahili');
+                    body.classList.add('english');
+                } else if (lang === 'sw') {
+                    body.classList.remove('english');
+                    body.classList.add('swahili');
+                }
+                
+                // Save preference to localStorage
+                localStorage.setItem('preferredLanguage', lang);
+            });
+        });
+        
+        // Check for saved language preference
+        const savedLang = localStorage.getItem('preferredLanguage');
+        if (savedLang === 'sw') {
+            body.classList.remove('english');
+            body.classList.add('swahili');
+            langButtons.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.getAttribute('data-lang') === 'sw') {
+                    btn.classList.add('active');
+                }
+            });
+        }
+        
+        // Mobile Navigation Functionality
+        const hamburgerMenu = document.getElementById('hamburgerMenu');
+        const mobileNavOverlay = document.getElementById('mobileNavOverlay');
+        const closeMenu = document.getElementById('closeMenu');
+        
+        hamburgerMenu.addEventListener('click', function() {
+            mobileNavOverlay.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        });
+        
+        closeMenu.addEventListener('click', function() {
+            mobileNavOverlay.style.display = 'none';
+            document.body.style.overflow = '';
+        });
+        
+        // Close mobile menu when clicking on a link
+        const mobileLinks = mobileNavOverlay.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                mobileNavOverlay.style.display = 'none';
+                document.body.style.overflow = '';
             });
         });
         
@@ -727,6 +986,23 @@
                 }
             });
         });
+        
+        // Hide desktop book buttons on mobile
+        function checkScreenSize() {
+            const desktopBookBtn = document.querySelector('#desktopBookBtn');
+            const desktopBookBtnSw = document.querySelector('#desktopBookBtnSw');
+            
+            if (window.innerWidth <= 1200) {
+                if (desktopBookBtn) desktopBookBtn.style.display = 'none';
+                if (desktopBookBtnSw) desktopBookBtnSw.style.display = 'none';
+            } else {
+                if (desktopBookBtn) desktopBookBtn.style.display = 'block';
+                if (desktopBookBtnSw) desktopBookBtnSw.style.display = 'block';
+            }
+        }
+        
+        window.addEventListener('resize', checkScreenSize);
+        window.addEventListener('load', checkScreenSize);
     </script>
 </body>
 </html>
